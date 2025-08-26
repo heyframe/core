@@ -1,0 +1,13 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\Framework\App\Manifest\Xml\Gateway;
+
+use HeyFrame\Core\Framework\Log\Package;
+
+/**
+ * @internal only for use by the app-system
+ */
+#[Package('checkout')]
+class InAppPurchasesGateway extends AbstractGateway
+{
+}

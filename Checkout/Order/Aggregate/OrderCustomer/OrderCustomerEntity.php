@@ -1,0 +1,149 @@
+<?php declare(strict_types=1);
+
+namespace HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer;
+
+use HeyFrame\Core\Checkout\Customer\CustomerEntity;
+use HeyFrame\Core\Checkout\Order\OrderEntity;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
+use HeyFrame\Core\Framework\Log\Package;
+
+#[Package('checkout')]
+class OrderCustomerEntity extends Entity
+{
+    use EntityCustomFieldsTrait;
+    use EntityIdTrait;
+
+    protected string $email;
+
+    protected string $orderId;
+
+    protected ?string $salutationId = null;
+
+    protected ?string $name = null;
+
+    protected string $nickname;
+
+    protected ?string $customerNumber = null;
+
+    protected ?string $customerId = null;
+
+    protected ?CustomerEntity $customer = null;
+
+    protected ?OrderEntity $order = null;
+
+    protected ?string $remoteAddress = null;
+
+    protected string $orderVersionId;
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function getSalutationId(): ?string
+    {
+        return $this->salutationId;
+    }
+
+    public function setSalutationId(string $salutationId): void
+    {
+        $this->salutationId = $salutationId;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getNickname(): string
+    {
+        return $this->nickname;
+    }
+
+    public function setNickname(string $nickname): void
+    {
+        $this->nickname = $nickname;
+    }
+
+    public function getCustomerNumber(): ?string
+    {
+        return $this->customerNumber;
+    }
+
+    public function setCustomerNumber(string $customerNumber): void
+    {
+        $this->customerNumber = $customerNumber;
+    }
+
+    public function getCustomerId(): ?string
+    {
+        return $this->customerId;
+    }
+
+    public function setCustomerId(string $customerId): void
+    {
+        $this->customerId = $customerId;
+    }
+
+    public function getCustomer(): ?CustomerEntity
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(CustomerEntity $customer): void
+    {
+        $this->customer = $customer;
+    }
+
+    public function getOrder(): ?OrderEntity
+    {
+        return $this->order;
+    }
+
+    public function setOrder(OrderEntity $order): void
+    {
+        $this->order = $order;
+    }
+
+    public function getOrderId(): string
+    {
+        return $this->orderId;
+    }
+
+    public function setOrderId(string $orderId): void
+    {
+        $this->orderId = $orderId;
+    }
+
+    public function getRemoteAddress(): ?string
+    {
+        return $this->remoteAddress;
+    }
+
+    public function setRemoteAddress(?string $remoteAddress): void
+    {
+        $this->remoteAddress = $remoteAddress;
+    }
+
+    public function getOrderVersionId(): string
+    {
+        return $this->orderVersionId;
+    }
+
+    public function setOrderVersionId(string $orderVersionId): void
+    {
+        $this->orderVersionId = $orderVersionId;
+    }
+}
