@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\Tests;
 
+use HeyFrame\Core\Framework\Log\Package;
 use PHPStan\Reflection\ClassReflection;
 use PHPUnit\Framework\TestCase;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal

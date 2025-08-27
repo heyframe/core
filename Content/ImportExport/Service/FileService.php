@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\ImportExport\Service;
 
-use League\Flysystem\FilesystemOperator;
 use HeyFrame\Core\Content\ImportExport\Aggregate\ImportExportFile\ImportExportFileEntity;
 use HeyFrame\Core\Content\ImportExport\ImportExportException;
 use HeyFrame\Core\Content\ImportExport\ImportExportProfileEntity;
@@ -14,6 +13,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use League\Flysystem\FilesystemOperator;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 #[Package('fundamentals@after-sales')]

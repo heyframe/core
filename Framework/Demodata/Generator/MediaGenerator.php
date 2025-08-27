@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Framework\Demodata\Generator;
 
 use Doctrine\DBAL\Connection;
 use Faker\Generator;
-use Maltyxx\ImagesGenerator\ImagesGeneratorProvider;
 use HeyFrame\Core\Content\Media\Aggregate\MediaDefaultFolder\MediaDefaultFolderCollection;
 use HeyFrame\Core\Content\Media\Aggregate\MediaFolder\MediaFolderCollection;
 use HeyFrame\Core\Content\Media\File\FileNameProvider;
@@ -22,6 +21,7 @@ use HeyFrame\Core\Framework\Demodata\DemodataService;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Hasher;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use Maltyxx\ImagesGenerator\ImagesGeneratorProvider;
 use Symfony\Component\Finder\Finder;
 
 /**

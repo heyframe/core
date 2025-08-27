@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Content\ImportExport\Processing\Writer;
 
-use League\Flysystem\FilesystemOperator;
 use HeyFrame\Core\Content\ImportExport\ImportExportException;
 use HeyFrame\Core\Content\ImportExport\Struct\Config;
 use HeyFrame\Core\Framework\Log\Package;
+use League\Flysystem\FilesystemOperator;
 
 #[Package('fundamentals@after-sales')]
 class CsvFileWriter extends AbstractFileWriter

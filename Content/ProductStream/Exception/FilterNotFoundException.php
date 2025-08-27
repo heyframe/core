@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\Content\ProductStream\Exception;
 
-use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('inventory')]
 class FilterNotFoundException extends HeyFrameHttpException

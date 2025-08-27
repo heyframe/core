@@ -4,8 +4,8 @@ namespace HeyFrame\Core\Framework\App\Lifecycle\Registration;
 
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
-use Psr\Http\Message\RequestInterface;
 use HeyFrame\Core\Framework\Log\Package;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * @internal only for use by the app-system

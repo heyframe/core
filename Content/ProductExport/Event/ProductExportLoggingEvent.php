@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\ProductExport\Event;
 
-use Monolog\Level;
 use HeyFrame\Core\Content\Flow\Dispatching\Action\FlowMailVariables;
 use HeyFrame\Core\Content\Flow\Dispatching\Aware\ScalarValuesAware;
 use HeyFrame\Core\Content\MailTemplate\Exception\MailEventConfigurationException;
@@ -14,6 +13,7 @@ use HeyFrame\Core\Framework\Event\FlowEventAware;
 use HeyFrame\Core\Framework\Event\MailAware;
 use HeyFrame\Core\Framework\Log\LogAware;
 use HeyFrame\Core\Framework\Log\Package;
+use Monolog\Level;
 use Symfony\Contracts\EventDispatcher\Event;
 
 #[Package('inventory')]

@@ -2,12 +2,12 @@
 
 namespace HeyFrame\Core\Framework\App\Lifecycle;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Framework\Adapter\Composer\ComposerInfoProvider;
 use HeyFrame\Core\Framework\App\AppException;
 use HeyFrame\Core\Framework\App\Exception\AppXmlParsingException;
 use HeyFrame\Core\Framework\App\Manifest\Manifest;
 use HeyFrame\Core\Framework\Log\Package;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;
 

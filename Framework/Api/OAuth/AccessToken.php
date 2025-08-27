@@ -2,13 +2,13 @@
 
 namespace HeyFrame\Core\Framework\Api\OAuth;
 
+use HeyFrame\Core\Framework\Log\Package;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\ScopeEntityInterface;
 use League\OAuth2\Server\Entities\Traits\AccessTokenTrait;
 use League\OAuth2\Server\Entities\Traits\EntityTrait;
 use League\OAuth2\Server\Entities\Traits\RefreshTokenTrait;
-use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('framework')]
 class AccessToken implements AccessTokenEntityInterface

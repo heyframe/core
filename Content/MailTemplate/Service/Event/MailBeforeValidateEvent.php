@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\MailTemplate\Service\Event;
 
-use Monolog\Level;
 use HeyFrame\Core\Content\Flow\Dispatching\Action\FlowMailVariables;
 use HeyFrame\Core\Content\Flow\Dispatching\Aware\ScalarValuesAware;
 use HeyFrame\Core\Framework\Context;
@@ -12,6 +11,7 @@ use HeyFrame\Core\Framework\Event\EventData\ScalarValueType;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
 use HeyFrame\Core\Framework\Log\LogAware;
 use HeyFrame\Core\Framework\Log\Package;
+use Monolog\Level;
 use Symfony\Contracts\EventDispatcher\Event;
 
 #[Package('after-sales')]

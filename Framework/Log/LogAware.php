@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\Framework\Log;
 
-use Monolog\Level;
 use HeyFrame\Core\Framework\Event\IsFlowEventAware;
+use Monolog\Level;
 
 #[IsFlowEventAware]
 #[Package('framework')]

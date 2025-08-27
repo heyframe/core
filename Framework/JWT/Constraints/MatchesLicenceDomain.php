@@ -2,14 +2,14 @@
 
 namespace HeyFrame\Core\Framework\JWT\Constraints;
 
-use Lcobucci\JWT\Token;
-use Lcobucci\JWT\UnencryptedToken;
-use Lcobucci\JWT\Validation\Constraint;
 use HeyFrame\Core\Framework\JWT\JWTException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Store\InAppPurchase\Services\DecodedPurchasesCollectionStruct;
 use HeyFrame\Core\Framework\Store\Services\StoreService;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
+use Lcobucci\JWT\Token;
+use Lcobucci\JWT\UnencryptedToken;
+use Lcobucci\JWT\Validation\Constraint;
 
 #[Package('checkout')]
 final readonly class MatchesLicenceDomain implements Constraint

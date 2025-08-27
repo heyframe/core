@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Content\Flow\Dispatching;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception as DBALException;
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Checkout\Cart\AbstractRuleLoader;
 use HeyFrame\Core\Checkout\Order\OrderEntity;
 use HeyFrame\Core\Content\Flow\Dispatching\Action\FlowAction;
@@ -22,6 +21,7 @@ use HeyFrame\Core\Framework\Event\OrderAware;
 use HeyFrame\Core\Framework\Extensions\ExtensionDispatcher;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Rule;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**

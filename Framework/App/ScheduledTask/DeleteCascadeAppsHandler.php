@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\App\ScheduledTask;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleCollection;
 use HeyFrame\Core\Framework\Context;
@@ -15,6 +14,7 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskCollection;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
 use HeyFrame\Core\System\Integration\IntegrationCollection;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 /**

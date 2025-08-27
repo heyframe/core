@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\MessageQueue\AsyncMessageInterface;
+use HeyFrame\Core\Framework\MessageQueue\LowPriorityMessageInterface;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\InClassNode;
@@ -16,9 +19,6 @@ use PHPStan\PhpDocParser\ParserConfig;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
-use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\MessageQueue\AsyncMessageInterface;
-use HeyFrame\Core\Framework\MessageQueue\LowPriorityMessageInterface;
 
 /**
  * @internal

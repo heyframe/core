@@ -3,10 +3,10 @@
 namespace HeyFrame\Core\Content\Mail\Subscriber;
 
 use Doctrine\DBAL\Connection;
-use Monolog\Level;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use Monolog\Level;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Mailer\Event\FailedMessageEvent;
 

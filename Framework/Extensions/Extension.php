@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Extensions;
 
-use Psr\EventDispatcher\StoppableEventInterface;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ExtendableTrait;
+use Psr\EventDispatcher\StoppableEventInterface;
 
 /**
  * @template TResultType

@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Test\TestCaseBase;
 
+use HeyFrame\Core\Framework\Test\TestCacheClearer;
 use PHPUnit\Framework\Attributes\After;
 use PHPUnit\Framework\Attributes\Before;
-use HeyFrame\Core\Framework\Test\TestCacheClearer;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 trait CacheTestBehaviour

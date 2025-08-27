@@ -2,6 +2,7 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\Symplify;
 
+use HeyFrame\Core\Framework\Log\Package;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
@@ -9,7 +10,6 @@ use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\Type\ObjectType;
 use PHPStan\Type\VoidType;
-use HeyFrame\Core\Framework\Log\Package;
 use Symplify\PHPStanRules\Rules\NoReturnSetterMethodRule;
 
 /**

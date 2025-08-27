@@ -5,12 +5,12 @@ namespace HeyFrame\Core\Framework\App\Hmac\Guzzle;
 use GuzzleHttp\Exception\InvalidArgumentException;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Promise\PromiseInterface;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 use HeyFrame\Core\Framework\App\AppLocaleProvider;
 use HeyFrame\Core\Framework\App\Hmac\RequestSigner;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 #[Package('framework')]
 class AuthMiddleware

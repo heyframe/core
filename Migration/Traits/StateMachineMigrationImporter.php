@@ -32,7 +32,7 @@ class StateMachineMigrationImporter
 
         return new StateMachineMigration(
             $stateMachineMigration->getTechnicalName(),
-            $stateMachineMigration->getDe(),
+            $stateMachineMigration->getZh(),
             $stateMachineMigration->getEn(),
             $states,
             $transitions,
@@ -69,7 +69,7 @@ class StateMachineMigrationImporter
         $this->importTranslation(
             StateMachineTranslationDefinition::ENTITY_NAME,
             new Translations(
-                ['state_machine_id' => $id, 'name' => $stateMachineMigration->getDe()],
+                ['state_machine_id' => $id, 'name' => $stateMachineMigration->getZh()],
                 ['state_machine_id' => $id, 'name' => $stateMachineMigration->getEn()]
             ),
             $this->connection

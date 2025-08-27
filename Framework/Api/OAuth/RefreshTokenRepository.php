@@ -3,11 +3,11 @@
 namespace HeyFrame\Core\Framework\Api\OAuth;
 
 use Doctrine\DBAL\Connection;
-use League\OAuth2\Server\Entities\RefreshTokenEntityInterface;
-use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use League\OAuth2\Server\Entities\RefreshTokenEntityInterface;
+use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
 
 #[Package('framework')]
 class RefreshTokenRepository implements RefreshTokenRepositoryInterface

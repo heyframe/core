@@ -5,8 +5,8 @@ namespace HeyFrame\Core\Content\ProductExport\Exception;
 use HeyFrame\Core\Content\ProductExport\Error\Error;
 use HeyFrame\Core\Content\ProductExport\Error\ErrorMessage;
 use HeyFrame\Core\Content\ProductExport\ProductExportEntity;
-use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('inventory')]
 class ExportInvalidException extends HeyFrameHttpException

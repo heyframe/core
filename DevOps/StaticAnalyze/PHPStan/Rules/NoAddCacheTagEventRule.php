@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 
+use HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector;
+use HeyFrame\Core\Framework\Adapter\Cache\Event\AddCacheTagEvent;
+use HeyFrame\Core\Framework\Log\Package;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\New_;
@@ -10,9 +13,6 @@ use PhpParser\PrettyPrinter\Standard as PrettyPrinter;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector;
-use HeyFrame\Core\Framework\Adapter\Cache\Event\AddCacheTagEvent;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * This rule prevents the individual usage of the AddCacheTagEvent and promotes the use of the CacheTagCollector->addTag method.

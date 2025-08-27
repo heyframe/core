@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Test\PHPUnit\Extension\DatabaseDiff\Subscriber;
 
-use PHPUnit\Event\Test\Finished;
-use PHPUnit\Event\Test\FinishedSubscriber;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Test\PHPUnit\Extension\DatabaseDiff\DbState;
+use PHPUnit\Event\Test\Finished;
+use PHPUnit\Event\Test\FinishedSubscriber;
 
 /**
  * @internal

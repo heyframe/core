@@ -3,14 +3,14 @@
 namespace HeyFrame\Core\Framework\Api\OAuth;
 
 use Doctrine\DBAL\Connection;
-use League\OAuth2\Server\Entities\ClientEntityInterface;
-use League\OAuth2\Server\Exception\OAuthServerException;
-use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Api\OAuth\Client\ApiClient;
 use HeyFrame\Core\Framework\Api\Util\AccessKeyHelper;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use League\OAuth2\Server\Entities\ClientEntityInterface;
+use League\OAuth2\Server\Exception\OAuthServerException;
+use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 
 #[Package('framework')]
 class ClientRepository implements ClientRepositoryInterface

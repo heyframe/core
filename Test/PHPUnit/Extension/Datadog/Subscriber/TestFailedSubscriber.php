@@ -2,13 +2,13 @@
 
 namespace HeyFrame\Core\Test\PHPUnit\Extension\Datadog\Subscriber;
 
-use PHPUnit\Event\Telemetry\HRTime;
-use PHPUnit\Event\Test\Failed;
-use PHPUnit\Event\Test\FailedSubscriber;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Test\PHPUnit\Extension\Common\TimeKeeper;
 use HeyFrame\Core\Test\PHPUnit\Extension\Datadog\DatadogPayload;
 use HeyFrame\Core\Test\PHPUnit\Extension\Datadog\DatadogPayloadCollection;
+use PHPUnit\Event\Telemetry\HRTime;
+use PHPUnit\Event\Test\Failed;
+use PHPUnit\Event\Test\FailedSubscriber;
 
 /**
  * @internal

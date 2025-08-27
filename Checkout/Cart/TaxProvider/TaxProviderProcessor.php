@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Checkout\Cart\TaxProvider;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Checkout\Cart\Cart;
 use HeyFrame\Core\Checkout\Cart\Exception\TaxProviderExceptions;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
@@ -20,6 +19,7 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
 use HeyFrame\Core\System\TaxProvider\TaxProviderCollection;
 use HeyFrame\Core\System\TaxProvider\TaxProviderEntity;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 #[Package('checkout')]

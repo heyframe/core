@@ -4,12 +4,12 @@ namespace HeyFrame\Core\Framework\Demodata;
 
 use Faker\Factory;
 use Faker\Generator;
-use Maltyxx\ImagesGenerator\ImagesGeneratorProvider;
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\Demodata\Faker\Commerce;
 use HeyFrame\Core\Framework\Log\Package;
+use Maltyxx\ImagesGenerator\ImagesGeneratorProvider;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;

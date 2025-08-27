@@ -3,18 +3,18 @@
 namespace HeyFrame\Core\Framework\Api\OAuth;
 
 use Doctrine\DBAL\Connection;
-use League\OAuth2\Server\Entities\ClientEntityInterface;
-use League\OAuth2\Server\Entities\ScopeEntityInterface;
-use League\OAuth2\Server\Grant\ClientCredentialsGrant;
-use League\OAuth2\Server\Grant\PasswordGrant;
-use League\OAuth2\Server\Grant\RefreshTokenGrant;
-use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
 use HeyFrame\Administration\Login\HeyFrameGrantType;
 use HeyFrame\Core\Framework\Api\OAuth\Client\ApiClient;
 use HeyFrame\Core\Framework\Api\OAuth\Scope\AdminScope;
 use HeyFrame\Core\Framework\Api\OAuth\Scope\UserVerifiedScope;
 use HeyFrame\Core\Framework\Api\OAuth\Scope\WriteScope;
 use HeyFrame\Core\Framework\Log\Package;
+use League\OAuth2\Server\Entities\ClientEntityInterface;
+use League\OAuth2\Server\Entities\ScopeEntityInterface;
+use League\OAuth2\Server\Grant\ClientCredentialsGrant;
+use League\OAuth2\Server\Grant\PasswordGrant;
+use League\OAuth2\Server\Grant\RefreshTokenGrant;
+use League\OAuth2\Server\Repositories\ScopeRepositoryInterface;
 
 #[Package('framework')]
 class ScopeRepository implements ScopeRepositoryInterface

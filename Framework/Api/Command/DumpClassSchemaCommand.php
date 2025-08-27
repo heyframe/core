@@ -2,6 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Api\Command;
 
+use HeyFrame\Core\Framework\Api\ApiException;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Struct\Collection;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\NullableType;
@@ -14,10 +18,6 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\ParserFactory;
 use PhpParser\PhpVersion;
-use HeyFrame\Core\Framework\Api\ApiException;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
-use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Struct\Collection;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

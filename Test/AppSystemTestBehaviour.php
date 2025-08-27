@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Test;
 
-use Psr\Log\NullLogger;
 use HeyFrame\Core\Framework\App\AppService;
 use HeyFrame\Core\Framework\App\Lifecycle\AppLifecycle;
 use HeyFrame\Core\Framework\App\Lifecycle\AppLifecycleIterator;
@@ -12,6 +11,7 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Script\Debugging\ScriptTraces;
 use HeyFrame\Core\System\Snippet\Files\SnippetFileCollection;
 use HeyFrame\Core\System\Snippet\Files\SnippetFileLoader;
+use Psr\Log\NullLogger;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 trait AppSystemTestBehaviour

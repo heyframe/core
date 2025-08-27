@@ -4,8 +4,8 @@ namespace HeyFrame\Core\System\Language\Exception;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation\RestrictDeleteViolationException;
 use HeyFrame\Core\Framework\Feature;
-use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
 #[Package('fundamentals@discovery')]

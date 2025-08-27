@@ -2,6 +2,10 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 
+use HeyFrame\Core\Content\Rule\RuleDefinition;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\AssociationField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\RuleAreas;
+use HeyFrame\Core\Framework\Log\Package;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\New_;
@@ -12,10 +16,6 @@ use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
-use HeyFrame\Core\Content\Rule\RuleDefinition;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\AssociationField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\RuleAreas;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @implements Rule<MethodCall>

@@ -2,14 +2,14 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 
+use HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\Tests\TestRuleHelper;
+use HeyFrame\Core\Framework\Log\Package;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\InClassNode;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Symfony\ServiceMap;
-use HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\Tests\TestRuleHelper;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal

@@ -3,8 +3,8 @@
 namespace HeyFrame\Core\Framework\Api\Controller\Exception;
 
 use HeyFrame\Core\Framework\Feature;
-use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

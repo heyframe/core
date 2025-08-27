@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Test\PHPUnit\Extension\Datadog\Subscriber;
 
-use PHPUnit\Event\Test\Prepared;
-use PHPUnit\Event\Test\PreparedSubscriber;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Test\PHPUnit\Extension\Common\TimeKeeper;
+use PHPUnit\Event\Test\Prepared;
+use PHPUnit\Event\Test\PreparedSubscriber;
 
 /**
  * @internal

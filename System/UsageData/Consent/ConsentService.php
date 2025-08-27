@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\System\UsageData\Consent;
 
-use Psr\Clock\ClockInterface;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -11,6 +10,7 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SystemConfig\SystemConfigCollection;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use HeyFrame\Core\System\UsageData\UsageDataException;
+use Psr\Clock\ClockInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**

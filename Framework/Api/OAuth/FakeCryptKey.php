@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Api\OAuth;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Lcobucci\JWT\Configuration;
 use League\OAuth2\Server\CryptKey;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal

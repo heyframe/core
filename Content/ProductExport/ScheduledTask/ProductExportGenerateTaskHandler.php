@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\ProductExport\ScheduledTask;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Content\ProductExport\ProductExportCollection;
 use HeyFrame\Core\Content\ProductExport\ProductExportEntity;
 use HeyFrame\Core\Defaults;
@@ -17,6 +16,7 @@ use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\SalesChannel\Context\AbstractSalesChannelContextFactory;
 use HeyFrame\Core\System\SalesChannel\SalesChannelCollection;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\MessageBusInterface;
 

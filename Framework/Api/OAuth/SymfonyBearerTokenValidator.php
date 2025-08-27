@@ -3,15 +3,15 @@
 namespace HeyFrame\Core\Framework\Api\OAuth;
 
 use Doctrine\DBAL\Connection;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Uuid\Uuid;
+use HeyFrame\Core\PlatformRequest;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Exception;
 use Lcobucci\JWT\UnencryptedToken;
 use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
 use League\OAuth2\Server\Exception\OAuthServerException;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
-use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Uuid\Uuid;
-use HeyFrame\Core\PlatformRequest;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

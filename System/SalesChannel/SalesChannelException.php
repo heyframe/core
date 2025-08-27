@@ -8,9 +8,9 @@ use HeyFrame\Core\Checkout\Order\OrderException;
 use HeyFrame\Core\Checkout\Payment\PaymentException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Write\Validation\RestrictDeleteViolationException;
 use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\HeyFrameHttpException;
 use Symfony\Component\HttpFoundation\Response;
 
 #[Package('discovery')]

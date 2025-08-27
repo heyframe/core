@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Content\Media\Subscriber;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
-use League\Flysystem\Visibility;
 use HeyFrame\Core\Content\Media\Aggregate\MediaFolder\MediaFolderDefinition;
 use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollection;
 use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailDefinition;
@@ -20,6 +19,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use League\Flysystem\Visibility;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\MessageBusInterface;

@@ -2,14 +2,14 @@
 
 namespace HeyFrame\Core\Framework\Api\OAuth;
 
+use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
+use HeyFrame\Core\Framework\Log\Package;
 use Lcobucci\Clock\SystemClock;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Hmac\Sha256 as Hmac256;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
-use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal

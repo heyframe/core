@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Core\Framework;
 
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
 use HeyFrame\Core\Framework\Feature\FeatureException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\Debugging\ScriptTraces;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @phpstan-type FeatureFlagConfig array{name?: string, default?: boolean, major?: boolean, description?: string, active?: bool, static?: bool}

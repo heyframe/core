@@ -4,13 +4,13 @@ namespace HeyFrame\Core\Framework\Test\Plugin;
 
 use Composer\Autoload\ClassLoader;
 use Doctrine\DBAL\Connection;
-use PHPUnit\Framework\Attributes\After;
-use PHPUnit\Framework\Attributes\Before;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Plugin\PluginEntity;
 use HeyFrame\Core\Framework\Test\TestCaseBase\KernelLifecycleManager;
 use HeyFrame\Core\Framework\Test\TestCaseBase\KernelTestBehaviour;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use PHPUnit\Framework\Attributes\After;
+use PHPUnit\Framework\Attributes\Before;
 use SwagTestPlugin\SwagTestPlugin;
 use SwagTestSkipRebuild\SwagTestSkipRebuild;
 use SwagTestWithBundle\SwagTestWithBundle;

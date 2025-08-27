@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Store\Services;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal

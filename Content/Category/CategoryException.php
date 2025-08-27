@@ -4,9 +4,9 @@ namespace HeyFrame\Core\Content\Category;
 
 use HeyFrame\Core\Content\Category\Exception\CategoryNotFoundException;
 use HeyFrame\Core\Content\Cms\Exception\PageNotFoundException;
+use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\HeyFrameHttpException;
 use Symfony\Component\HttpFoundation\Response;
 
 #[Package('discovery')]

@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\Product\Cms;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Content\Cms\Aggregate\CmsSlot\CmsSlotEntity;
 use HeyFrame\Core\Content\Cms\DataResolver\CriteriaCollection;
 use HeyFrame\Core\Content\Cms\DataResolver\Element\AbstractCmsElementResolver;
@@ -11,6 +10,7 @@ use HeyFrame\Core\Content\Cms\DataResolver\ResolverContext\ResolverContext;
 use HeyFrame\Core\Content\Cms\SalesChannel\Struct\ProductSliderStruct;
 use HeyFrame\Core\Content\Product\Cms\ProductSlider\AbstractProductSliderProcessor;
 use HeyFrame\Core\Framework\Log\Package;
+use Psr\Log\LoggerInterface;
 
 #[Package('discovery')]
 class ProductSliderCmsElementResolver extends AbstractCmsElementResolver

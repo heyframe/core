@@ -2,10 +2,6 @@
 
 namespace HeyFrame\Core\Test\PHPUnit\Extension\Datadog;
 
-use PHPUnit\Runner\Extension\Extension;
-use PHPUnit\Runner\Extension\Facade;
-use PHPUnit\Runner\Extension\ParameterCollection;
-use PHPUnit\TextUI\Configuration\Configuration;
 use HeyFrame\Core\DevOps\Environment\EnvironmentHelper;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Test\PHPUnit\Extension\Common\TimeKeeper;
@@ -15,6 +11,10 @@ use HeyFrame\Core\Test\PHPUnit\Extension\Datadog\Subscriber\TestFailedSubscriber
 use HeyFrame\Core\Test\PHPUnit\Extension\Datadog\Subscriber\TestFinishedSubscriber;
 use HeyFrame\Core\Test\PHPUnit\Extension\Datadog\Subscriber\TestPreparedSubscriber;
 use HeyFrame\Core\Test\PHPUnit\Extension\Datadog\Subscriber\TestRunnerExecutionFinishedSubscriber;
+use PHPUnit\Runner\Extension\Extension;
+use PHPUnit\Runner\Extension\Facade;
+use PHPUnit\Runner\Extension\ParameterCollection;
+use PHPUnit\TextUI\Configuration\Configuration;
 
 /**
  * @internal

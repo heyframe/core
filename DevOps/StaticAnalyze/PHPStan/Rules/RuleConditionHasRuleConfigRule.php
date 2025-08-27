@@ -2,12 +2,6 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 
-use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Node\InClassNode;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleError;
-use PHPStan\Rules\RuleErrorBuilder;
 use HeyFrame\Core\Checkout\Cart\Rule\AlwaysValidRule;
 use HeyFrame\Core\Checkout\Cart\Rule\GoodsCountRule;
 use HeyFrame\Core\Checkout\Cart\Rule\GoodsPriceRule;
@@ -39,6 +33,12 @@ use HeyFrame\Core\Framework\Rule\SimpleRule;
 use HeyFrame\Core\Framework\Rule\TimeRangeRule;
 use HeyFrame\Core\Test\Stub\Rule\FalseRule;
 use HeyFrame\Core\Test\Stub\Rule\TrueRule;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\InClassNode;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
 
 /**
  * @implements Rule<InClassNode>

@@ -2,15 +2,15 @@
 
 namespace HeyFrame\Core\Test\PHPUnit\Extension\Datadog\Subscriber;
 
-use PHPUnit\Event\Telemetry\Duration;
-use PHPUnit\Event\Telemetry\HRTime;
-use PHPUnit\Event\Test\Finished;
-use PHPUnit\Event\Test\FinishedSubscriber;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Test\PHPUnit\Extension\Common\TimeKeeper;
 use HeyFrame\Core\Test\PHPUnit\Extension\Datadog\DatadogExtension;
 use HeyFrame\Core\Test\PHPUnit\Extension\Datadog\DatadogPayload;
 use HeyFrame\Core\Test\PHPUnit\Extension\Datadog\DatadogPayloadCollection;
+use PHPUnit\Event\Telemetry\Duration;
+use PHPUnit\Event\Telemetry\HRTime;
+use PHPUnit\Event\Test\Finished;
+use PHPUnit\Event\Test\FinishedSubscriber;
 
 /**
  * @internal

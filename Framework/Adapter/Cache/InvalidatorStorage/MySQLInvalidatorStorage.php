@@ -4,11 +4,11 @@ namespace HeyFrame\Core\Framework\Adapter\Cache\InvalidatorStorage;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\TransactionIsolationLevel;
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\MultiInsertQueryQueue;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\RetryableQuery;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use Psr\Log\LoggerInterface;
 
 /**
  * Whilst this adapter attempts to work around various locking issues, it is not foolproof, so if you encounter deadlock due to load, use the `\HeyFrame\Core\Framework\Adapter\Cache\InvalidatorStorage\RedisInvalidatorStorage` adapter instead.

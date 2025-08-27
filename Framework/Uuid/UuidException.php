@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Uuid;
 
+use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\Uuid\Exception\InvalidUuidException;
 use HeyFrame\Core\Framework\Uuid\Exception\InvalidUuidLengthException;
 

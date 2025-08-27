@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 
+use HeyFrame\Core\Framework\Event\FlowEventAware;
+use HeyFrame\Core\Framework\Log\Package;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\InClassNode;
@@ -11,8 +13,6 @@ use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
-use HeyFrame\Core\Framework\Event\FlowEventAware;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @implements Rule<InClassNode>

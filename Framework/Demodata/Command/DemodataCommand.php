@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Framework\Demodata\Command;
 
 use Bezhanov\Faker\Provider\Commerce;
 use Faker\Factory;
-use Maltyxx\ImagesGenerator\ImagesGeneratorProvider;
 use HeyFrame\Core\Checkout\Customer\CustomerDefinition;
 use HeyFrame\Core\Checkout\Order\OrderDefinition;
 use HeyFrame\Core\Checkout\Promotion\PromotionDefinition;
@@ -28,6 +27,7 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\CustomField\Aggregate\CustomFieldSet\CustomFieldSetDefinition;
 use HeyFrame\Core\System\Tag\TagDefinition;
 use HeyFrame\Core\System\User\UserDefinition;
+use Maltyxx\ImagesGenerator\ImagesGeneratorProvider;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

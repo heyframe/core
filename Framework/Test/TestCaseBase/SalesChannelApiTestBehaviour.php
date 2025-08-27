@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Framework\Test\TestCaseBase;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
-use PHPUnit\Framework\Attributes\After;
 use HeyFrame\Core\Checkout\Cart\CartRuleLoader;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Api\Util\AccessKeyHelper;
@@ -19,6 +18,7 @@ use HeyFrame\Core\System\SalesChannel\Context\SalesChannelContextFactory;
 use HeyFrame\Core\System\SalesChannel\SalesChannelCollection;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
 use HeyFrame\Core\Test\TestDefaults;
+use PHPUnit\Framework\Attributes\After;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpKernel\KernelInterface;
 

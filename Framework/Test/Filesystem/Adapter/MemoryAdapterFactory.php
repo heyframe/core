@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Test\Filesystem\Adapter;
 
-use League\Flysystem\FilesystemAdapter;
 use HeyFrame\Core\Framework\Adapter\Filesystem\Adapter\AdapterFactoryInterface;
 use HeyFrame\Core\Framework\Adapter\Filesystem\MemoryFilesystemAdapter;
+use League\Flysystem\FilesystemAdapter;
 
 /**
  * @internal

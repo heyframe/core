@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\Product\SearchKeyword;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Content\Product\ProductException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\AndFilter;
@@ -13,6 +12,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Query\ScoreQuery;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\SearchPattern;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 #[Package('inventory')]

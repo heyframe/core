@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\Migration\Traits;
 
+use HeyFrame\Core\Framework\Log\Package;
 use PHPUnit\Framework\Attributes\After;
 use PHPUnit\Framework\Attributes\Before;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal

@@ -2,13 +2,13 @@
 
 namespace HeyFrame\Core\Framework\Api\Controller;
 
-use League\OAuth2\Server\AuthorizationServer;
 use HeyFrame\Core\Framework\Api\ApiException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\RateLimiter\Exception\RateLimitExceededException;
 use HeyFrame\Core\Framework\RateLimiter\RateLimiter;
 use HeyFrame\Core\Framework\Routing\ApiRouteScope;
 use HeyFrame\Core\PlatformRequest;
+use League\OAuth2\Server\AuthorizationServer;
 use Symfony\Bridge\PsrHttpMessage\Factory\HttpFoundationFactory;
 use Symfony\Bridge\PsrHttpMessage\Factory\PsrHttpFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
+use HeyFrame\Core\Framework\Log\Package;
 use PhpParser\Node;
 use PhpParser\Node\Expr\New_;
 use PhpParser\Node\Name;
@@ -11,9 +14,6 @@ use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @implements Rule<New_>

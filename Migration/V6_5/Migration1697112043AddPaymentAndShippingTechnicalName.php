@@ -5,7 +5,6 @@ namespace HeyFrame\Core\Migration\V6_5;
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\CashPayment;
-use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\InvoicePayment;
 use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\PrePayment;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition;
 use HeyFrame\Core\Checkout\Shipping\ShippingMethodDefinition;
@@ -61,8 +60,6 @@ class Migration1697112043AddPaymentAndShippingTechnicalName extends MigrationSte
                 AND (`app_payment_method`.`identifier` IS NOT NULL OR `payment_method`.`handler_identifier` IN (:handlers))
             ',
             ['handlers' => [
-                'HeyFrame\\Core\\Checkout\\Payment\\Cart\\PaymentHandler\\DebitPayment',
-                InvoicePayment::class,
                 CashPayment::class,
                 PrePayment::class,
             ], 'slash' => '\\'],

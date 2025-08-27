@@ -2,13 +2,13 @@
 
 namespace HeyFrame\Core\Test\PHPUnit\Extension\FeatureFlag\Subscriber;
 
-use PHPUnit\Event\Test\PreparationStarted;
-use PHPUnit\Event\Test\PreparationStartedSubscriber;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Test\Annotation\DisabledFeatures;
 use HeyFrame\Core\Test\PHPUnit\Extension\FeatureFlag\FeatureFlagExtension;
 use HeyFrame\Core\Test\PHPUnit\Extension\FeatureFlag\SavedConfig;
+use PHPUnit\Event\Test\PreparationStarted;
+use PHPUnit\Event\Test\PreparationStartedSubscriber;
 
 /**
  * @internal

@@ -8,9 +8,9 @@ use HeyFrame\Core\Checkout\Order\Exception\WrongGuestCredentialsException;
 use HeyFrame\Core\Content\Flow\Exception\CustomerDeletedException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\AssociationNotFoundException;
 use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\HeyFrameHttpException;
 use Symfony\Component\HttpFoundation\Response;
 
 #[Package('checkout')]

@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Api\OAuth\Client;
 
-use League\OAuth2\Server\Entities\ClientEntityInterface;
-use League\OAuth2\Server\Entities\Traits\ClientTrait;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
+use League\OAuth2\Server\Entities\ClientEntityInterface;
+use League\OAuth2\Server\Entities\Traits\ClientTrait;
 
 #[Package('framework')]
 class ApiClient implements ClientEntityInterface

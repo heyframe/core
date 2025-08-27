@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\Framework\Api\ApiDefinition\Generator\OpenApi;
 
-use OpenApi\Analysis;
 use HeyFrame\Core\Framework\Log\Package;
+use OpenApi\Analysis;
 
 #[Package('framework')]
 class DeactivateValidationAnalysis extends Analysis

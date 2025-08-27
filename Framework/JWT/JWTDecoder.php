@@ -2,13 +2,13 @@
 
 namespace HeyFrame\Core\Framework\JWT;
 
+use HeyFrame\Core\Framework\Log\Package;
 use Lcobucci\JWT\Encoding\JoseEncoder;
 use Lcobucci\JWT\Token\Parser;
 use Lcobucci\JWT\UnencryptedToken;
 use Lcobucci\JWT\Validation\Constraint;
 use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
 use Lcobucci\JWT\Validation\Validator;
-use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('checkout')]
 final class JWTDecoder

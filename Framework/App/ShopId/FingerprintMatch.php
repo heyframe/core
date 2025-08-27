@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\Framework\App\ShopId;
 
-use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
 use HeyFrame\Core\Framework\Log\Package;
+use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
 
 /**
  * @internal

@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Command;
 
-use Psr\Cache\CacheItemPoolInterface;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\Scheduler\TaskScheduler;
 use HeyFrame\Core\Framework\Util\MemorySizeCalculator;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

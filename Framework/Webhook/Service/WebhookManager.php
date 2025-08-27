@@ -6,7 +6,6 @@ use Doctrine\DBAL\Connection;
 use GuzzleHttp\Client;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
-use Psr\EventDispatcher\EventDispatcherInterface;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\App\AppLocaleProvider;
 use HeyFrame\Core\Framework\App\Event\AppChangedEvent;
@@ -31,6 +30,7 @@ use HeyFrame\Core\Framework\Webhook\Hookable\HookableEventFactory;
 use HeyFrame\Core\Framework\Webhook\Message\WebhookEventMessage;
 use HeyFrame\Core\Framework\Webhook\Webhook;
 use HeyFrame\Core\Profiling\Profiler;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Contracts\Service\ResetInterface;
 

@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Content\Media\File;
 
-use League\Flysystem\CorruptedPathDetected;
-use League\Flysystem\WhitespacePathNormalizer;
 use HeyFrame\Core\Content\Media\MediaException;
 use HeyFrame\Core\Framework\Log\Package;
+use League\Flysystem\CorruptedPathDetected;
+use League\Flysystem\WhitespacePathNormalizer;
 
 #[Package('discovery')]
 class FileNameValidator

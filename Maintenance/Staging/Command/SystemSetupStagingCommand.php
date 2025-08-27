@@ -2,12 +2,12 @@
 
 namespace HeyFrame\Core\Maintenance\Staging\Command;
 
-use Psr\EventDispatcher\EventDispatcherInterface;
 use HeyFrame\Core\Framework\Adapter\Console\HeyFrameStyle;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Maintenance\Staging\Event\SetupStagingEvent;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

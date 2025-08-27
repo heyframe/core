@@ -3,11 +3,11 @@
 namespace HeyFrame\Core\Content\Mail\Transport;
 
 use Doctrine\DBAL\Exception\DriverException;
-use League\Flysystem\FilesystemOperator;
 use HeyFrame\Core\Content\Mail\MailException;
 use HeyFrame\Core\Content\Mail\Service\MailAttachmentsBuilder;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
+use League\Flysystem\FilesystemOperator;
 use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mailer\Transport\Dsn;
 use Symfony\Component\Mailer\Transport\TransportInterface;

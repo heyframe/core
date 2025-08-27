@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Framework\Update\Services;
 
 use GuzzleHttp\Exception\ClientException;
-use Psr\EventDispatcher\EventDispatcherInterface;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
@@ -14,6 +13,7 @@ use HeyFrame\Core\Framework\Store\Struct\ExtensionCollection;
 use HeyFrame\Core\Framework\Store\Struct\ExtensionStruct;
 use HeyFrame\Core\Framework\Update\Event\ExtensionCompatibilitiesResolvedEvent;
 use HeyFrame\Core\Framework\Update\Struct\Version;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

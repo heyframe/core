@@ -2,16 +2,6 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 
-use PhpParser\Node;
-use PhpParser\Node\Expr\New_;
-use PhpParser\Node\Expr\StaticCall;
-use PhpParser\Node\Expr\Throw_;
-use PhpParser\Node\Name;
-use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ReflectionProvider;
-use PHPStan\Rules\IdentifierRuleError;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleErrorBuilder;
 use HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Configuration;
 use HeyFrame\Core\Framework\Adapter\Cache\ReverseProxy\FastlyReverseProxyGateway;
 use HeyFrame\Core\Framework\Adapter\Cache\ReverseProxy\ReverseProxyException;
@@ -23,6 +13,16 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Migration\MigrationException;
 use HeyFrame\Core\Kernel;
 use HeyFrame\Core\Migration\Traits\StateMachineMigrationImporter;
+use PhpParser\Node;
+use PhpParser\Node\Expr\New_;
+use PhpParser\Node\Expr\StaticCall;
+use PhpParser\Node\Expr\Throw_;
+use PhpParser\Node\Name;
+use PHPStan\Analyser\Scope;
+use PHPStan\Reflection\ReflectionProvider;
+use PHPStan\Rules\IdentifierRuleError;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleErrorBuilder;
 use Symfony\Component\Console\Command\Command;
 
 /**

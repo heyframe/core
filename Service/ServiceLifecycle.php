@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Service;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Framework\App\AppCollection;
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\App\AppException;
@@ -21,6 +20,7 @@ use HeyFrame\Core\Service\Event\ServiceInstalledEvent;
 use HeyFrame\Core\Service\Event\ServiceUpdatedEvent;
 use HeyFrame\Core\Service\ServiceRegistry\Client;
 use HeyFrame\Core\Service\ServiceRegistry\ServiceEntry;
+use Psr\Log\LoggerInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**

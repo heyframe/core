@@ -3,10 +3,10 @@
 namespace HeyFrame\Core\System\UsageData\EntitySync;
 
 use Doctrine\DBAL\ConnectionException;
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\UsageData\Consent\ConsentService;
 use HeyFrame\Core\System\UsageData\Services\EntityDefinitionService;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\Exception\UnrecoverableMessageHandlingException;
 use Symfony\Component\Messenger\MessageBusInterface;

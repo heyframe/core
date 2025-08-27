@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Installer\Configuration;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
-use Psr\EventDispatcher\EventDispatcherInterface;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Api\Util\AccessKeyHelper;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Util\StatementHelper;
@@ -12,6 +11,7 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Installer\Controller\ShopConfigurationController;
 use HeyFrame\Core\Maintenance\System\Service\ShopConfigurator;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @internal

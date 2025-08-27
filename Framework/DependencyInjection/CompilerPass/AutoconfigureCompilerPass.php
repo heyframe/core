@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\DependencyInjection\CompilerPass;
 
-use League\Flysystem\FilesystemOperator;
 use HeyFrame\Core\Checkout\Cart\CartDataCollectorInterface;
 use HeyFrame\Core\Checkout\Cart\CartProcessorInterface;
 use HeyFrame\Core\Checkout\Cart\CartValidatorInterface;
@@ -37,6 +36,7 @@ use HeyFrame\Core\Framework\Webhook\Hookable\HookableEntityInterface;
 use HeyFrame\Core\System\NumberRange\ValueGenerator\Pattern\AbstractValueGenerator;
 use HeyFrame\Core\System\SalesChannel\SalesChannelDefinition;
 use HeyFrame\Core\System\Tax\TaxRuleType\TaxRuleTypeFilterInterface;
+use League\Flysystem\FilesystemOperator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 

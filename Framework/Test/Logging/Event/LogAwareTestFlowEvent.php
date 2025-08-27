@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Test\Logging\Event;
 
-use Monolog\Level;
 use HeyFrame\Core\Content\Test\Flow\TestFlowBusinessEvent;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
 use HeyFrame\Core\Framework\Log\LogAware;
+use Monolog\Level;
 
 /**
  * @internal

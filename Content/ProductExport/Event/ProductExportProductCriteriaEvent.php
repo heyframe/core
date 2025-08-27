@@ -6,8 +6,8 @@ use HeyFrame\Core\Content\ProductExport\ProductExportEntity;
 use HeyFrame\Core\Content\ProductExport\Struct\ExportBehavior;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use HeyFrame\Core\Framework\Event\NestedEvent;
 use HeyFrame\Core\Framework\Event\HeyFrameSalesChannelEvent;
+use HeyFrame\Core\Framework\Event\NestedEvent;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
 

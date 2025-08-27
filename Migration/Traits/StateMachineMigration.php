@@ -19,7 +19,7 @@ readonly class StateMachineMigration
      */
     public function __construct(
         private string $technicalName,
-        private string $de,
+        private string $zh,
         private string $en,
         private array $states = [],
         private array $transitions = [],
@@ -28,11 +28,11 @@ readonly class StateMachineMigration
     }
 
     /**
-     * @return array{technicalName: string, de: string, en: string}
+     * @return array{technicalName: string, zh: string, en: string}
      */
-    public static function state(string $technicalName, string $de, string $en): array
+    public static function state(string $technicalName, string $zh, string $en): array
     {
-        return ['technicalName' => $technicalName, 'de' => $de, 'en' => $en];
+        return ['technicalName' => $technicalName, 'zh' => $zh, 'en' => $en];
     }
 
     /**
@@ -48,9 +48,9 @@ readonly class StateMachineMigration
         return $this->technicalName;
     }
 
-    public function getDe(): string
+    public function getZh(): string
     {
-        return $this->de;
+        return $this->zh;
     }
 
     public function getEn(): string

@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\Media;
 
-use Psr\Http\Message\StreamInterface;
 use HeyFrame\Core\Content\Media\Aggregate\MediaFolder\MediaFolderCollection;
 use HeyFrame\Core\Content\Media\File\FileFetcher;
 use HeyFrame\Core\Content\Media\File\FileLoader;
@@ -14,6 +13,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use Psr\Http\Message\StreamInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 #[Package('discovery')]

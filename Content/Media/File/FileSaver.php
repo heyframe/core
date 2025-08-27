@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\Content\Media\File;
 
-use League\Flysystem\FilesystemOperator;
-use League\Flysystem\UnableToDeleteFile;
 use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
 use HeyFrame\Core\Content\Media\Core\Application\AbstractMediaPathStrategy;
 use HeyFrame\Core\Content\Media\Core\Event\UpdateMediaPathEvent;
@@ -26,6 +24,8 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\NotEqualsFilter;
 use HeyFrame\Core\Framework\Log\Package;
+use League\Flysystem\FilesystemOperator;
+use League\Flysystem\UnableToDeleteFile;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
 

@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Framework\DataAbstractionLayer\Dbal;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DataAbstractionLayerException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
@@ -36,6 +35,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Struct\ArrayStruct;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use Psr\Log\LoggerInterface;
 
 use function Symfony\Component\String\u;
 

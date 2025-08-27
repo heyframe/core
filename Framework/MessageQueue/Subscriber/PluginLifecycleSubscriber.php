@@ -2,12 +2,12 @@
 
 namespace HeyFrame\Core\Framework\MessageQueue\Subscriber;
 
-use Psr\Cache\CacheItemPoolInterface;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\Registry\TaskRegistry;
 use HeyFrame\Core\Framework\Plugin\Event\PluginPostActivateEvent;
 use HeyFrame\Core\Framework\Plugin\Event\PluginPostDeactivateEvent;
 use HeyFrame\Core\Framework\Plugin\Event\PluginPostUpdateEvent;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\EventListener\StopWorkerOnRestartSignalListener;
 

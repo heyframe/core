@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Core\Content\Test\Product\ProductFeatureSet;
 
-use PHPUnit\Framework\Attributes\Before;
 use HeyFrame\Core\Content\Product\Aggregate\ProductFeatureSet\ProductFeatureSetDefinition;
 use HeyFrame\Core\Content\Product\Aggregate\ProductFeatureSet\ProductFeatureSetEntity;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Test\Integration\Traits\EntityFixturesBase;
+use PHPUnit\Framework\Attributes\Before;
 
 /**
  * @internal

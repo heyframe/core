@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Store\Services;
 
-use Psr\EventDispatcher\EventDispatcherInterface;
 use HeyFrame\Core\Framework\App\AppCollection;
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\Context;
@@ -15,6 +14,7 @@ use HeyFrame\Core\Framework\Plugin\PluginCollection;
 use HeyFrame\Core\Framework\Store\Event\InstalledExtensionsListingLoadedEvent;
 use HeyFrame\Core\Framework\Store\StoreException;
 use HeyFrame\Core\Framework\Store\Struct\ExtensionCollection;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 /**
  * @internal

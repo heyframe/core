@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\Content\ImportExport\Exception;
 
-use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('fundamentals@after-sales')]
 class ProcessingException extends HeyFrameHttpException

@@ -7,9 +7,6 @@ use HeyFrame\Core\Checkout\Order\Aggregate\OrderDelivery\OrderDeliveryStates;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use HeyFrame\Core\Checkout\Order\OrderStates;
 use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\CashPayment;
-use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\DebitPayment;
-use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\InvoicePayment;
-use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\PrePayment;
 use HeyFrame\Core\Content\Category\CategoryDefinition;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Api\Util\AccessKeyHelper;
@@ -27,12 +24,7 @@ use HeyFrame\Core\System\DeliveryTime\DeliveryTimeEntity;
 #[Package('framework')]
 class Migration1536233560BasicData extends MigrationStep
 {
-    /**
-     * @var array<string, array{id: string, name: string, nameDe: string, availableEntities: array<string, string|null>}>|null
-     */
-    private ?array $mailTypes = null;
-
-    private ?string $deDeLanguageId = null;
+    private ?string $zhCnLanguageId = null;
 
     public function getCreationTimestamp(): int
     {
@@ -78,25 +70,25 @@ class Migration1536233560BasicData extends MigrationStep
     {
     }
 
-    private function getDeDeLanguageId(): string
+    private function getZhCnLanguageId(): string
     {
-        if (!$this->deDeLanguageId) {
-            $this->deDeLanguageId = Uuid::randomHex();
+        if (!$this->zhCnLanguageId) {
+            $this->zhCnLanguageId = Uuid::randomHex();
         }
 
-        return $this->deDeLanguageId;
+        return $this->zhCnLanguageId;
     }
 
     private function createLanguage(Connection $connection): void
     {
         $localeEn = Uuid::randomBytes();
-        $localeDe = Uuid::randomBytes();
+        $localeZh = Uuid::randomBytes();
         $languageEn = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
-        $languageDe = Uuid::fromHexToBytes($this->getDeDeLanguageId());
+        $languageZh = Uuid::fromHexToBytes($this->getZhCnLanguageId());
 
         // first locales
         $connection->insert('locale', ['id' => $localeEn, 'code' => 'en-GB', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('locale', ['id' => $localeDe, 'code' => 'de-DE', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('locale', ['id' => $localeZh, 'code' => 'zh-CN', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
         // second languages
         $connection->insert('language', [
@@ -108,10 +100,10 @@ class Migration1536233560BasicData extends MigrationStep
         ]);
 
         $connection->insert('language', [
-            'id' => $languageDe,
-            'name' => 'Deutsch',
-            'locale_id' => $localeDe,
-            'translation_code_id' => $localeDe,
+            'id' => $languageZh,
+            'name' => '中文',
+            'locale_id' => $localeZh,
+            'translation_code_id' => $localeZh,
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
 
@@ -125,23 +117,23 @@ class Migration1536233560BasicData extends MigrationStep
         ]);
         $connection->insert('locale_translation', [
             'locale_id' => $localeEn,
-            'language_id' => $languageDe,
-            'name' => 'Englisch',
-            'territory' => 'Vereinigtes Königreich',
+            'language_id' => $languageZh,
+            'name' => '英文',
+            'territory' => '英国',
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
         $connection->insert('locale_translation', [
-            'locale_id' => $localeDe,
+            'locale_id' => $localeZh,
             'language_id' => $languageEn,
-            'name' => 'German',
-            'territory' => 'Germany',
+            'name' => 'Chinese',
+            'territory' => 'China',
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
         $connection->insert('locale_translation', [
-            'locale_id' => $localeDe,
-            'language_id' => $languageDe,
-            'name' => 'Deutsch',
-            'territory' => 'Deutschland',
+            'locale_id' => $localeZh,
+            'language_id' => $languageZh,
+            'name' => '中文',
+            'territory' => '中国',
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
     }
@@ -156,10 +148,10 @@ class Migration1536233560BasicData extends MigrationStep
 
         $queue = new MultiInsertQueryQueue($connection);
         $languageEn = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
-        $languageDe = Uuid::fromHexToBytes($this->getDeDeLanguageId());
+        $languageDe = Uuid::fromHexToBytes($this->getZhCnLanguageId());
 
         foreach ($localeData as $locale) {
-            if (\in_array($locale['locale'], ['en-GB', 'de-DE'], true)) {
+            if (\in_array($locale['locale'], ['en-GB', 'zh-CN'], true)) {
                 continue;
             }
 
@@ -187,8 +179,8 @@ class Migration1536233560BasicData extends MigrationStep
                     'locale_id' => $localeId,
                     'language_id' => $languageDe,
                     'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
-                    'name' => $locale['name']['de-DE'],
-                    'territory' => $locale['territory']['de-DE'],
+                    'name' => $locale['name']['zh-CN'],
+                    'territory' => $locale['territory']['zh-CN'],
                 ]
             );
         }
@@ -198,8 +190,8 @@ class Migration1536233560BasicData extends MigrationStep
 
     private function createCountry(Connection $connection): void
     {
-        $languageDE = fn (string $countryId, string $name) => [
-            'language_id' => Uuid::fromHexToBytes($this->getDeDeLanguageId()),
+        $languageZH = fn (string $countryId, string $name) => [
+            'language_id' => Uuid::fromHexToBytes($this->getZhCnLanguageId()),
             'name' => $name,
             'country_id' => $countryId,
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
@@ -212,9 +204,15 @@ class Migration1536233560BasicData extends MigrationStep
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ];
 
+        $zhId = Uuid::randomBytes();
+        $connection->insert('country', ['id' => $zhId, 'iso' => 'CN', 'position' => 1, 'iso3' => 'CHN', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('country_translation', $languageZH($zhId, '中国'));
+        $connection->insert('country_translation', $languageEN($zhId, 'China'));
+        $this->createCountryStates($connection, $zhId, 'CN');
+
         $deId = Uuid::randomBytes();
-        $connection->insert('country', ['id' => $deId, 'iso' => 'DE', 'position' => 1, 'iso3' => 'DEU', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('country_translation', $languageDE($deId, 'Deutschland'));
+        $connection->insert('country', ['id' => $deId, 'iso' => 'DE', 'position' => 10, 'iso3' => 'DEU', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('country_translation', $languageZH($deId, '德国'));
         $connection->insert('country_translation', $languageEN($deId, 'Germany'));
 
         $this->createCountryStates($connection, $deId, 'DE');
@@ -222,171 +220,207 @@ class Migration1536233560BasicData extends MigrationStep
         $grId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $grId, 'iso' => 'GR', 'position' => 10, 'iso3' => 'GRC', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($grId, 'Greece'));
-        $connection->insert('country_translation', $languageDE($grId, 'Griechenland'));
+        $connection->insert('country_translation', $languageZH($grId, '希腊'));
 
         $gbId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $gbId, 'iso' => 'GB', 'position' => 5, 'iso3' => 'GBR', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($gbId, 'Great Britain'));
-        $connection->insert('country_translation', $languageDE($gbId, 'Großbritannien'));
+        $connection->insert('country_translation', $languageZH($gbId, '英国'));
 
         $this->createCountryStates($connection, $gbId, 'GB');
 
         $ieId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $ieId, 'iso' => 'IE', 'position' => 10, 'iso3' => 'IRL', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($ieId, 'Ireland'));
-        $connection->insert('country_translation', $languageDE($ieId, 'Irland'));
+        $connection->insert('country_translation', $languageZH($ieId, '爱尔兰'));
 
         $isId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $isId, 'iso' => 'IS', 'position' => 10, 'iso3' => 'ISL', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($isId, 'Iceland'));
-        $connection->insert('country_translation', $languageDE($isId, 'Island'));
+        $connection->insert('country_translation', $languageZH($isId, '冰岛'));
 
         $itId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $itId, 'iso' => 'IT', 'position' => 10, 'active' => 1, 'iso3' => 'ITA', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($itId, 'Italy'));
-        $connection->insert('country_translation', $languageDE($itId, 'Italien'));
+        $connection->insert('country_translation', $languageZH($itId, '意大利'));
 
         $jpId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $jpId, 'iso' => 'JP', 'position' => 10, 'iso3' => 'JPN', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($jpId, 'Japan'));
-        $connection->insert('country_translation', $languageDE($jpId, 'Japan'));
+        $connection->insert('country_translation', $languageZH($jpId, '日本'));
 
         $caId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $caId, 'iso' => 'CA', 'position' => 10, 'iso3' => 'CAN', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($caId, 'Canada'));
-        $connection->insert('country_translation', $languageDE($caId, 'Kanada'));
+        $connection->insert('country_translation', $languageZH($caId, '加拿大'));
 
         $luId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $luId, 'iso' => 'LU', 'position' => 10, 'iso3' => 'LUX', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($luId, 'Luxembourg'));
-        $connection->insert('country_translation', $languageDE($luId, 'Luxemburg'));
+        $connection->insert('country_translation', $languageZH($luId, '卢森堡'));
 
         $naId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $naId, 'iso' => 'NA', 'position' => 10, 'iso3' => 'NAM', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($naId, 'Namibia'));
-        $connection->insert('country_translation', $languageDE($naId, 'Namibia'));
+        $connection->insert('country_translation', $languageZH($naId, '纳米比亚'));
 
         $nlId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $nlId, 'iso' => 'NL', 'position' => 10, 'active' => 1, 'iso3' => 'NLD', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($nlId, 'Netherlands'));
-        $connection->insert('country_translation', $languageDE($nlId, 'Niederlande'));
+        $connection->insert('country_translation', $languageZH($nlId, '荷兰'));
 
         $noId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $noId, 'iso' => 'NO', 'position' => 10, 'iso3' => 'NOR', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($noId, 'Norway'));
-        $connection->insert('country_translation', $languageDE($noId, 'Norwegen'));
+        $connection->insert('country_translation', $languageZH($noId, '挪威'));
 
         $atId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $atId, 'iso' => 'AT', 'position' => 10, 'active' => 1, 'iso3' => 'AUT', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($atId, 'Austria'));
-        $connection->insert('country_translation', $languageDE($atId, 'Österreich'));
+        $connection->insert('country_translation', $languageZH($atId, '奥地利'));
 
         $ptId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $ptId, 'iso' => 'PT', 'position' => 10, 'iso3' => 'PRT', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($ptId, 'Portugal'));
-        $connection->insert('country_translation', $languageDE($ptId, 'Portugal'));
+        $connection->insert('country_translation', $languageZH($ptId, '葡萄牙'));
 
         $seId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $seId, 'iso' => 'SE', 'position' => 10, 'iso3' => 'SWE', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($seId, 'Sweden'));
-        $connection->insert('country_translation', $languageDE($seId, 'Schweden'));
+        $connection->insert('country_translation', $languageZH($seId, '瑞典'));
 
         $chId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $chId, 'iso' => 'CH', 'position' => 10, 'tax_free' => 1, 'active' => 1, 'iso3' => 'CHE', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($chId, 'Switzerland'));
-        $connection->insert('country_translation', $languageDE($chId, 'Schweiz'));
+        $connection->insert('country_translation', $languageZH($chId, '瑞士'));
 
         $esId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $esId, 'iso' => 'ES', 'position' => 10, 'active' => 1, 'iso3' => 'ESP', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($esId, 'Spain'));
-        $connection->insert('country_translation', $languageDE($esId, 'Spanien'));
+        $connection->insert('country_translation', $languageZH($esId, '西班牙'));
 
         $usId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $usId, 'iso' => 'US', 'position' => 10, 'iso3' => 'USA', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($usId, 'USA'));
-        $connection->insert('country_translation', $languageDE($usId, 'USA'));
+        $connection->insert('country_translation', $languageZH($usId, '美国'));
 
         $this->createCountryStates($connection, $usId, 'US');
 
         $liId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $liId, 'iso' => 'LI', 'position' => 10, 'iso3' => 'LIE', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($liId, 'Liechtenstein'));
-        $connection->insert('country_translation', $languageDE($liId, 'Liechtenstein'));
+        $connection->insert('country_translation', $languageZH($liId, 'Liechtenstein'));
 
         $aeId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $aeId, 'iso' => 'AE', 'position' => 10, 'active' => 1, 'iso3' => 'ARE', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($aeId, 'Arab Emirates'));
-        $connection->insert('country_translation', $languageDE($aeId, 'Arabische Emirate'));
+        $connection->insert('country_translation', $languageZH($aeId, '阿拉伯联合酋长国'));
 
         $plId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $plId, 'iso' => 'PL', 'position' => 10, 'iso3' => 'POL', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($plId, 'Poland'));
-        $connection->insert('country_translation', $languageDE($plId, 'Polen'));
+        $connection->insert('country_translation', $languageZH($plId, '波兰'));
 
         $huId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $huId, 'iso' => 'HU', 'position' => 10, 'iso3' => 'HUN', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($huId, 'Hungary'));
-        $connection->insert('country_translation', $languageDE($huId, 'Ungarn'));
+        $connection->insert('country_translation', $languageZH($huId, '匈牙利'));
 
         $trId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $trId, 'iso' => 'TR', 'position' => 10, 'iso3' => 'TUR', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($trId, 'Turkey'));
-        $connection->insert('country_translation', $languageDE($trId, 'Türkei'));
+        $connection->insert('country_translation', $languageZH($trId, '土耳其'));
 
         $czId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $czId, 'iso' => 'CZ', 'position' => 10, 'iso3' => 'CZE', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($czId, 'Czech Republic'));
-        $connection->insert('country_translation', $languageDE($czId, 'Tschechische Republik'));
+        $connection->insert('country_translation', $languageZH($czId, '捷克'));
 
         $skId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $skId, 'iso' => 'SK', 'position' => 10, 'iso3' => 'SVK', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($skId, 'Slovenia'));
-        $connection->insert('country_translation', $languageDE($skId, 'Slowenien'));
+        $connection->insert('country_translation', $languageZH($skId, '斯洛文尼亚'));
 
         $roId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $roId, 'iso' => 'RO', 'position' => 10, 'iso3' => 'ROU', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($roId, 'Romania'));
-        $connection->insert('country_translation', $languageDE($roId, 'Rumänien'));
+        $connection->insert('country_translation', $languageZH($roId, '罗马尼亚'));
 
         $brId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $brId, 'iso' => 'BR', 'position' => 10, 'iso3' => 'BRA', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($brId, 'Brazil'));
-        $connection->insert('country_translation', $languageDE($brId, 'Brasilien'));
+        $connection->insert('country_translation', $languageZH($brId, '巴西'));
 
         $ilId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $ilId, 'iso' => 'IL', 'position' => 10, 'iso3' => 'ISR', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($ilId, 'Israel'));
-        $connection->insert('country_translation', $languageDE($ilId, 'Israel'));
+        $connection->insert('country_translation', $languageZH($ilId, '以色列'));
 
         $auId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $auId, 'iso' => 'AU', 'position' => 10, 'active' => 1, 'iso3' => 'AUS', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($auId, 'Australia'));
-        $connection->insert('country_translation', $languageDE($auId, 'Australien'));
+        $connection->insert('country_translation', $languageZH($auId, '澳大利亚'));
 
         $beId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $beId, 'iso' => 'BE', 'position' => 10, 'active' => 1, 'iso3' => 'BEL', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($beId, 'Belgium'));
-        $connection->insert('country_translation', $languageDE($beId, 'Belgien'));
+        $connection->insert('country_translation', $languageZH($beId, '比利时'));
 
         $dkId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $dkId, 'iso' => 'DK', 'position' => 10, 'active' => 1, 'iso3' => 'DNK', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($dkId, 'Denmark'));
-        $connection->insert('country_translation', $languageDE($dkId, 'Dänemark'));
+        $connection->insert('country_translation', $languageZH($dkId, '丹麦'));
 
         $fiId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $fiId, 'iso' => 'FI', 'position' => 10, 'active' => 1, 'iso3' => 'FIN', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($fiId, 'Finland'));
-        $connection->insert('country_translation', $languageDE($fiId, 'Finnland'));
+        $connection->insert('country_translation', $languageZH($fiId, '芬兰'));
 
         $frId = Uuid::randomBytes();
         $connection->insert('country', ['id' => $frId, 'iso' => 'FR', 'position' => 10, 'iso3' => 'FRA', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('country_translation', $languageEN($frId, 'France'));
-        $connection->insert('country_translation', $languageDE($frId, 'Frankreich'));
+        $connection->insert('country_translation', $languageZH($frId, '法国'));
     }
 
     private function createCountryStates(Connection $connection, string $countryId, string $countryCode): void
     {
         $data = [
+            'CN' => [
+                'BJ' => 'Beijing',
+                'TJ' => 'Tianjin',
+                'HE' => 'Hebei',
+                'SX' => 'Shanxi',
+                'NM' => 'Inner Mongoria',
+                'LN' => 'Liaoning',
+                'JL' => 'Jilin',
+                'HL' => 'Heilongjiang',
+                'SH' => 'Shanghai',
+                'JS' => 'Jiangsu',
+                'ZJ' => 'Zhejiang',
+                'AH' => 'Anhui',
+                'FJ' => 'Fujian',
+                'JX' => 'Jiangxi',
+                'SD' => 'Shandong',
+                'HA' => 'Henan',
+                'HB' => 'Hubei',
+                'HN' => 'Hunan',
+                'GD' => 'Guangdong',
+                'GX' => 'Guangxi',
+                'HI' => 'Hainan',
+                'CQ' => 'Chongqing',
+                'SC' => 'Sichuan',
+                'GZ' => 'Guizhou',
+                'YN' => 'Yunnan',
+                'XZ' => 'Tibet',
+                'SN' => 'Shanxi',
+                'GS' => 'Gansu',
+                'QH' => 'Qinghai',
+                'NX' => 'Ningxia',
+                'XJ' => 'Xinjiang',
+                'TW' => 'Taiwan',
+                'HK' => 'Hong Kong',
+                'MO' => 'Macao',
+            ],
             'US' => [
                 'US-AL' => 'Alabama',
                 'US-AK' => 'Alaska',
@@ -687,24 +721,60 @@ class Migration1536233560BasicData extends MigrationStep
                 'GB-WRX' => 'Wrexham',
             ],
         ];
-        $germanTranslations = [
+        $chineseTranslations = [
             'DE' => [
-                'DE-BW' => 'Baden-Württemberg',
-                'DE-BY' => 'Bayern',
-                'DE-BE' => 'Berlin',
-                'DE-BB' => 'Brandenburg',
-                'DE-HB' => 'Bremen',
-                'DE-HH' => 'Hamburg',
-                'DE-HE' => 'Hessen',
-                'DE-NI' => 'Niedersachsen',
-                'DE-MV' => 'Mecklenburg-Vorpommern',
-                'DE-NW' => 'Nordrhein-Westfalen',
-                'DE-RP' => 'Rheinland-Pfalz',
-                'DE-SL' => 'Saarland',
-                'DE-SN' => 'Sachsen',
-                'DE-ST' => 'Sachsen-Anhalt',
-                'DE-SH' => 'Schleswig-Holstein',
-                'DE-TH' => 'Thüringen',
+                'DE-BW' => '巴登-符腾堡',
+                'DE-BY' => '巴伐利亚',
+                'DE-BE' => '柏林',
+                'DE-BB' => '勃兰登堡',
+                'DE-HB' => '不来梅',
+                'DE-HH' => '汉堡',
+                'DE-HE' => '黑森',
+                'DE-NI' => '下萨克森',
+                'DE-MV' => '梅克伦堡-前波美拉尼亚',
+                'DE-NW' => '北莱茵-威斯特法伦',
+                'DE-RP' => '莱茵兰-普法尔茨',
+                'DE-SL' => '萨尔州',
+                'DE-SN' => '萨克森',
+                'DE-ST' => '萨克森-安哈尔特',
+                'DE-SH' => '石勒苏益格-荷尔斯泰因',
+                'DE-TH' => '图林根',
+            ],
+            'CN' => [
+                'BJ' => '北京市',
+                'TJ' => '天津市',
+                'HE' => '河北省',
+                'SX' => '山西省',
+                'NM' => '内蒙古自治区',
+                'LN' => '辽宁省',
+                'JL' => '吉林省',
+                'HL' => '黑龙江省',
+                'SH' => '上海市',
+                'JS' => '江苏省',
+                'ZJ' => '浙江省',
+                'AH' => '安徽省',
+                'FJ' => '福建省',
+                'JX' => '江西省',
+                'SD' => '山东省',
+                'HA' => '河南省',
+                'HB' => '湖北省',
+                'HN' => '湖南省',
+                'GD' => '广东省',
+                'GX' => '广西壮族自治区',
+                'HI' => '海南省',
+                'CQ' => '重庆市',
+                'SC' => '四川省',
+                'GZ' => '贵州省',
+                'YN' => '云南省',
+                'XZ' => '西藏自治区',
+                'SN' => '陕西省',
+                'GS' => '甘肃省',
+                'QH' => '青海省',
+                'NX' => '宁夏回族自治区',
+                'XJ' => '新疆维吾尔自治区',
+                'TW' => '台湾省',
+                'HK' => '香港特别行政区',
+                'MO' => '澳门特别行政区',
             ],
         ];
 
@@ -725,9 +795,9 @@ class Migration1536233560BasicData extends MigrationStep
                 'created_at' => $storageDate,
             ]);
 
-            if (isset($germanTranslations[$countryCode])) {
+            if (isset($chineseTranslations[$countryCode])) {
                 $connection->insert('country_state_translation', [
-                    'language_id' => Uuid::fromHexToBytes($this->getDeDeLanguageId()),
+                    'language_id' => Uuid::fromHexToBytes($this->getZhCnLanguageId()),
                     'country_state_id' => $id,
                     'name' => $name,
                     'created_at' => $storageDate,
@@ -738,61 +808,51 @@ class Migration1536233560BasicData extends MigrationStep
 
     private function createCurrency(Connection $connection): void
     {
-        $EUR = Uuid::fromHexToBytes(Defaults::CURRENCY);
+        $CNY = Uuid::fromHexToBytes(Defaults::CURRENCY);
         $USD = Uuid::randomBytes();
         $GBP = Uuid::randomBytes();
+        $EUR = Uuid::randomBytes();
 
         $languageEN = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
-        $languageDE = Uuid::fromHexToBytes($this->getDeDeLanguageId());
+        $languageZH = Uuid::fromHexToBytes($this->getZhCnLanguageId());
 
-        $connection->insert('currency', ['id' => $EUR, 'iso_code' => 'EUR', 'factor' => 1, 'symbol' => '€', 'position' => 1, 'decimal_precision' => 2, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('currency', ['id' => $CNY, 'iso_code' => 'CNY', 'factor' => 1, 'symbol' => '¥', 'position' => 1, 'decimal_precision' => 2, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('currency_translation', ['currency_id' => $CNY, 'language_id' => $languageEN, 'short_name' => 'CNY', 'name' => 'CNY', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('currency_translation', ['currency_id' => $CNY, 'language_id' => $languageZH, 'short_name' => 'CNY', 'name' => '人民币', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+
+        $connection->insert('currency', ['id' => $EUR, 'iso_code' => 'EUR', 'factor' => 0.1205, 'symbol' => '€', 'position' => 1, 'decimal_precision' => 2, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('currency_translation', ['currency_id' => $EUR, 'language_id' => $languageEN, 'short_name' => 'EUR', 'name' => 'Euro', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('currency_translation', ['currency_id' => $EUR, 'language_id' => $languageDE, 'short_name' => 'EUR', 'name' => 'Euro', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('currency_translation', ['currency_id' => $EUR, 'language_id' => $languageZH, 'short_name' => 'EUR', 'name' => '欧元', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
-        $connection->insert('currency', ['id' => $USD, 'iso_code' => 'USD', 'factor' => 1.17085, 'symbol' => '$', 'position' => 1, 'decimal_precision' => 2, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('currency', ['id' => $USD, 'iso_code' => 'USD', 'factor' => 0.1396, 'symbol' => '$', 'position' => 1, 'decimal_precision' => 2, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('currency_translation', ['currency_id' => $USD, 'language_id' => $languageEN, 'short_name' => 'USD', 'name' => 'US-Dollar', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('currency_translation', ['currency_id' => $USD, 'language_id' => $languageDE, 'short_name' => 'USD', 'name' => 'US-Dollar', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('currency_translation', ['currency_id' => $USD, 'language_id' => $languageZH, 'short_name' => 'USD', 'name' => '美元', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
-        $connection->insert('currency', ['id' => $GBP, 'iso_code' => 'GBP', 'factor' => 0.89157, 'symbol' => '£', 'position' => 1, 'decimal_precision' => 2, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('currency', ['id' => $GBP, 'iso_code' => 'GBP', 'factor' => 0.1039, 'symbol' => '£', 'position' => 1, 'decimal_precision' => 2, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('currency_translation', ['currency_id' => $GBP, 'language_id' => $languageEN, 'short_name' => 'GBP', 'name' => 'Pound', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('currency_translation', ['currency_id' => $GBP, 'language_id' => $languageDE, 'short_name' => 'GBP', 'name' => 'Pfund', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('currency_translation', ['currency_id' => $GBP, 'language_id' => $languageZH, 'short_name' => 'GBP', 'name' => '英镑', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createCustomerGroup(Connection $connection): void
     {
         $connection->insert('customer_group', ['id' => Uuid::fromHexToBytes('cfbd5018d38d41d8adca10d94fc8bdd6'), 'display_gross' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('customer_group_translation', ['customer_group_id' => Uuid::fromHexToBytes('cfbd5018d38d41d8adca10d94fc8bdd6'), 'language_id' => Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM), 'name' => 'Standard customer group', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('customer_group_translation', ['customer_group_id' => Uuid::fromHexToBytes('cfbd5018d38d41d8adca10d94fc8bdd6'), 'language_id' => Uuid::fromHexToBytes($this->getDeDeLanguageId()), 'name' => 'Standard-Kundengruppe', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('customer_group_translation', ['customer_group_id' => Uuid::fromHexToBytes('cfbd5018d38d41d8adca10d94fc8bdd6'), 'language_id' => Uuid::fromHexToBytes($this->getZhCnLanguageId()), 'name' => '普通组', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createPaymentMethod(Connection $connection): void
     {
         $languageEN = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
-        $languageDE = Uuid::fromHexToBytes($this->getDeDeLanguageId());
+        $languageZH = Uuid::fromHexToBytes($this->getZhCnLanguageId());
 
         $ruleId = Uuid::randomBytes();
         $connection->insert('rule', ['id' => $ruleId, 'name' => 'Cart >= 0 (Payment)', 'priority' => 100, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('rule_condition', ['id' => Uuid::randomBytes(), 'rule_id' => $ruleId, 'type' => 'cartCartAmount', 'value' => json_encode(['operator' => '>=', 'amount' => 0]), 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
-        $debit = Uuid::randomBytes();
-        $connection->insert('payment_method', ['id' => $debit, 'handler_identifier' => DebitPayment::class, 'position' => 4, 'active' => 0, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('payment_method_translation', ['payment_method_id' => $debit, 'language_id' => $languageEN, 'name' => 'Direct Debit', 'description' => 'Additional text', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('payment_method_translation', ['payment_method_id' => $debit, 'language_id' => $languageDE, 'name' => 'Lastschrift', 'description' => 'Zusatztext', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-
-        $invoice = Uuid::randomBytes();
-        $connection->insert('payment_method', ['id' => $invoice, 'handler_identifier' => InvoicePayment::class, 'position' => 5, 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('payment_method_translation', ['payment_method_id' => $invoice, 'language_id' => $languageEN, 'name' => 'Invoice', 'description' => 'Payment by invoice. HeyFrame provides automatic invoicing for all customers on orders after the first, in order to avoid defaults on payment.', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('payment_method_translation', ['payment_method_id' => $invoice, 'language_id' => $languageDE, 'name' => 'Rechnung', 'description' => 'Sie zahlen einfach und bequem auf Rechnung. HeyFrame bietet z.B. auch die Möglichkeit, Rechnung automatisiert erst ab der 2. Bestellung für Kunden zur Verfügung zu stellen, um Zahlungsausfälle zu vermeiden.', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-
         $cash = Uuid::randomBytes();
         $connection->insert('payment_method', ['id' => $cash, 'handler_identifier' => CashPayment::class, 'position' => 1, 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('payment_method_translation', ['payment_method_id' => $cash, 'language_id' => $languageEN, 'name' => 'Cash on delivery', 'description' => 'Pay when you get the order', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('payment_method_translation', ['payment_method_id' => $cash, 'language_id' => $languageDE, 'name' => 'Nachnahme', 'description' => '', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-
-        $pre = Uuid::randomBytes();
-        $connection->insert('payment_method', ['id' => $pre, 'handler_identifier' => PrePayment::class, 'position' => 2, 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('payment_method_translation', ['payment_method_id' => $pre, 'language_id' => $languageEN, 'name' => 'Paid in advance', 'description' => 'Pay in advance and get your order afterwards', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('payment_method_translation', ['payment_method_id' => $pre, 'language_id' => $languageDE, 'name' => 'Vorkasse', 'description' => 'Sie zahlen einfach vorab und erhalten die Ware bequem und günstig bei Zahlungseingang nach Hause geliefert.', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('payment_method_translation', ['payment_method_id' => $cash, 'language_id' => $languageZH, 'name' => '货到付款', 'description' => '', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createShippingMethod(Connection $connection): void
@@ -807,16 +867,16 @@ class Migration1536233560BasicData extends MigrationStep
         $connection->insert('rule_condition', ['id' => Uuid::randomBytes(), 'rule_id' => $ruleId, 'type' => 'cartCartAmount', 'value' => json_encode(['operator' => '>=', 'amount' => 0]), 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
         $languageEN = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
-        $languageDE = Uuid::fromHexToBytes($this->getDeDeLanguageId());
+        $languageZH = Uuid::fromHexToBytes($this->getZhCnLanguageId());
 
         $connection->insert('shipping_method', ['id' => $standard, 'active' => 1, 'availability_rule_id' => $ruleId, 'delivery_time_id' => $deliveryTimeId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('shipping_method_translation', ['shipping_method_id' => $standard, 'language_id' => $languageEN, 'name' => 'Standard', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('shipping_method_translation', ['shipping_method_id' => $standard, 'language_id' => $languageDE, 'name' => 'Standard', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('shipping_method_translation', ['shipping_method_id' => $standard, 'language_id' => $languageZH, 'name' => '普通快递', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('shipping_method_price', ['id' => Uuid::randomBytes(), 'shipping_method_id' => $standard, 'calculation' => 1, 'currency_id' => Uuid::fromHexToBytes(Defaults::CURRENCY), 'price' => 0, 'quantity_start' => 0, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
         $connection->insert('shipping_method', ['id' => $express, 'active' => 1, 'availability_rule_id' => $ruleId, 'delivery_time_id' => $deliveryTimeId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('shipping_method_translation', ['shipping_method_id' => $express, 'language_id' => $languageEN, 'name' => 'Express', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('shipping_method_translation', ['shipping_method_id' => $express, 'language_id' => $languageDE, 'name' => 'Express', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('shipping_method_translation', ['shipping_method_id' => $express, 'language_id' => $languageZH, 'name' => '顺丰速运', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $connection->insert('shipping_method_price', ['id' => Uuid::randomBytes(), 'shipping_method_id' => $express, 'calculation' => 1, 'currency_id' => Uuid::fromHexToBytes(Defaults::CURRENCY), 'price' => 0, 'quantity_start' => 0, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
@@ -832,42 +892,42 @@ class Migration1536233560BasicData extends MigrationStep
     private function createSalesChannelTypes(Connection $connection): void
     {
         $languageEN = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
-        $languageDE = Uuid::fromHexToBytes($this->getDeDeLanguageId());
+        $languageZH = Uuid::fromHexToBytes($this->getZhCnLanguageId());
 
         $storefront = Uuid::fromHexToBytes(Defaults::SALES_CHANNEL_TYPE_STOREFRONT);
         $storefrontApi = Uuid::fromHexToBytes(Defaults::SALES_CHANNEL_TYPE_API);
 
         $connection->insert('sales_channel_type', ['id' => $storefront, 'icon_name' => 'default-building-shop', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('sales_channel_type_translation', ['sales_channel_type_id' => $storefront, 'language_id' => $languageEN, 'name' => 'Storefront', 'manufacturer' => 'heyframe AG', 'description' => 'Sales channel with HTML storefront', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('sales_channel_type_translation', ['sales_channel_type_id' => $storefront, 'language_id' => $languageDE, 'name' => 'Storefront', 'manufacturer' => 'heyframe AG', 'description' => 'Sales channel mit HTML storefront', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('sales_channel_type_translation', ['sales_channel_type_id' => $storefront, 'language_id' => $languageEN, 'name' => 'Storefront', 'manufacturer' => 'HeyFrame AG', 'description' => 'Sales channel with HTML storefront', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('sales_channel_type_translation', ['sales_channel_type_id' => $storefront, 'language_id' => $languageZH, 'name' => 'Storefront', 'manufacturer' => 'HeyFrame AG', 'description' => '带有 HTML 网页的销售渠道', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
         $connection->insert('sales_channel_type', ['id' => $storefrontApi, 'icon_name' => 'default-shopping-basket', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('sales_channel_type_translation', ['sales_channel_type_id' => $storefrontApi, 'language_id' => $languageEN, 'name' => 'Headless', 'manufacturer' => 'heyframe AG', 'description' => 'API only sales channel', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('sales_channel_type_translation', ['sales_channel_type_id' => $storefrontApi, 'language_id' => $languageDE, 'name' => 'Headless', 'manufacturer' => 'heyframe AG', 'description' => 'API only sales channel', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('sales_channel_type_translation', ['sales_channel_type_id' => $storefrontApi, 'language_id' => $languageEN, 'name' => 'Headless', 'manufacturer' => 'HeyFrame AG', 'description' => 'API only sales channel', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('sales_channel_type_translation', ['sales_channel_type_id' => $storefrontApi, 'language_id' => $languageZH, 'name' => 'Headless', 'manufacturer' => 'HeyFrame AG', 'description' => '仅提供 API 的销售渠道', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createProductManufacturer(Connection $connection): void
     {
         $id = Uuid::randomBytes();
         $languageEN = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
-        $languageDE = Uuid::fromHexToBytes($this->getDeDeLanguageId());
+        $languageZH = Uuid::fromHexToBytes($this->getZhCnLanguageId());
         $versionId = Uuid::fromHexToBytes(Defaults::LIVE_VERSION);
 
         $connection->insert('product_manufacturer', ['id' => $id, 'version_id' => $versionId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('product_manufacturer_translation', ['product_manufacturer_id' => $id, 'product_manufacturer_version_id' => $versionId, 'language_id' => $languageEN, 'name' => 'heyframe AG', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('product_manufacturer_translation', ['product_manufacturer_id' => $id, 'product_manufacturer_version_id' => $versionId, 'language_id' => $languageDE, 'name' => 'heyframe AG', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('product_manufacturer_translation', ['product_manufacturer_id' => $id, 'product_manufacturer_version_id' => $versionId, 'language_id' => $languageEN, 'name' => 'HeyFrame AG', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('product_manufacturer_translation', ['product_manufacturer_id' => $id, 'product_manufacturer_version_id' => $versionId, 'language_id' => $languageZH, 'name' => 'HeyFrame AG', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createRootCategory(Connection $connection): void
     {
         $id = Uuid::randomBytes();
         $languageEN = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
-        $languageDE = Uuid::fromHexToBytes($this->getDeDeLanguageId());
+        $languageZH = Uuid::fromHexToBytes($this->getZhCnLanguageId());
         $versionId = Uuid::fromHexToBytes(Defaults::LIVE_VERSION);
 
         $connection->insert('category', ['id' => $id, 'version_id' => $versionId, 'type' => CategoryDefinition::TYPE_PAGE, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('category_translation', ['category_id' => $id, 'category_version_id' => $versionId, 'language_id' => $languageEN, 'name' => 'Catalogue #1', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('category_translation', ['category_id' => $id, 'category_version_id' => $versionId, 'language_id' => $languageDE, 'name' => 'Katalog #1', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('category_translation', ['category_id' => $id, 'category_version_id' => $versionId, 'language_id' => $languageEN, 'name' => 'HeyFrame Enterprise-Level Full-Stack Development Framework', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('category_translation', ['category_id' => $id, 'category_version_id' => $versionId, 'language_id' => $languageZH, 'name' => 'HeyFrame 企业级全栈开发框架', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createSalesChannel(Connection $connection): void
@@ -884,7 +944,7 @@ class Migration1536233560BasicData extends MigrationStep
 
         $id = Uuid::fromHexToBytes('98432def39fc4624b33213a56b8c944d');
         $languageEN = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
-        $languageDE = Uuid::fromHexToBytes($this->getDeDeLanguageId());
+        $languageZH = Uuid::fromHexToBytes($this->getZhCnLanguageId());
 
         $connection->insert('sales_channel', [
             'id' => $id,
@@ -903,7 +963,7 @@ class Migration1536233560BasicData extends MigrationStep
         ]);
 
         $connection->insert('sales_channel_translation', ['sales_channel_id' => $id, 'language_id' => $languageEN, 'name' => 'Headless', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('sales_channel_translation', ['sales_channel_id' => $id, 'language_id' => $languageDE, 'name' => 'Headless', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('sales_channel_translation', ['sales_channel_id' => $id, 'language_id' => $languageZH, 'name' => 'Headless', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
         // country
         $connection->insert('sales_channel_country', ['sales_channel_id' => $id, 'country_id' => $defaultCountry]);
@@ -934,7 +994,7 @@ class Migration1536233560BasicData extends MigrationStep
     {
         $queue = new MultiInsertQueryQueue($connection);
 
-        $queue->addInsert('snippet_set', ['id' => Uuid::randomBytes(), 'name' => 'BASE de-DE', 'base_file' => 'messages.de-DE', 'iso' => 'de-DE', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $queue->addInsert('snippet_set', ['id' => Uuid::randomBytes(), 'name' => 'BASE zh-CN', 'base_file' => 'messages.zh-CN', 'iso' => 'zh-CN', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
         $queue->addInsert('snippet_set', ['id' => Uuid::randomBytes(), 'name' => 'BASE en-GB', 'base_file' => 'messages.en-GB', 'iso' => 'en-GB', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
 
         $queue->execute();
@@ -1019,10 +1079,10 @@ class Migration1536233560BasicData extends MigrationStep
         $inProgressId = Uuid::randomBytes();
         $canceledId = Uuid::randomBytes();
 
-        $germanId = Uuid::fromHexToBytes($this->getDeDeLanguageId());
+        $chineseId = Uuid::fromHexToBytes($this->getZhCnLanguageId());
         $englishId = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
 
-        $translationDE = ['language_id' => $germanId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
+        $translationZH = ['language_id' => $chineseId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
         $translationEN = ['language_id' => $englishId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
 
         // state machine
@@ -1032,7 +1092,7 @@ class Migration1536233560BasicData extends MigrationStep
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
 
-        $connection->insert('state_machine_translation', array_merge($translationDE, [
+        $connection->insert('state_machine_translation', array_merge($translationZH, [
             'state_machine_id' => $stateMachineId,
             'name' => 'Bestellstatus',
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
@@ -1046,19 +1106,19 @@ class Migration1536233560BasicData extends MigrationStep
 
         // states
         $connection->insert('state_machine_state', ['id' => $openId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderStates::STATE_OPEN, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $openId, 'name' => 'Offen']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $openId, 'name' => '待处理']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $openId, 'name' => 'Open']));
 
         $connection->insert('state_machine_state', ['id' => $completedId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderStates::STATE_COMPLETED, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $completedId, 'name' => 'Abgeschlossen']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $completedId, 'name' => '完成']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $completedId, 'name' => 'Done']));
 
         $connection->insert('state_machine_state', ['id' => $inProgressId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderStates::STATE_IN_PROGRESS, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $inProgressId, 'name' => 'In Bearbeitung']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $inProgressId, 'name' => '处理中']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $inProgressId, 'name' => 'In progress']));
 
         $connection->insert('state_machine_state', ['id' => $canceledId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderStates::STATE_CANCELLED, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $canceledId, 'name' => 'Abgebrochen']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $canceledId, 'name' => '已取消']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $canceledId, 'name' => 'Cancelled']));
 
         // transitions
@@ -1086,10 +1146,10 @@ class Migration1536233560BasicData extends MigrationStep
         $returnedId = Uuid::randomBytes();
         $returnedPartiallyId = Uuid::randomBytes();
 
-        $germanId = Uuid::fromHexToBytes($this->getDeDeLanguageId());
+        $chineseId = Uuid::fromHexToBytes($this->getZhCnLanguageId());
         $englishId = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
 
-        $translationDE = ['language_id' => $germanId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
+        $translationZH = ['language_id' => $chineseId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
         $translationEN = ['language_id' => $englishId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
 
         // state machine
@@ -1099,9 +1159,9 @@ class Migration1536233560BasicData extends MigrationStep
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
 
-        $connection->insert('state_machine_translation', array_merge($translationDE, [
+        $connection->insert('state_machine_translation', array_merge($translationZH, [
             'state_machine_id' => $stateMachineId,
-            'name' => 'Bestellstatus',
+            'name' => '订单状态',
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]));
 
@@ -1113,27 +1173,27 @@ class Migration1536233560BasicData extends MigrationStep
 
         // states
         $connection->insert('state_machine_state', ['id' => $openId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderDeliveryStates::STATE_OPEN, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $openId, 'name' => 'Offen']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $openId, 'name' => '待处理']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $openId, 'name' => 'Open']));
 
         $connection->insert('state_machine_state', ['id' => $shippedId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderDeliveryStates::STATE_SHIPPED, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $shippedId, 'name' => 'Versandt']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $shippedId, 'name' => '已发货']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $shippedId, 'name' => 'Shipped']));
 
         $connection->insert('state_machine_state', ['id' => $shippedPartiallyId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderDeliveryStates::STATE_PARTIALLY_SHIPPED, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $shippedPartiallyId, 'name' => 'Teilweise versandt']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $shippedPartiallyId, 'name' => '已发货 (部分)']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $shippedPartiallyId, 'name' => 'Shipped (partially)']));
 
         $connection->insert('state_machine_state', ['id' => $returnedId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderDeliveryStates::STATE_RETURNED, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $returnedId, 'name' => 'Retour']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $returnedId, 'name' => '已退货']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $returnedId, 'name' => 'Returned']));
 
         $connection->insert('state_machine_state', ['id' => $returnedPartiallyId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderDeliveryStates::STATE_PARTIALLY_RETURNED, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $returnedPartiallyId, 'name' => 'Teilretour']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $returnedPartiallyId, 'name' => '已退货 (部分)']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $returnedPartiallyId, 'name' => 'Returned (partially)']));
 
         $connection->insert('state_machine_state', ['id' => $cancelledId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderDeliveryStates::STATE_CANCELLED, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $cancelledId, 'name' => 'Abgebrochen']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $cancelledId, 'name' => '已取消']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $cancelledId, 'name' => 'Cancelled']));
 
         // transitions
@@ -1170,10 +1230,10 @@ class Migration1536233560BasicData extends MigrationStep
         $refundedId = Uuid::randomBytes();
         $refundedPartiallyId = Uuid::randomBytes();
 
-        $germanId = Uuid::fromHexToBytes($this->getDeDeLanguageId());
+        $germanId = Uuid::fromHexToBytes($this->getZhCnLanguageId());
         $englishId = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
 
-        $translationDE = ['language_id' => $germanId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
+        $translationZH = ['language_id' => $germanId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
         $translationEN = ['language_id' => $englishId, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
 
         // state machine
@@ -1183,9 +1243,9 @@ class Migration1536233560BasicData extends MigrationStep
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
 
-        $connection->insert('state_machine_translation', array_merge($translationDE, [
+        $connection->insert('state_machine_translation', array_merge($translationZH, [
             'state_machine_id' => $stateMachineId,
-            'name' => 'Zahlungsstatus',
+            'name' => '支付状态',
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]));
 
@@ -1197,31 +1257,31 @@ class Migration1536233560BasicData extends MigrationStep
 
         // states
         $connection->insert('state_machine_state', ['id' => $openId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderTransactionStates::STATE_OPEN, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $openId, 'name' => 'Offen']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $openId, 'name' => '待处理']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $openId, 'name' => 'Open']));
 
         $connection->insert('state_machine_state', ['id' => $paidId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderTransactionStates::STATE_PAID, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $paidId, 'name' => 'Bezahlt']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $paidId, 'name' => '已支付']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $paidId, 'name' => 'Paid']));
 
         $connection->insert('state_machine_state', ['id' => $paidPartiallyId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderTransactionStates::STATE_PARTIALLY_PAID, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $paidPartiallyId, 'name' => 'Teilweise bezahlt']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $paidPartiallyId, 'name' => '已支付 (部分)']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $paidPartiallyId, 'name' => 'Paid (partially)']));
 
         $connection->insert('state_machine_state', ['id' => $refundedId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderTransactionStates::STATE_REFUNDED, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $refundedId, 'name' => 'Erstattet']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $refundedId, 'name' => '已退款']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $refundedId, 'name' => 'Refunded']));
 
         $connection->insert('state_machine_state', ['id' => $refundedPartiallyId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderTransactionStates::STATE_PARTIALLY_REFUNDED, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $refundedPartiallyId, 'name' => 'Teilweise erstattet']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $refundedPartiallyId, 'name' => '已退款 (部分)']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $refundedPartiallyId, 'name' => 'Refunded (partially)']));
 
         $connection->insert('state_machine_state', ['id' => $cancelledId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderTransactionStates::STATE_CANCELLED, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $cancelledId, 'name' => 'Abgebrochen']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $cancelledId, 'name' => '已取消']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $cancelledId, 'name' => 'Cancelled']));
 
         $connection->insert('state_machine_state', ['id' => $remindedId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderTransactionStates::STATE_REMINDED, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationDE, ['state_machine_state_id' => $remindedId, 'name' => 'Erinnert']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $remindedId, 'name' => '已提醒']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $remindedId, 'name' => 'Reminded']));
 
         // transitions
@@ -1280,7 +1340,7 @@ class Migration1536233560BasicData extends MigrationStep
     private function createDeliveryTimes(Connection $connection): string
     {
         $languageEn = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
-        $languageDe = Uuid::fromHexToBytes($this->getDeDeLanguageId());
+        $languageZh = Uuid::fromHexToBytes($this->getZhCnLanguageId());
 
         $oneToThree = Uuid::randomBytes();
         $twoToFive = Uuid::randomBytes();
@@ -1289,16 +1349,16 @@ class Migration1536233560BasicData extends MigrationStep
 
         $connection->insert('delivery_time', ['id' => $oneToThree, 'min' => 1, 'max' => 3, 'unit' => DeliveryTimeEntity::DELIVERY_TIME_DAY, 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
         $connection->insert('delivery_time_translation', ['delivery_time_id' => $oneToThree, 'language_id' => $languageEn, 'name' => '1-3 days', 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
-        $connection->insert('delivery_time_translation', ['delivery_time_id' => $oneToThree, 'language_id' => $languageDe, 'name' => '1-3 Tage', 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
+        $connection->insert('delivery_time_translation', ['delivery_time_id' => $oneToThree, 'language_id' => $languageZh, 'name' => '1-3 天', 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
         $connection->insert('delivery_time', ['id' => $twoToFive, 'min' => 2, 'max' => 5, 'unit' => DeliveryTimeEntity::DELIVERY_TIME_DAY, 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
         $connection->insert('delivery_time_translation', ['delivery_time_id' => $twoToFive, 'language_id' => $languageEn, 'name' => '2-5 days', 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
-        $connection->insert('delivery_time_translation', ['delivery_time_id' => $twoToFive, 'language_id' => $languageDe, 'name' => '2-5 Tage', 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
+        $connection->insert('delivery_time_translation', ['delivery_time_id' => $twoToFive, 'language_id' => $languageZh, 'name' => '2-5 天', 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
         $connection->insert('delivery_time', ['id' => $oneToTwoWeeks, 'min' => 1, 'max' => 2, 'unit' => DeliveryTimeEntity::DELIVERY_TIME_WEEK, 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
         $connection->insert('delivery_time_translation', ['delivery_time_id' => $oneToTwoWeeks, 'language_id' => $languageEn, 'name' => '1-2 weeks', 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
-        $connection->insert('delivery_time_translation', ['delivery_time_id' => $oneToTwoWeeks, 'language_id' => $languageDe, 'name' => '1-2 Wochen', 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
+        $connection->insert('delivery_time_translation', ['delivery_time_id' => $oneToTwoWeeks, 'language_id' => $languageZh, 'name' => '1-2 周', 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
         $connection->insert('delivery_time', ['id' => $threeToFourWeeks, 'min' => 3, 'max' => 4, 'unit' => DeliveryTimeEntity::DELIVERY_TIME_WEEK, 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
         $connection->insert('delivery_time_translation', ['delivery_time_id' => $threeToFourWeeks, 'language_id' => $languageEn, 'name' => '3-4 weeks', 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
-        $connection->insert('delivery_time_translation', ['delivery_time_id' => $threeToFourWeeks, 'language_id' => $languageDe, 'name' => '3-4 Wochen', 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
+        $connection->insert('delivery_time_translation', ['delivery_time_id' => $threeToFourWeeks, 'language_id' => $languageZh, 'name' => '3-4 周', 'created_at' => (new \DateTime())->format('Y-m-d H:i:s')]);
 
         return $oneToThree;
     }
@@ -1321,21 +1381,6 @@ class Migration1536233560BasicData extends MigrationStep
 
         $connection->insert('system_config', [
             'id' => Uuid::randomBytes(),
-            'configuration_key' => 'core.newsletter.subscribeDomain',
-            'configuration_value' => '{"_value": "http://localhost"}',
-            'sales_channel_id' => Uuid::fromHexToBytes('98432def39fc4624b33213a56b8c944d'),
-            'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
-        ]);
-
-        $connection->insert('system_config', [
-            'id' => Uuid::randomBytes(),
-            'configuration_key' => 'core.newsletter.doubleOptIn',
-            'configuration_value' => '{"_value": true}',
-            'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
-        ]);
-
-        $connection->insert('system_config', [
-            'id' => Uuid::randomBytes(),
             'configuration_key' => 'core.register.minPasswordLength',
             'configuration_value' => '{"_value": 8}',
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
@@ -1348,19 +1393,19 @@ class Migration1536233560BasicData extends MigrationStep
             'product' => [
                 'id' => Uuid::randomHex(),
                 'global' => 1,
-                'nameDe' => 'Produkt',
+                'nameZh' => '商品',
                 'nameEn' => 'Product',
             ],
             'order' => [
                 'id' => Uuid::randomHex(),
                 'global' => 0,
-                'nameDe' => 'Bestellung',
+                'nameZh' => '订单',
                 'nameEn' => 'Order',
             ],
             'customer' => [
                 'id' => Uuid::randomHex(),
                 'global' => 0,
-                'nameDe' => 'Kunde',
+                'nameZh' => '客户',
                 'nameEn' => 'Customer',
             ],
         ];
@@ -1369,7 +1414,7 @@ class Migration1536233560BasicData extends MigrationStep
             'product' => [
                 'id' => Uuid::randomHex(),
                 'name' => 'Products',
-                'nameDe' => 'Produkte',
+                'nameZh' => '商品',
                 'global' => 1,
                 'typeId' => $definitionNumberRangeTypes['product']['id'],
                 'pattern' => 'SW{n}',
@@ -1378,7 +1423,7 @@ class Migration1536233560BasicData extends MigrationStep
             'order' => [
                 'id' => Uuid::randomHex(),
                 'name' => 'Orders',
-                'nameDe' => 'Bestellungen',
+                'nameZh' => '订单',
                 'global' => 1,
                 'typeId' => $definitionNumberRangeTypes['order']['id'],
                 'pattern' => '{n}',
@@ -1387,7 +1432,7 @@ class Migration1536233560BasicData extends MigrationStep
             'customer' => [
                 'id' => Uuid::randomHex(),
                 'name' => 'Customers',
-                'nameDe' => 'Kunden',
+                'nameZh' => '客户',
                 'global' => 1,
                 'typeId' => $definitionNumberRangeTypes['customer']['id'],
                 'pattern' => '{n}',
@@ -1396,7 +1441,7 @@ class Migration1536233560BasicData extends MigrationStep
         ];
 
         $languageEn = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
-        $languageDe = Uuid::fromHexToBytes($this->getDeDeLanguageId());
+        $languageZh = Uuid::fromHexToBytes($this->getZhCnLanguageId());
 
         foreach ($definitionNumberRangeTypes as $typeName => $numberRangeType) {
             $connection->insert(
@@ -1421,8 +1466,8 @@ class Migration1536233560BasicData extends MigrationStep
                 'number_range_type_translation',
                 [
                     'number_range_type_id' => Uuid::fromHexToBytes($numberRangeType['id']),
-                    'type_name' => $numberRangeType['nameDe'],
-                    'language_id' => $languageDe,
+                    'type_name' => $numberRangeType['nameZh'],
+                    'language_id' => $languageZh,
                     'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
                 ]
             );
@@ -1453,8 +1498,8 @@ class Migration1536233560BasicData extends MigrationStep
                 'number_range_translation',
                 [
                     'number_range_id' => Uuid::fromHexToBytes($numberRange['id']),
-                    'name' => $numberRange['nameDe'],
-                    'language_id' => $languageDe,
+                    'name' => $numberRange['nameZh'],
+                    'language_id' => $languageZh,
                     'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
                 ]
             );
@@ -1464,17 +1509,17 @@ class Migration1536233560BasicData extends MigrationStep
     private function createCmsPages(Connection $connection): void
     {
         $languageEn = Uuid::fromHexToBytes(Defaults::LANGUAGE_SYSTEM);
-        $languageDe = Uuid::fromHexToBytes($this->getDeDeLanguageId());
+        $languageZh = Uuid::fromHexToBytes($this->getZhCnLanguageId());
         $versionId = Uuid::fromHexToBytes(Defaults::LIVE_VERSION);
 
         // cms page
         $page = ['id' => Uuid::randomBytes(), 'type' => 'product_list', 'locked' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
         $pageEng = ['cms_page_id' => $page['id'], 'language_id' => $languageEn, 'name' => 'Default category layout', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
-        $pageDeu = ['cms_page_id' => $page['id'], 'language_id' => $languageDe, 'name' => 'Standard Kategorie-Layout', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
+        $pageChinese = ['cms_page_id' => $page['id'], 'language_id' => $languageZh, 'name' => '默认分类布局', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)];
 
         $connection->insert('cms_page', $page);
         $connection->insert('cms_page_translation', $pageEng);
-        $connection->insert('cms_page_translation', $pageDeu);
+        $connection->insert('cms_page_translation', $pageChinese);
 
         // cms blocks
         $blocks = [
@@ -1560,7 +1605,7 @@ class Migration1536233560BasicData extends MigrationStep
             $slotTranslationDatum['language_id'] = $languageEn;
             $slotTranslations[] = $slotTranslationDatum;
 
-            $slotTranslationDatum['language_id'] = $languageDe;
+            $slotTranslationDatum['language_id'] = $languageZh;
             $slotTranslations[] = $slotTranslationDatum;
         }
 

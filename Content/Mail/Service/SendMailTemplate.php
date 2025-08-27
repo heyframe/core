@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Content\Mail\Service;
 
 use Doctrine\DBAL\Connection;
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Content\Mail\MailException;
 use HeyFrame\Core\Content\MailTemplate\MailTemplateCollection;
 use HeyFrame\Core\Content\MailTemplate\MailTemplateEntity;
@@ -16,6 +15,7 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Framework\Validation\DataBag\DataBag;
 use HeyFrame\Core\System\Locale\LanguageLocaleCodeProvider;
+use Psr\Log\LoggerInterface;
 
 /**
  * This class is responsible for sending mail using user-defined mail templates.

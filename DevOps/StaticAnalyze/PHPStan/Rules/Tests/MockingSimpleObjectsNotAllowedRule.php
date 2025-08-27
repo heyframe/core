@@ -3,6 +3,11 @@
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\Tests;
 
 use GuzzleHttp\Client;
+use HeyFrame\Core\Framework\Context;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Struct\Struct;
+use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
 use PhpParser\Node;
 use PhpParser\Node\Expr\ClassConstFetch;
 use PhpParser\Node\Expr\MethodCall;
@@ -15,11 +20,6 @@ use PHPStan\Reflection\ReflectionProvider;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPUnit\Framework\TestCase;
-use HeyFrame\Core\Framework\Context;
-use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
-use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Struct\Struct;
-use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 

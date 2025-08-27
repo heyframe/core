@@ -2,13 +2,13 @@
 
 namespace HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPrice;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Checkout\Cart\Price\Struct\CartPrice;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Dbal\FieldAccessorBuilder\FieldAccessorBuilderInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
 use HeyFrame\Core\Framework\Log\Package;
+use Psr\Log\LoggerInterface;
 
 #[Package('framework')]
 class CheapestPriceAccessorBuilder implements FieldAccessorBuilderInterface

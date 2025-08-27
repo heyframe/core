@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\Content\Mail\Service;
 
-use Monolog\Level;
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Content\MailTemplate\Service\Event\MailBeforeSentEvent;
 use HeyFrame\Core\Content\MailTemplate\Service\Event\MailBeforeValidateEvent;
 use HeyFrame\Core\Content\MailTemplate\Service\Event\MailErrorEvent;
@@ -25,6 +23,8 @@ use HeyFrame\Core\System\SalesChannel\SalesChannelCollection;
 use HeyFrame\Core\System\SalesChannel\SalesChannelDefinition;
 use HeyFrame\Core\System\SalesChannel\SalesChannelEntity;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
+use Monolog\Level;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Part\DataPart;

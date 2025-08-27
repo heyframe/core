@@ -2,13 +2,13 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 
+use HeyFrame\Core\Content\Product\SalesChannel\Listing\Processor\CompositeListingProcessor;
+use HeyFrame\Core\Framework\Log\Package;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Node\InClassNode;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use HeyFrame\Core\Content\Product\SalesChannel\Listing\Processor\CompositeListingProcessor;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal

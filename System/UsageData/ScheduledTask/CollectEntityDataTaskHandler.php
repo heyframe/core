@@ -2,12 +2,12 @@
 
 namespace HeyFrame\Core\System\UsageData\ScheduledTask;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskCollection;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
 use HeyFrame\Core\System\UsageData\Services\EntityDispatchService;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 /**

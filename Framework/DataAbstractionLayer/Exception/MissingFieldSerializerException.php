@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace HeyFrame\Core\Framework\DataAbstractionLayer\Exception;
 
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Field;
-use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('framework')]
 class MissingFieldSerializerException extends HeyFrameHttpException

@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\Framework\Api\OAuth\Scope;
 
-use League\OAuth2\Server\Entities\ScopeEntityInterface;
 use HeyFrame\Core\Framework\Log\Package;
+use League\OAuth2\Server\Entities\ScopeEntityInterface;
 
 #[Package('framework')]
 class UserVerifiedScope implements ScopeEntityInterface

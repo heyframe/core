@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Adapter\Redis;
 
-use Psr\Container\ContainerInterface;
 use HeyFrame\Core\Framework\Adapter\AdapterException;
 use HeyFrame\Core\Framework\Log\Package;
+use Psr\Container\ContainerInterface;
 
 /**
  * RedisConnection corresponds to a return type of symfony's RedisAdapter::createConnection and may change with symfony update.

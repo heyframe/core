@@ -3,14 +3,14 @@
 namespace HeyFrame\Core\Checkout\Payment\Cart\Token;
 
 use Doctrine\DBAL\Connection;
-use Lcobucci\JWT\Configuration;
-use Lcobucci\JWT\UnencryptedToken;
-use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 use HeyFrame\Core\Checkout\Payment\PaymentException;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Hasher;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\UnencryptedToken;
+use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 
 #[Package('checkout')]
 class JWTFactoryV2 implements TokenFactoryInterfaceV2

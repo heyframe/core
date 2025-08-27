@@ -2,12 +2,12 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\Tests;
 
+use HeyFrame\Core\Framework\Log\Package;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @implements Rule<ClassMethod>

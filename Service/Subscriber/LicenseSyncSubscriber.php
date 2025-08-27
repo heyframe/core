@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Service\Subscriber;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
 use HeyFrame\Core\Framework\App\AppCollection;
 use HeyFrame\Core\Framework\App\AppEntity;
@@ -17,6 +16,7 @@ use HeyFrame\Core\Service\ServiceClientFactory;
 use HeyFrame\Core\Service\ServiceRegistry\Client;
 use HeyFrame\Core\System\SystemConfig\Event\BeforeSystemConfigChangedEvent;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

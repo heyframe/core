@@ -2,6 +2,15 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 
+use HeyFrame\Core\Framework\App\AppUrlChangeResolver\AbstractAppUrlChangeStrategy;
+use HeyFrame\Core\Framework\App\Lifecycle\AbstractAppLifecycle;
+use HeyFrame\Core\Framework\App\Lifecycle\RefreshableAppDryRun;
+use HeyFrame\Core\Framework\App\Lifecycle\Update\AbstractAppUpdater;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\Store\Services\AbstractExtensionDataProvider;
+use HeyFrame\Core\Framework\Store\Services\AbstractExtensionLifecycle;
+use HeyFrame\Core\Framework\Store\Services\AbstractExtensionStoreLicensesService;
+use HeyFrame\Core\Framework\Store\Services\AbstractStoreAppLifecycleService;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Throw_;
 use PHPStan\Analyser\Scope;
@@ -12,15 +21,6 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\IdentifierRuleError;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use HeyFrame\Core\Framework\App\AppUrlChangeResolver\AbstractAppUrlChangeStrategy;
-use HeyFrame\Core\Framework\App\Lifecycle\AbstractAppLifecycle;
-use HeyFrame\Core\Framework\App\Lifecycle\RefreshableAppDryRun;
-use HeyFrame\Core\Framework\App\Lifecycle\Update\AbstractAppUpdater;
-use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\Store\Services\AbstractExtensionDataProvider;
-use HeyFrame\Core\Framework\Store\Services\AbstractExtensionLifecycle;
-use HeyFrame\Core\Framework\Store\Services\AbstractExtensionStoreLicensesService;
-use HeyFrame\Core\Framework\Store\Services\AbstractStoreAppLifecycleService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

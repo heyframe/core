@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\App\Lifecycle\Persister;
 
-use League\MimeTypeDetection\FinfoMimeTypeDetector;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodCollection;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodEntity;
@@ -17,6 +16,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\Log\Package;
+use League\MimeTypeDetection\FinfoMimeTypeDetector;
 
 /**
  * @internal

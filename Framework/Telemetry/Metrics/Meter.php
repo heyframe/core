@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Telemetry\Metrics;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Config\MetricConfigProvider;
@@ -11,6 +10,7 @@ use HeyFrame\Core\Framework\Telemetry\Metrics\Exception\MissingMetricConfigurati
 use HeyFrame\Core\Framework\Telemetry\Metrics\Metric\ConfiguredMetric;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Metric\Metric;
 use HeyFrame\Core\Framework\Telemetry\Metrics\Transport\TransportCollection;
+use Psr\Log\LoggerInterface;
 
 /**
  * @experimental feature:TELEMETRY_METRICS stableVersion:v6.8.0

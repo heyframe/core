@@ -3,11 +3,11 @@
 namespace HeyFrame\Core\Installer\Database;
 
 use Doctrine\DBAL\Connection;
-use Psr\Log\NullLogger;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Migration\MigrationCollectionLoader;
 use HeyFrame\Core\Framework\Migration\MigrationRuntime;
 use HeyFrame\Core\Framework\Migration\MigrationSource;
+use Psr\Log\NullLogger;
 
 /**
  * @internal

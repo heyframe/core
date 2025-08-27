@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace HeyFrame\Core\Content\Flow\Dispatching;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Framework\Event\FlowEventAware;
 use HeyFrame\Core\Framework\Log\Package;
+use Psr\Log\LoggerInterface;
 
 /**
  * @internal not intended for decoration or replacement

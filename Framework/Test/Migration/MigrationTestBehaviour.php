@@ -3,13 +3,13 @@
 namespace HeyFrame\Core\Framework\Test\Migration;
 
 use Doctrine\DBAL\Connection;
-use PHPUnit\Framework\Attributes\After;
-use PHPUnit\Framework\Attributes\Before;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\Migration\MigrationCollection;
 use HeyFrame\Core\Framework\Migration\MigrationCollectionLoader;
 use HeyFrame\Core\Framework\Migration\MigrationSource;
 use HeyFrame\Core\Framework\Test\TestCaseHelper\ReflectionHelper;
+use PHPUnit\Framework\Attributes\After;
+use PHPUnit\Framework\Attributes\Before;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 trait MigrationTestBehaviour

@@ -3,13 +3,13 @@
 namespace HeyFrame\Core\Maintenance\System\Service;
 
 use Doctrine\DBAL\Connection;
-use Psr\EventDispatcher\EventDispatcherInterface;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\RetryableTransaction;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Util\StatementHelper;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Maintenance\MaintenanceException;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Intl\Currencies;
 
 /**

@@ -2,12 +2,12 @@
 
 namespace HeyFrame\Core\Framework\Adapter\Cache;
 
-use Psr\Cache\CacheItemPoolInterface;
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Framework\Adapter\AdapterException;
 use HeyFrame\Core\Framework\Adapter\Cache\Message\CleanupOldCacheFolders;
 use HeyFrame\Core\Framework\Adapter\Cache\ReverseProxy\AbstractReverseProxyGateway;
 use HeyFrame\Core\Framework\Log\Package;
+use Psr\Cache\CacheItemPoolInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Cache\PruneableInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Finder\Finder;

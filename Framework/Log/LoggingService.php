@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Log;
 
+use HeyFrame\Core\Framework\Event\FlowLogEvent;
 use Monolog\Level;
 use Monolog\Logger;
-use HeyFrame\Core\Framework\Event\FlowLogEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

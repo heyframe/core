@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Framework\App\Hmac;
 
 use GuzzleHttp\Psr7\Uri;
-use Psr\Http\Message\UriInterface;
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\App\AppException;
 use HeyFrame\Core\Framework\App\Hmac\Guzzle\AuthMiddleware;
@@ -12,6 +11,7 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Store\Authentication\LocaleProvider;
 use HeyFrame\Core\Framework\Store\InAppPurchase;
+use Psr\Http\Message\UriInterface;
 
 /**
  * @internal only for use by the app-system

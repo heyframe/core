@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Checkout\Cart;
 
 use Doctrine\DBAL\Connection;
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Checkout\Cart\Exception\CartTokenNotFoundException;
 use HeyFrame\Core\Checkout\Cart\Extension\CheckoutCartRuleLoaderExtension;
 use HeyFrame\Core\Checkout\Cart\LineItem\LineItem;
@@ -22,6 +21,7 @@ use HeyFrame\Core\Profiling\Profiler;
 use HeyFrame\Core\System\Country\CountryDefinition;
 use HeyFrame\Core\System\Country\CountryEntity;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use Psr\Log\LoggerInterface;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Service\ResetInterface;
 

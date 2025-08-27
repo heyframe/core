@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Api\ApiDefinition\Generator\OpenApi;
 
-use OpenApi\Annotations\Property;
-use OpenApi\Annotations\Schema;
 use HeyFrame\Core\Content\MeasurementSystem\Field\MeasurementUnitsField;
 use HeyFrame\Core\Framework\Api\ApiDefinition\DefinitionService;
 use HeyFrame\Core\Framework\Api\Context\AdminApiSource;
@@ -41,6 +39,8 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\UpdatedAtField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\VersionField;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use OpenApi\Annotations\Property;
+use OpenApi\Annotations\Schema;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 
 #[Package('framework')]

@@ -16,7 +16,7 @@ use HeyFrame\Core\Framework\Uuid\Uuid;
 #[Package('framework')]
 class Migration1575021466AddCurrencies extends MigrationStep
 {
-    private ?string $deLanguage = null;
+    private ?string $zhLanguage = null;
 
     private ?string $defaultLanguage = null;
 
@@ -43,11 +43,11 @@ class Migration1575021466AddCurrencies extends MigrationStep
 
     private function createCurrencies(Connection $connection): void
     {
-        $this->addCurrency($connection, Uuid::randomBytes(), 'PLN', 4.33, 'zł', 'PLN', 'PLN', 'Złoty', 'Złoty');
-        $this->addCurrency($connection, Uuid::randomBytes(), 'CHF', 1.1, 'Fr', 'CHF', 'CHF', 'Schweizer Franken', 'Swiss francs');
-        $this->addCurrency($connection, Uuid::randomBytes(), 'SEK', 10.51, 'kr', 'SEK', 'SEK', 'Schwedische Kronen', 'Swedish krone');
-        $this->addCurrency($connection, Uuid::randomBytes(), 'DKK', 7.47, 'kr', 'DKK', 'DKK', 'Dänische Kronen', 'Danish krone');
-        $this->addCurrency($connection, Uuid::randomBytes(), 'NOK', 0.099, 'nkr', 'NOK', 'NOK', 'Norwegische Kronen', 'Norwegian krone');
+        $this->addCurrency($connection, Uuid::randomBytes(), 'PLN', 0.5144, 'zł', 'PLN', 'PLN', '波兰兹罗提', 'Złoty');
+        $this->addCurrency($connection, Uuid::randomBytes(), 'CHF', 0.1127, 'Fr', 'CHF', 'CHF', '瑞士法郎', 'Swiss francs');
+        $this->addCurrency($connection, Uuid::randomBytes(), 'SEK', 1.3395, 'kr', 'SEK', 'SEK', '瑞典克朗', 'Swedish krone');
+        $this->addCurrency($connection, Uuid::randomBytes(), 'DKK', 0.8993, 'kr', 'DKK', 'DKK', '丹麦克朗', 'Danish krone');
+        $this->addCurrency($connection, Uuid::randomBytes(), 'NOK', 1.421, 'nkr', 'NOK', 'NOK', '挪威克朗', 'Norwegian krone');
     }
 
     private function addCurrency(
@@ -56,13 +56,13 @@ class Migration1575021466AddCurrencies extends MigrationStep
         string $isoCode,
         float $factor,
         string $symbol,
-        string $shortNameDe,
+        string $shortNameZh,
         string $shortNameEn,
-        string $nameDe,
+        string $nameZh,
         string $nameEn
     ): void {
         $languageEN = $this->getEnLanguageId($connection);
-        $languageDE = $this->getDeLanguageId($connection);
+        $languageDE = $this->getZhLanguageId($connection);
 
         $langId = $connection->fetchOne('
         SELECT `currency`.`id` FROM `currency` WHERE `iso_code` = :code LIMIT 1
@@ -75,18 +75,18 @@ class Migration1575021466AddCurrencies extends MigrationStep
             }
 
             if ($languageDE) {
-                $connection->insert('currency_translation', ['currency_id' => $id, 'language_id' => $languageDE, 'short_name' => $shortNameDe, 'name' => $nameDe, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+                $connection->insert('currency_translation', ['currency_id' => $id, 'language_id' => $languageDE, 'short_name' => $shortNameZh, 'name' => $nameZh, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
             }
         }
     }
 
-    private function getDeLanguageId(Connection $connection): ?string
+    private function getZhLanguageId(Connection $connection): ?string
     {
-        if (!$this->deLanguage) {
-            $this->deLanguage = $this->fetchLanguageId('de-DE', $connection);
+        if (!$this->zhLanguage) {
+            $this->zhLanguage = $this->fetchLanguageId('zh-CN', $connection);
         }
 
-        return $this->deLanguage;
+        return $this->zhLanguage;
     }
 
     private function getEnLanguageId(Connection $connection): ?string

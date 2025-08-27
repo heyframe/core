@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\Content\Mail;
 
+use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\HeyFrameHttpException;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

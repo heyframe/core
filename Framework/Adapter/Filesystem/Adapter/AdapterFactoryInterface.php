@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\Framework\Adapter\Filesystem\Adapter;
 
-use League\Flysystem\FilesystemAdapter;
 use HeyFrame\Core\Framework\Log\Package;
+use League\Flysystem\FilesystemAdapter;
 
 #[Package('framework')]
 interface AdapterFactoryInterface

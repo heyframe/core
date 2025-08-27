@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Test\DataAbstractionLayer\Field;
 
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityExtension;
@@ -14,6 +13,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntityAggregatorInterfac
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\EntitySearcherInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\VersionManager;
 use HeyFrame\Core\System\SalesChannel\Entity\SalesChannelDefinitionInstanceRegistry;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 trait DataAbstractionLayerFieldTestBehaviour

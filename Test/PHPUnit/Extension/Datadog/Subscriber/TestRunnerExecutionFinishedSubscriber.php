@@ -2,12 +2,12 @@
 
 namespace HeyFrame\Core\Test\PHPUnit\Extension\Datadog\Subscriber;
 
-use PHPUnit\Event\TestRunner\ExecutionFinished;
-use PHPUnit\Event\TestRunner\ExecutionFinishedSubscriber;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Test\PHPUnit\Extension\Datadog\DatadogPayload;
 use HeyFrame\Core\Test\PHPUnit\Extension\Datadog\DatadogPayloadCollection;
 use HeyFrame\Core\Test\PHPUnit\Extension\Datadog\Gateway\DatadogGateway;
+use PHPUnit\Event\TestRunner\ExecutionFinished;
+use PHPUnit\Event\TestRunner\ExecutionFinishedSubscriber;
 
 /**
  * @internal

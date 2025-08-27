@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\ProductStream\ScheduledTask;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Content\ProductStream\ProductStreamCollection;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -12,6 +11,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskCollection;
 use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 /**

@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Api\ApiDefinition\Generator;
 
-use OpenApi\Annotations\OpenApi;
 use HeyFrame\Core\Framework\Api\ApiDefinition\ApiDefinitionGeneratorInterface;
 use HeyFrame\Core\Framework\Api\ApiDefinition\DefinitionService;
 use HeyFrame\Core\Framework\Api\ApiDefinition\Generator\OpenApi\OpenApiDefinitionSchemaBuilder;
@@ -14,6 +13,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\TranslatedField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\MappingEntityDefinition;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SalesChannel\Entity\SalesChannelDefinitionInterface;
+use OpenApi\Annotations\OpenApi;
 
 /**
  * @internal

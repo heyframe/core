@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\Test\Integration\Helper;
 
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Content\Flow\Events\FlowSendMailActionEvent;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal

@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Content\Sitemap\Service;
 
-use League\Flysystem\FilesystemOperator;
 use HeyFrame\Core\Content\Sitemap\Struct\Sitemap;
 use HeyFrame\Core\System\SalesChannel\Aggregate\SalesChannelDomain\SalesChannelDomainCollection;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use League\Flysystem\FilesystemOperator;
 use Symfony\Component\Asset\Package;
 
 #[\HeyFrame\Core\Framework\Log\Package('discovery')]

@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\Test\Media;
 
-use PHPUnit\Framework\Attributes\Before;
 use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnailSize\MediaThumbnailSizeCollection;
 use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnailSize\MediaThumbnailSizeEntity;
 use HeyFrame\Core\Content\Media\MediaEntity;
@@ -14,6 +13,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\Test\Integration\Traits\EntityFixturesBase;
+use PHPUnit\Framework\Attributes\Before;
 
 /**
  * @internal

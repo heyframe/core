@@ -2,6 +2,11 @@
 
 namespace HeyFrame\Core\Framework\JWT\Constraints;
 
+use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Framework\JWT\JWTException;
+use HeyFrame\Core\Framework\JWT\Struct\JWKCollection;
+use HeyFrame\Core\Framework\JWT\Struct\JWKStruct;
+use HeyFrame\Core\Framework\Log\Package;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Lcobucci\JWT\Signer\Rsa;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
@@ -11,11 +16,6 @@ use Lcobucci\JWT\Token;
 use Lcobucci\JWT\Validation\Constraint;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use Lcobucci\JWT\Validation\Validator;
-use HeyFrame\Core\Framework\Feature;
-use HeyFrame\Core\Framework\JWT\JWTException;
-use HeyFrame\Core\Framework\JWT\Struct\JWKCollection;
-use HeyFrame\Core\Framework\JWT\Struct\JWKStruct;
-use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('checkout')]
 final readonly class HasValidRSAJWKSignature implements Constraint

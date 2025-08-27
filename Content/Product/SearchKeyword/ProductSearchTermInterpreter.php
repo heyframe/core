@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Content\Product\SearchKeyword;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\SearchConfigLoader;
@@ -15,6 +14,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Term\TokenizerInterface;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\ArrayNormalizer;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use Psr\Log\LoggerInterface;
 
 #[Package('inventory')]
 class ProductSearchTermInterpreter implements ProductSearchTermInterpreterInterface

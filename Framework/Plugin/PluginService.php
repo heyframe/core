@@ -11,13 +11,13 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
+use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\ExceptionCollection;
 use HeyFrame\Core\Framework\Plugin\Exception\PluginComposerJsonInvalidException;
 use HeyFrame\Core\Framework\Plugin\Exception\PluginNotFoundException;
 use HeyFrame\Core\Framework\Plugin\Util\PluginFinder;
 use HeyFrame\Core\Framework\Plugin\Util\VersionSanitizer;
-use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\System\Language\LanguageCollection;
 use Symfony\Component\Filesystem\Filesystem;
 

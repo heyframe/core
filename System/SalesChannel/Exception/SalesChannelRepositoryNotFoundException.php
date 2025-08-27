@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\System\SalesChannel\Exception;
 
-use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('discovery')]
 class SalesChannelRepositoryNotFoundException extends HeyFrameHttpException

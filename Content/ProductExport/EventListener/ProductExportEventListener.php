@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\ProductExport\EventListener;
 
-use League\Flysystem\FilesystemOperator;
 use HeyFrame\Core\Content\ProductExport\ProductExportCollection;
 use HeyFrame\Core\Content\ProductExport\Service\ProductExportFileHandlerInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
@@ -10,6 +9,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityWriteResult;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
+use League\Flysystem\FilesystemOperator;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

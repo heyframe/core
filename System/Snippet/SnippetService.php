@@ -4,8 +4,6 @@ namespace HeyFrame\Core\System\Snippet;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
-use League\Flysystem\FilesystemOperator;
-use Psr\EventDispatcher\EventDispatcherInterface;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Bucket\TermsAggregation;
@@ -22,6 +20,8 @@ use HeyFrame\Core\System\Snippet\Files\AbstractSnippetFile;
 use HeyFrame\Core\System\Snippet\Files\RemoteSnippetFile;
 use HeyFrame\Core\System\Snippet\Files\SnippetFileCollection;
 use HeyFrame\Core\System\Snippet\Filter\SnippetFilterFactory;
+use League\Flysystem\FilesystemOperator;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Translation\MessageCatalogueInterface;
 

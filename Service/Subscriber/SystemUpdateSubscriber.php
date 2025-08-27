@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Service\Subscriber;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Update\Event\UpdatePostFinishEvent;
 use HeyFrame\Core\Service\LifecycleManager;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**

@@ -3,6 +3,7 @@
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\Migration;
 
 use Doctrine\DBAL\Connection;
+use HeyFrame\Core\Framework\Log\Package;
 use PhpParser\Node;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\MethodCall;
@@ -14,7 +15,6 @@ use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\Type\ObjectType;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @implements Rule<MethodCall>

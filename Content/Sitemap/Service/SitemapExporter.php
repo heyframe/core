@@ -2,8 +2,6 @@
 
 namespace HeyFrame\Core\Content\Sitemap\Service;
 
-use League\Flysystem\FilesystemOperator;
-use Psr\Cache\CacheItemPoolInterface;
 use HeyFrame\Core\Checkout\Cart\CartRuleLoader;
 use HeyFrame\Core\Content\Sitemap\Event\SitemapGeneratedEvent;
 use HeyFrame\Core\Content\Sitemap\Event\SitemapGenerationStartEvent;
@@ -15,6 +13,8 @@ use HeyFrame\Core\Content\Sitemap\Struct\UrlResult;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SalesChannel\Aggregate\SalesChannelDomain\SalesChannelDomainCollection;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use League\Flysystem\FilesystemOperator;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 #[Package('discovery')]

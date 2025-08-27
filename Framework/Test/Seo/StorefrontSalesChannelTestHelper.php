@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Test\Seo;
 
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Checkout\Cart\CartRuleLoader;
 use HeyFrame\Core\Checkout\Customer\CustomerCollection;
 use HeyFrame\Core\Checkout\Customer\CustomerEntity;
@@ -19,6 +18,7 @@ use HeyFrame\Core\System\SalesChannel\SalesChannelCollection;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
 use HeyFrame\Core\System\SalesChannel\SalesChannelEntity;
 use HeyFrame\Core\Test\TestDefaults;
+use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\DependencyInjection\Container;
 

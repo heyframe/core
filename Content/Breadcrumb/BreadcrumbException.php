@@ -5,8 +5,8 @@ namespace HeyFrame\Core\Content\Breadcrumb;
 use HeyFrame\Core\Content\Category\CategoryException;
 use HeyFrame\Core\Content\Category\Exception\CategoryNotFoundException;
 use HeyFrame\Core\Content\Product\Exception\ProductNotFoundException;
-use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 use Symfony\Component\HttpFoundation\Response;
 
 #[Package('inventory')]

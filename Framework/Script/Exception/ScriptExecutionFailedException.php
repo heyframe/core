@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Script\Exception;
 
+use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Script\ScriptException;
-use HeyFrame\Core\Framework\HeyFrameHttpException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 

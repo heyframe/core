@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\ProductExport\Service;
 
-use Monolog\Level;
 use HeyFrame\Core\Content\ProductExport\Event\ProductExportLoggingEvent;
 use HeyFrame\Core\Content\ProductExport\Event\ProductExportRenderFooterContextEvent;
 use HeyFrame\Core\Content\ProductExport\Event\ProductExportRenderHeaderContextEvent;
@@ -13,6 +12,7 @@ use HeyFrame\Core\Framework\Adapter\Twig\StringTemplateRenderer;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use Monolog\Level;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 #[Package('inventory')]

@@ -4,8 +4,8 @@ namespace HeyFrame\Core\Checkout\Cart\Order;
 
 use HeyFrame\Core\Checkout\Cart\Cart;
 use HeyFrame\Core\Framework\Context;
-use HeyFrame\Core\Framework\Event\NestedEvent;
 use HeyFrame\Core\Framework\Event\HeyFrameSalesChannelEvent;
+use HeyFrame\Core\Framework\Event\NestedEvent;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
 

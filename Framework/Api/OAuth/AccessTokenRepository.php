@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Core\Framework\Api\OAuth;
 
+use HeyFrame\Core\Framework\Api\OAuth\Client\ApiClient;
+use HeyFrame\Core\Framework\Log\Package;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
-use HeyFrame\Core\Framework\Api\OAuth\Client\ApiClient;
-use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('framework')]
 class AccessTokenRepository implements AccessTokenRepositoryInterface

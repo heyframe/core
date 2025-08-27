@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Content\Media\Core\Application;
 
 use Doctrine\DBAL\Connection;
-use League\Flysystem\FilesystemOperator;
 use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollection;
 use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailEntity;
 use HeyFrame\Core\Content\Media\Core\Params\UrlParams;
@@ -12,6 +11,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\Extensions\ExtensionDispatcher;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use League\Flysystem\FilesystemOperator;
 use Symfony\Contracts\Service\ResetInterface;
 
 /**

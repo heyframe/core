@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Core\Content\Mail\Transport;
 
-use League\Flysystem\FilesystemOperator;
-use League\Flysystem\UnableToRetrieveMetadata;
 use HeyFrame\Core\Content\Mail\Service\Mail;
 use HeyFrame\Core\Content\Mail\Service\MailAttachmentsBuilder;
 use HeyFrame\Core\Framework\Log\Package;
+use League\Flysystem\FilesystemOperator;
+use League\Flysystem\UnableToRetrieveMetadata;
 use Symfony\Component\Mailer\Envelope;
 use Symfony\Component\Mailer\SentMessage;
 use Symfony\Component\Mailer\Transport\TransportInterface;

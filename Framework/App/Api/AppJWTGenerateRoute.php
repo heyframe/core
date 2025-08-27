@@ -3,9 +3,6 @@
 namespace HeyFrame\Core\Framework\App\Api;
 
 use Doctrine\DBAL\Connection;
-use Lcobucci\JWT\Configuration;
-use Lcobucci\JWT\Signer\Hmac\Sha256;
-use Lcobucci\JWT\Signer\Key\InMemory;
 use HeyFrame\Core\Framework\App\AppException;
 use HeyFrame\Core\Framework\App\ShopId\ShopIdProvider;
 use HeyFrame\Core\Framework\Log\Package;
@@ -13,6 +10,9 @@ use HeyFrame\Core\Framework\Routing\StoreApiRouteScope;
 use HeyFrame\Core\Framework\Store\InAppPurchase;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Signer\Key\InMemory;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 

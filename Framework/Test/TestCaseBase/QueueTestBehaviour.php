@@ -3,10 +3,10 @@
 namespace HeyFrame\Core\Framework\Test\TestCaseBase;
 
 use Doctrine\DBAL\Connection;
-use PHPUnit\Framework\Attributes\After;
-use PHPUnit\Framework\Attributes\Before;
 use HeyFrame\Core\Framework\MessageQueue\Subscriber\MessageQueueStatsSubscriber;
 use HeyFrame\Core\Framework\Test\TestCaseHelper\StopWorkerWhenIdleListener;
+use PHPUnit\Framework\Attributes\After;
+use PHPUnit\Framework\Attributes\Before;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\EventDispatcher\EventDispatcher;

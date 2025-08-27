@@ -3,8 +3,8 @@
 namespace HeyFrame\Core\System\SalesChannel\Event;
 
 use HeyFrame\Core\Framework\Context;
-use HeyFrame\Core\Framework\Event\NestedEvent;
 use HeyFrame\Core\Framework\Event\HeyFrameSalesChannelEvent;
+use HeyFrame\Core\Framework\Event\NestedEvent;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
 

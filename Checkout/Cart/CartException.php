@@ -12,11 +12,11 @@ use HeyFrame\Core\Checkout\Order\Exception\EmptyCartException;
 use HeyFrame\Core\Content\Flow\Exception\CustomerDeletedException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\InvalidPriceFieldTypeException;
 use HeyFrame\Core\Framework\Feature;
+use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Rule\Exception\UnsupportedOperatorException;
 use HeyFrame\Core\Framework\Script\Execution\Hook;
-use HeyFrame\Core\Framework\HeyFrameHttpException;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Core\Framework\Test\TestCaseBase;
 
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\Event\EventData\MailRecipientStruct;
-use HeyFrame\Core\Framework\Event\MailAware;
 use HeyFrame\Core\Framework\Event\HeyFrameEvent;
+use HeyFrame\Core\Framework\Event\MailAware;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\EventDispatcher\Event;
 
 trait MailTemplateTestBehaviour

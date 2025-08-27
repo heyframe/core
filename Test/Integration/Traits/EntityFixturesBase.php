@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Test\Integration\Traits;
 
 use Doctrine\DBAL\Connection;
-use PHPUnit\Framework\Attributes\Before;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\DefinitionInstanceRegistry;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
@@ -12,6 +11,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Test\TestCaseBase\KernelLifecycleManager;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use PHPUnit\Framework\Attributes\Before;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

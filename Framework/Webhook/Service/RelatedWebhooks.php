@@ -3,10 +3,10 @@
 namespace HeyFrame\Core\Framework\Webhook\Service;
 
 use Doctrine\DBAL\Connection;
-use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use PHPUnit\Framework\Attributes\CodeCoverageIgnore;
 
 /**
  * @internal

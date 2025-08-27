@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\Content\Flow\Dispatching;
 
-use Psr\Container\ContainerInterface;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;

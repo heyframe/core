@@ -2,11 +2,11 @@
 
 namespace HeyFrame\Core\Test\PHPUnit\Extension\FeatureFlag\Subscriber;
 
-use PHPUnit\Event\Test\Finished;
-use PHPUnit\Event\Test\FinishedSubscriber;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Test\PHPUnit\Extension\FeatureFlag\SavedConfig;
+use PHPUnit\Event\Test\Finished;
+use PHPUnit\Event\Test\FinishedSubscriber;
 
 /**
  * @internal

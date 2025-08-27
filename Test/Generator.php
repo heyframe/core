@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Test;
 
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Checkout\Cart\Cart;
 use HeyFrame\Core\Checkout\Cart\Delivery\Struct\Delivery;
 use HeyFrame\Core\Checkout\Cart\Delivery\Struct\DeliveryCollection;
@@ -36,6 +35,7 @@ use HeyFrame\Core\System\SalesChannel\SalesChannelDefinition;
 use HeyFrame\Core\System\SalesChannel\SalesChannelEntity;
 use HeyFrame\Core\System\Tax\TaxCollection;
 use HeyFrame\Core\System\Tax\TaxEntity;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @internal

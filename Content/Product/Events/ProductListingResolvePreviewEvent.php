@@ -5,8 +5,8 @@ namespace HeyFrame\Core\Content\Product\Events;
 use HeyFrame\Core\Content\Product\ProductException;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use HeyFrame\Core\Framework\Event\NestedEvent;
 use HeyFrame\Core\Framework\Event\HeyFrameSalesChannelEvent;
+use HeyFrame\Core\Framework\Event\NestedEvent;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
 

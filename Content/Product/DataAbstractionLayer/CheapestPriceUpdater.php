@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Content\Product\DataAbstractionLayer;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
-use Psr\EventDispatcher\EventDispatcherInterface;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\CheapestPrice\CheapestPriceContainer;
 use HeyFrame\Core\Content\Product\Events\ProductIndexerEvent;
 use HeyFrame\Core\Framework\Context;
@@ -13,6 +12,7 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Json;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Storefront\Framework\Seo\SeoUrlRoute\SeoUrlUpdateListener;
+use Psr\EventDispatcher\EventDispatcherInterface;
 
 #[Package('framework')]
 class CheapestPriceUpdater

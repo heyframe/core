@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 
+use HeyFrame\Core\Content\Flow\Dispatching\StorableFlow;
+use HeyFrame\Core\Content\Flow\Dispatching\Storer\FlowStorer;
+use HeyFrame\Core\Framework\Log\Package;
 use PhpParser\Node;
 use PhpParser\Node\Expr\MethodCall;
 use PhpParser\Node\Expr\Variable;
@@ -9,9 +12,6 @@ use PhpParser\Node\Identifier;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleErrorBuilder;
-use HeyFrame\Core\Content\Flow\Dispatching\StorableFlow;
-use HeyFrame\Core\Content\Flow\Dispatching\Storer\FlowStorer;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @implements Rule<MethodCall>

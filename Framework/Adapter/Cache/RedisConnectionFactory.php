@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Framework\Adapter\Cache;
 
-use Predis\ClientInterface;
-use Relay\Relay;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\Hasher;
+use Predis\ClientInterface;
+use Relay\Relay;
 use Symfony\Component\Cache\Adapter\RedisAdapter;
 
 /**

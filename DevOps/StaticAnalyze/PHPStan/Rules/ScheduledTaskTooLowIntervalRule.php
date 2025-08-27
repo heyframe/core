@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules;
 
+use HeyFrame\Core\Content\ProductExport\ScheduledTask\ProductExportGenerateTask;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTask;
 use PhpParser\Node;
 use PhpParser\Node\Scalar\LNumber;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -10,9 +13,6 @@ use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
-use HeyFrame\Core\Content\ProductExport\ScheduledTask\ProductExportGenerateTask;
-use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\MessageQueue\ScheduledTask\ScheduledTask;
 
 /**
  * @implements Rule<ClassMethod>

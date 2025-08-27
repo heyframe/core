@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Content\ProductExport\Service;
 
-use Monolog\Level;
 use HeyFrame\Core\Content\ProductExport\Event\ProductExportLoggingEvent;
 use HeyFrame\Core\Content\ProductExport\Exception\ExportInvalidException;
 use HeyFrame\Core\Content\ProductExport\Exception\ExportNotFoundException;
@@ -17,6 +16,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use Monolog\Level;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 #[Package('inventory')]

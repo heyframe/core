@@ -7,10 +7,10 @@ use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Content\Media\Core\Application\MediaReverseProxy;
 use HeyFrame\Core\Content\Media\MediaException;
 use HeyFrame\Core\Framework\Log\Package;
+use Psr\Log\LoggerInterface;
 
 #[Package('discovery')]
 class FastlyMediaReverseProxy implements MediaReverseProxy

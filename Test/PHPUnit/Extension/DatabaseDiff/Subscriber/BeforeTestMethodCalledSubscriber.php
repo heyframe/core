@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Test\PHPUnit\Extension\DatabaseDiff\Subscriber;
 
-use PHPUnit\Event\Test\BeforeTestMethodCalled;
-use PHPUnit\Event\Test\BeforeTestMethodCalledSubscriber as BeforeTestMethodCalledSubscriberInterface;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Test\PHPUnit\Extension\DatabaseDiff\DbState;
+use PHPUnit\Event\Test\BeforeTestMethodCalled;
+use PHPUnit\Event\Test\BeforeTestMethodCalledSubscriber as BeforeTestMethodCalledSubscriberInterface;
 
 /**
  * @internal

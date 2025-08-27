@@ -5,10 +5,10 @@ namespace HeyFrame\Core\Framework\App\Lifecycle\Registration;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
-use Psr\Http\Message\RequestInterface;
 use HeyFrame\Core\Framework\App\AppException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Store\Services\StoreClient;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * @internal only for use by the app-system

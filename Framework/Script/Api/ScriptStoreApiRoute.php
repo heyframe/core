@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Script\Api;
 
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheCompressor;
 use HeyFrame\Core\Framework\Adapter\Cache\Http\HttpCacheKeyGenerator;
 use HeyFrame\Core\Framework\Log\Package;
@@ -11,6 +10,7 @@ use HeyFrame\Core\Framework\Script\Execution\ScriptExecutor;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\SalesChannel\Api\ResponseFields;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\App\Lifecycle\Persister;
 
-use League\MimeTypeDetection\FinfoMimeTypeDetector;
 use HeyFrame\Core\Checkout\Shipping\ShippingMethodCollection;
 use HeyFrame\Core\Checkout\Shipping\ShippingMethodDefinition;
 use HeyFrame\Core\Checkout\Shipping\ShippingMethodEntity;
@@ -18,6 +17,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\Log\Package;
+use League\MimeTypeDetection\FinfoMimeTypeDetector;
 
 /**
  * @internal

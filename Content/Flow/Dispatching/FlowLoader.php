@@ -3,9 +3,9 @@
 namespace HeyFrame\Core\Content\Flow\Dispatching;
 
 use Doctrine\DBAL\Connection;
-use Psr\Log\LoggerInterface;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\FetchModeHelper;
 use HeyFrame\Core\Framework\Log\Package;
+use Psr\Log\LoggerInterface;
 
 /**
  * @internal not intended for decoration or replacement

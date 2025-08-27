@@ -2,9 +2,6 @@
 
 namespace HeyFrame\Core\Content\Media\File;
 
-use League\Flysystem\FilesystemOperator;
-use Psr\Http\Message\StreamFactoryInterface;
-use Psr\Http\Message\StreamInterface;
 use HeyFrame\Core\Content\Media\MediaCollection;
 use HeyFrame\Core\Content\Media\MediaEntity;
 use HeyFrame\Core\Content\Media\MediaException;
@@ -12,6 +9,9 @@ use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Log\Package;
+use League\Flysystem\FilesystemOperator;
+use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Http\Message\StreamInterface;
 
 #[Package('discovery')]
 class FileLoader

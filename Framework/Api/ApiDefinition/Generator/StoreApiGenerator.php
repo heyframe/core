@@ -2,11 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Api\ApiDefinition\Generator;
 
-use http\Exception\RuntimeException;
-use OpenApi\Annotations\License;
-use OpenApi\Annotations\OpenApi;
-use OpenApi\Annotations\Operation;
-use OpenApi\Annotations\Parameter;
 use HeyFrame\Core\Framework\Api\ApiDefinition\ApiDefinitionGeneratorInterface;
 use HeyFrame\Core\Framework\Api\ApiDefinition\DefinitionService;
 use HeyFrame\Core\Framework\Api\ApiDefinition\Generator\OpenApi\OpenApiDefinitionSchemaBuilder;
@@ -15,6 +10,11 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\MappingEntityDefinition;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SalesChannel\Entity\SalesChannelDefinitionInterface;
+use http\Exception\RuntimeException;
+use OpenApi\Annotations\License;
+use OpenApi\Annotations\OpenApi;
+use OpenApi\Annotations\Operation;
+use OpenApi\Annotations\Parameter;
 
 /**
  * @internal

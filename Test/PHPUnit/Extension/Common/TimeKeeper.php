@@ -2,9 +2,9 @@
 
 namespace HeyFrame\Core\Test\PHPUnit\Extension\Common;
 
+use HeyFrame\Core\Framework\Log\Package;
 use PHPUnit\Event\Telemetry\Duration;
 use PHPUnit\Event\Telemetry\HRTime;
-use HeyFrame\Core\Framework\Log\Package;
 
 /**
  * @internal

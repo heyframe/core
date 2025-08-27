@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\System\UsageData\EntitySync;
 
-use Psr\Clock\ClockInterface;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Store\Services\InstanceService;
@@ -10,6 +9,7 @@ use HeyFrame\Core\Framework\Store\Services\StoreService;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\System\SystemConfig\SystemConfigService;
 use HeyFrame\Core\System\UsageData\UsageDataException;
+use Psr\Clock\ClockInterface;
 use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpClient\Exception\ServerException;
 use Symfony\Component\HttpFoundation\Request;

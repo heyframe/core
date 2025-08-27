@@ -3,7 +3,6 @@
 namespace HeyFrame\Core\Content\ProductExport\Service;
 
 use Doctrine\DBAL\Connection;
-use Monolog\Level;
 use HeyFrame\Core\Content\Product\ProductDefinition;
 use HeyFrame\Core\Content\Product\SalesChannel\SalesChannelProductCollection;
 use HeyFrame\Core\Content\ProductExport\Event\ProductExportChangeEncodingEvent;
@@ -31,6 +30,7 @@ use HeyFrame\Core\System\SalesChannel\Context\SalesChannelContextServiceInterfac
 use HeyFrame\Core\System\SalesChannel\Context\SalesChannelContextServiceParameters;
 use HeyFrame\Core\System\SalesChannel\Entity\SalesChannelRepository;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use Monolog\Level;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Twig\Environment;
 

@@ -2,6 +2,9 @@
 
 namespace HeyFrame\Core\Framework\Api\ApiDefinition\Generator\OpenApi;
 
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
+use HeyFrame\Core\Framework\Log\Package;
+use HeyFrame\Core\System\SalesChannel\Entity\SalesChannelDefinitionInterface;
 use OpenApi\Annotations\Delete;
 use OpenApi\Annotations\Get;
 use OpenApi\Annotations\Parameter;
@@ -10,9 +13,6 @@ use OpenApi\Annotations\PathItem;
 use OpenApi\Annotations\Post;
 use OpenApi\Annotations\Response as OpenApiResponse;
 use OpenApi\Annotations\Tag;
-use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
-use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\SalesChannel\Entity\SalesChannelDefinitionInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter;
 

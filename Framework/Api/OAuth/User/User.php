@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\Framework\Api\OAuth\User;
 
-use League\OAuth2\Server\Entities\UserEntityInterface;
 use HeyFrame\Core\Framework\Log\Package;
+use League\OAuth2\Server\Entities\UserEntityInterface;
 
 #[Package('framework')]
 class User implements UserEntityInterface

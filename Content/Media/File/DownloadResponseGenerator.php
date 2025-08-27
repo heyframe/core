@@ -2,10 +2,6 @@
 
 namespace HeyFrame\Core\Content\Media\File;
 
-use League\Flysystem\Filesystem;
-use League\Flysystem\FilesystemOperator;
-use League\Flysystem\UnableToGenerateTemporaryUrl;
-use Psr\Http\Message\StreamInterface;
 use HeyFrame\Core\Content\Media\Core\Application\AbstractMediaUrlGenerator;
 use HeyFrame\Core\Content\Media\Core\Params\UrlParams;
 use HeyFrame\Core\Content\Media\MediaEntity;
@@ -14,6 +10,10 @@ use HeyFrame\Core\Content\Media\MediaService;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\SalesChannel\SalesChannelContext;
+use League\Flysystem\Filesystem;
+use League\Flysystem\FilesystemOperator;
+use League\Flysystem\UnableToGenerateTemporaryUrl;
+use Psr\Http\Message\StreamInterface;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;

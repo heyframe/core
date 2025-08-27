@@ -3,9 +3,9 @@
 namespace HeyFrame\Core\System\StateMachine;
 
 use HeyFrame\Core\Framework\Api\Exception\MissingPrivilegeException;
+use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\System\StateMachine\Exception\IllegalTransitionException;
 use HeyFrame\Core\System\StateMachine\Exception\UnnecessaryTransitionException;
 use Symfony\Component\HttpFoundation\Response;

@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Framework\Api\Controller;
 
-use League\OAuth2\Server\Exception\OAuthServerException;
 use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleCollection;
 use HeyFrame\Core\Framework\Api\Acl\Role\AclRoleDefinition;
 use HeyFrame\Core\Framework\Api\ApiException;
@@ -24,6 +23,7 @@ use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\User\Aggregate\UserAccessKey\UserAccessKeyCollection;
 use HeyFrame\Core\System\User\UserCollection;
 use HeyFrame\Core\System\User\UserDefinition;
+use League\OAuth2\Server\Exception\OAuthServerException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

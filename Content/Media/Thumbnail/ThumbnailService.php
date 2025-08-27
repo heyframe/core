@@ -4,7 +4,6 @@ namespace HeyFrame\Core\Content\Media\Thumbnail;
 
 use Doctrine\DBAL\ArrayParameterType;
 use Doctrine\DBAL\Connection;
-use League\Flysystem\FilesystemOperator;
 use HeyFrame\Core\Content\Media\Aggregate\MediaFolder\MediaFolderCollection;
 use HeyFrame\Core\Content\Media\Aggregate\MediaFolderConfiguration\MediaFolderConfigurationEntity;
 use HeyFrame\Core\Content\Media\Aggregate\MediaThumbnail\MediaThumbnailCollection;
@@ -27,6 +26,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Uuid\Uuid;
+use League\Flysystem\FilesystemOperator;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**

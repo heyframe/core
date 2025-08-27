@@ -8,10 +8,10 @@ use HeyFrame\Core\Content\ImportExport\Exception\InvalidIdentifierException;
 use HeyFrame\Core\Content\ImportExport\Exception\ProcessingException;
 use HeyFrame\Core\Content\ImportExport\Exception\ProfileNotFoundException;
 use HeyFrame\Core\Content\ImportExport\Exception\RequiredByUserException;
+use HeyFrame\Core\Framework\HeyFrameHttpException;
 use HeyFrame\Core\Framework\HttpException;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
-use HeyFrame\Core\Framework\HeyFrameHttpException;
 use Symfony\Component\HttpFoundation\Response;
 
 #[Package('fundamentals@after-sales')]

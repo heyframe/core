@@ -2,8 +2,8 @@
 
 namespace HeyFrame\Core\Framework\Store\Exception;
 
-use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\HeyFrameHttpException;
+use HeyFrame\Core\Framework\Log\Package;
 
 #[Package('checkout')]
 class StoreInvalidCredentialsException extends HeyFrameHttpException

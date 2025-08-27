@@ -2,14 +2,6 @@
 
 namespace HeyFrame\Core\DevOps\StaticAnalyze\PHPStan\Rules\Internal;
 
-use PhpParser\Node;
-use PHPStan\Analyser\Scope;
-use PHPStan\Node\InClassNode;
-use PHPStan\Reflection\ClassReflection;
-use PHPStan\Rules\Rule;
-use PHPStan\Rules\RuleError;
-use PHPStan\Rules\RuleErrorBuilder;
-use PHPUnit\Framework\TestCase;
 use HeyFrame\Core\Framework\Bundle;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Command\RefreshIndexCommand;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Indexing\EntityIndexerRegistry;
@@ -23,6 +15,14 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Migration\MigrationStep;
 use HeyFrame\Core\Framework\Plugin;
 use HeyFrame\Storefront\Controller\StorefrontController;
+use PhpParser\Node;
+use PHPStan\Analyser\Scope;
+use PHPStan\Node\InClassNode;
+use PHPStan\Reflection\ClassReflection;
+use PHPStan\Rules\Rule;
+use PHPStan\Rules\RuleError;
+use PHPStan\Rules\RuleErrorBuilder;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 

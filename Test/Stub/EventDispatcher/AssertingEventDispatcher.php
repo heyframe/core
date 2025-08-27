@@ -2,10 +2,10 @@
 
 namespace HeyFrame\Core\Test\Stub\EventDispatcher;
 
+use HeyFrame\Core\Framework\Test\TestCaseHelper\CallableClass;
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\MockObject\Rule\InvokedCount;
 use PHPUnit\Framework\TestCase;
-use HeyFrame\Core\Framework\Test\TestCaseHelper\CallableClass;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 
 class AssertingEventDispatcher extends EventDispatcher

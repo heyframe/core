@@ -2,7 +2,6 @@
 
 namespace HeyFrame\Core\Service;
 
-use Psr\EventDispatcher\EventDispatcherInterface;
 use HeyFrame\Core\Framework\App\AppEntity;
 use HeyFrame\Core\Framework\App\AppException;
 use HeyFrame\Core\Framework\App\AppExtractor;
@@ -15,6 +14,7 @@ use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\PluginException;
 use HeyFrame\Core\Framework\Util\Filesystem;
 use HeyFrame\Core\Service\Event\ServiceOutdatedEvent;
+use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Filesystem\Filesystem as Io;
 use Symfony\Component\Filesystem\Path;
 
