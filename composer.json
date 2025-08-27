@@ -1,30 +1,19 @@
 {
     "name": "heyframe/core",
     "type": "library",
-    "description": "HeyFrame platform is the core for all HeyFrame ecommerce products.",
+    "description": "HeyFrame platform is the core for all HeyFrame platform products.",
     "keywords": [
-        "heyframe",
-        "shop"
+        "heyframe"
     ],
     "homepage": "https://www.heyframe.net",
-    "license": "MIT",
+    "license": "Apache-2.0",
     "autoload": {
-        "files": [
-            "Framework/Adapter/Doctrine/Patch/AbstractAsset.php"
-        ],
         "exclude-from-classmap": [
             "*/Test/"
         ],
         "psr-4": {
             "HeyFrame\\Core\\": ""
         }
-    },
-    "support": {
-        "issues": "https://github.com/heyframe/heyframe/issues",
-        "forum": "https://forum.heyframe.net",
-        "wiki": "https://developer.heyframe.net",
-        "docs": "https://developer.heyframe.net",
-        "chat": "https://chat.heyframe.net/"
     },
     "extra": {
         "branch-alias": {
