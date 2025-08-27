@@ -226,11 +226,11 @@ class PluginService
          * {
          *     "heyframe-plugin-class":"Swag\\MyDemoData\\MyDemoData",
          *     "label":{
-         *         "de-DE":"Label für das Plugin MyDemoData",
+         *         "zh-CN":"Label für das Plugin MyDemoData",
          *         "en-GB":"Label for the plugin MyDemoData"
          *     },
          *     "description":{
-         *         "de-DE":"Beschreibung für das Plugin MyDemoData",
+         *         "zh-CN":"Beschreibung für das Plugin MyDemoData",
          *         "en-GB":"Description for the plugin MyDemoData"
          *     }
          * }

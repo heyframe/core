@@ -12,10 +12,10 @@ trait ImportTranslationsTrait
 {
     protected function importTranslation(string $table, Translations $translations, Connection $connection): TranslationWriteResult
     {
-        $germanIds = $this->getLanguageIds($connection, 'de-DE');
+        $chineseIds = $this->getLanguageIds($connection, 'zh-CN');
         $englishIds = array_unique(array_diff(
             array_merge($this->getLanguageIds($connection, 'en-GB'), [Defaults::LANGUAGE_SYSTEM]),
-            $germanIds
+            $chineseIds
         ));
 
         $columns = [];
@@ -46,7 +46,7 @@ trait ImportTranslationsTrait
             $connection->executeStatement($sql, $data);
         }
 
-        foreach ($germanIds as $id) {
+        foreach ($chineseIds as $id) {
             $data = array_merge($translations->getGerman(), [
                 'language_id' => Uuid::fromHexToBytes($id),
                 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
@@ -55,7 +55,7 @@ trait ImportTranslationsTrait
             $connection->executeStatement($sql, $data);
         }
 
-        return new TranslationWriteResult($englishIds, $germanIds);
+        return new TranslationWriteResult($englishIds, $chineseIds);
     }
 
     /**

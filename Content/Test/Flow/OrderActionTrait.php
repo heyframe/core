@@ -276,7 +276,7 @@ trait OrderActionTrait
                 'type' => $type,
                 'label' => [
                     'en-GB' => 'lorem_ipsum',
-                    'de-DE' => 'lorem_ipsum',
+                    'zh-CN' => 'lorem_ipsum',
                 ],
             ],
             'customFieldSet' => [

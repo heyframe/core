@@ -21,7 +21,7 @@ use HeyFrame\Core\System\Snippet\Struct\SnippetValidationStruct;
  * }>>
  */
 #[Package('discovery')]
-class SnippetValidator implements SnippetValidatorInterface
+class SnippetValidator
 {
     /**
      * @internal
@@ -33,32 +33,6 @@ class SnippetValidator implements SnippetValidatorInterface
     ) {
     }
 
-    /**
-     * @deprecated tag:v6.8.0 - Will be removed, use `getValidation()` instead
-     *
-     * @return MissingSnippetsArray
-     */
-    public function validate(): array
-    {
-        Feature::triggerDeprecationOrThrow(
-            'v6.8.0.0',
-            'The method  Will be removed, use `getValidation()` instead.'
-        );
-
-        $missingSnippetsArray = [];
-        foreach ($this->getValidation()->missingSnippets as $entry) {
-            $key = $entry->getKeyPath();
-            $missingSnippetsArray[$entry->getMissingForISO()][$key] = [
-                'path' => $entry->getFilePath(),
-                'availableISO' => $entry->getAvailableISO(),
-                'availableValue' => $entry->getAvailableTranslation(),
-                'keyPath' => $key,
-            ];
-        }
-
-        return $missingSnippetsArray;
-    }
-
     public function getValidation(): SnippetValidationStruct
     {
         $files = $this->getAllFiles();
@@ -66,6 +40,7 @@ class SnippetValidator implements SnippetValidatorInterface
         $invalidPluralization = new InvalidPluralizationCollection();
         $snippetFileMappings = [];
         $availableISOs = [];
+
         foreach ($files as $snippetFile) {
             $availableISOs[] = $snippetFile->getIso();
 
