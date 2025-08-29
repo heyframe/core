@@ -12,35 +12,35 @@ use HeyFrame\Core\Framework\Migration\MigrationStep;
  * @codeCoverageIgnore
  */
 #[Package('framework')]
-class Migration1536233060MediaFolderConfiguration extends MigrationStep
+class Migration1597830237Template extends MigrationStep
 {
     public function getCreationTimestamp(): int
     {
-        return 1536233060;
+        return 1597830237;
     }
 
     public function update(Connection $connection): void
     {
         $connection->executeStatement('
-            CREATE TABLE `media_folder_configuration` (
+            CREATE TABLE `app_template` (
               `id` binary(16) NOT NULL,
-              `create_thumbnails` tinyint(1) DEFAULT \'1\',
-              `thumbnail_quality` int DEFAULT \'80\',
-              `media_thumbnail_sizes_ro` longblob,
-              `keep_aspect_ratio` tinyint(1) DEFAULT \'1\',
-              `private` tinyint(1) DEFAULT \'0\',
-              `no_association` tinyint(1) DEFAULT NULL,
-              `custom_fields` json DEFAULT NULL,
+              `template` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+              `path` varchar(1024) COLLATE utf8mb4_unicode_ci NOT NULL,
+              `active` tinyint(1) NOT NULL,
+              `app_id` binary(16) NOT NULL,
               `created_at` datetime(3) NOT NULL,
               `updated_at` datetime(3) DEFAULT NULL,
+              `hash` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
               PRIMARY KEY (`id`),
-              CONSTRAINT `json.media_folder_configuration.custom_fields` CHECK (json_valid(`custom_fields`))
+              KEY `idx.template.path` (`path`(256)),
+              KEY `fk.template.app_id` (`app_id`),
+              CONSTRAINT `fk.template.app_id` FOREIGN KEY (`app_id`) REFERENCES `app` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ');
     }
 
     public function updateDestructive(Connection $connection): void
     {
-        // no destructive changes
+        // nth
     }
 }
