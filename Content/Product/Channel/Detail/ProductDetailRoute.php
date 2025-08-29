@@ -3,9 +3,6 @@
 namespace HeyFrame\Core\Content\Product\Channel\Detail;
 
 use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Content\Category\Service\CategoryBreadcrumbBuilder;
-use HeyFrame\Core\Content\Cms\Channel\ChannelCmsPageLoaderInterface;
-use HeyFrame\Core\Content\Cms\DataResolver\ResolverContext\EntityResolverContext;
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityDefinition;
 use HeyFrame\Core\Content\Product\Channel\AbstractProductCloseoutFilterFactory;
 use HeyFrame\Core\Content\Product\Channel\ChannelProductCollection;
@@ -23,7 +20,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
-use HeyFrame\Core\Framework\Routing\StoreApiRouteScope;
+use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\Profiling\Profiler;
@@ -34,7 +31,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StoreApiRouteScope::ID]])]
+#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 #[Package('inventory')]
 class ProductDetailRoute extends AbstractProductDetailRoute
 {
@@ -48,8 +45,6 @@ class ProductDetailRoute extends AbstractProductDetailRoute
         private readonly SystemConfigService $config,
         private readonly Connection $connection,
         private readonly ProductConfiguratorLoader $configuratorLoader,
-        private readonly CategoryBreadcrumbBuilder $breadcrumbBuilder,
-        private readonly ChannelCmsPageLoaderInterface $cmsPageLoader,
         private readonly ChannelProductDefinition $productDefinition,
         private readonly AbstractProductCloseoutFilterFactory $productCloseoutFilterFactory,
         private readonly EventDispatcherInterface $dispatcher,
@@ -102,10 +97,6 @@ class ProductDetailRoute extends AbstractProductDetailRoute
             $parent = $product->getParentId() ?? $product->getId();
 
             $this->cacheTagCollector->addTag(EntityCacheKeyGenerator::buildProductTag($parent));
-
-            $product->setSeoCategory(
-                $this->breadcrumbBuilder->getProductSeoCategory($product, $context)
-            );
 
             $configurator = $this->configuratorLoader->load($product, $context);
 
