@@ -22,8 +22,6 @@ class ChannelProductEntity extends ProductEntity
 
     protected CalculatedCheapestPrice $calculatedCheapestPrice;
 
-    protected bool $isNew = false;
-
     protected int $calculatedMaxPurchase;
 
     /**
@@ -62,16 +60,6 @@ class ChannelProductEntity extends ProductEntity
     public function setSortedProperties(?PropertyGroupCollection $sortedProperties): void
     {
         $this->sortedProperties = $sortedProperties;
-    }
-
-    public function isNew(): bool
-    {
-        return $this->isNew;
-    }
-
-    public function setIsNew(bool $isNew): void
-    {
-        $this->isNew = $isNew;
     }
 
     public function getCalculatedMaxPurchase(): int
