@@ -110,7 +110,7 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
      */
     public function process(CartDataCollection $data, Cart $original, Cart $toCalculate, ChannelContext $context, CartBehavior $behavior): void
     {
-        Profiler::trace('cart::product::process', function () use ($data, $original, $toCalculate, $context): void {
+        Profiler::trace('cart::product::process', function () use ($original, $toCalculate, $context): void {
             $items = $original->getLineItems()->filterFlatByType(LineItem::PRODUCT_LINE_ITEM_TYPE);
 
             foreach ($items as $item) {
@@ -325,9 +325,9 @@ class ProductCartProcessor implements CartProcessorInterface, CartDataCollectorI
             return $this->buildPriceDefinition($product->getCalculatedPrice(), $quantity);
         }
 
-        // keep loop reference to $price variable to get last quantity price in case of "null"
         $price = $product->getCalculatedPrice();
-        foreach ($product->getCalculatedPrices() as $price) {
+        foreach ($product->getCalculatedPrices() as $calculatedPrice) {
+            $price = $calculatedPrice;
             if ($quantity <= $price->getQuantity()) {
                 break;
             }
