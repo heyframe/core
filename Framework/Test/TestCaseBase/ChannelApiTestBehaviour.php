@@ -107,7 +107,7 @@ trait ChannelApiTestBehaviour
         $browser
             ->request(
                 'POST',
-                '/store-api/account/login',
+                '/front-api/account/login',
                 [
                     'email' => $email,
                     'password' => 'heyframe',
@@ -171,7 +171,6 @@ trait ChannelApiTestBehaviour
         /** @var EntityRepository<ChannelCollection> $channelRepository */
         $channelRepository = static::getContainer()->get('channel.repository');
         $paymentMethod = $this->getAvailablePaymentMethod();
-        $shippingMethod = $this->getAvailableShippingMethod();
 
         $criteria = new Criteria();
         $criteria->addFilter(new EqualsFilter('domains.url', 'http://localhost'));
@@ -191,9 +190,7 @@ trait ChannelApiTestBehaviour
             'currencyId' => Defaults::CURRENCY,
             'paymentMethodId' => $paymentMethod->getId(),
             'paymentMethods' => [['id' => $paymentMethod->getId()]],
-            'shippingMethodId' => $shippingMethod->getId(),
-            'shippingMethods' => [['id' => $shippingMethod->getId()]],
-            'navigationCategoryId' => $this->getValidNavigationId(),
+            'navigationId' => $this->getValidNavigationId(),
             'countryId' => $this->getValidCountryId(null),
             'currencies' => [['id' => Defaults::CURRENCY]],
             'languages' => $channelOverride['languages'] ?? [['id' => Defaults::LANGUAGE_SYSTEM]],
@@ -217,10 +214,9 @@ trait ChannelApiTestBehaviour
     /**
      * @param array<string, mixed> $customerOverride
      */
-    private function createCustomer(?string $email = null, ?bool $guest = false, array $customerOverride = []): string
+    private function createCustomer(?string $email = null, array $customerOverride = []): string
     {
         $customerId = Uuid::randomHex();
-        $addressId = Uuid::randomHex();
 
         if ($email === null) {
             $email = Uuid::randomHex() . '@example.com';
@@ -229,24 +225,10 @@ trait ChannelApiTestBehaviour
         $customer = array_replace_recursive([
             'id' => $customerId,
             'channelId' => TestDefaults::CHANNEL,
-            'defaultShippingAddress' => [
-                'id' => $addressId,
-                'firstName' => 'Max',
-                'lastName' => 'Mustermann',
-                'street' => 'Musterstraße 1',
-                'city' => 'Schöppingen',
-                'zipcode' => '12345',
-                'salutationId' => $this->getValidSalutationId(),
-                'countryId' => $this->getValidCountryId(),
-            ],
-            'defaultBillingAddressId' => $addressId,
             'groupId' => TestDefaults::FALLBACK_CUSTOMER_GROUP,
             'email' => $email,
             'password' => TestDefaults::HASHED_PASSWORD,
-            'firstName' => 'Max',
-            'lastName' => 'Mustermann',
-            'guest' => $guest,
-            'salutationId' => $this->getValidSalutationId(),
+            'nickname' => 'Mustermann',
             'customerNumber' => '12345',
         ], $customerOverride);
 
@@ -289,7 +271,7 @@ trait ChannelApiTestBehaviour
     private function assignChannelContext(?KernelBrowser $customBrowser = null): void
     {
         $browser = $customBrowser ?: $this->getChannelBrowser();
-        $browser->request('GET', '/store-api/context');
+        $browser->request('GET', '/front-api/context');
         $content = $browser->getResponse()->getContent();
         if (!\is_string($content)) {
             throw new \RuntimeException('Response content is not a string');
