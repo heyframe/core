@@ -132,6 +132,11 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
+        <service id="HeyFrame\Core\Checkout\Customer\Subscriber\CustomerWrittenSubscriber">
+            <argument type="service" id="wallet.repository"/>
+            <argument type="service" id="points.repository"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
 
         <service id="HeyFrame\Core\Checkout\Customer\Subscriber\CustomerChangePasswordSubscriber">
             <argument type="service" id="Doctrine\DBAL\Connection"/>
@@ -166,11 +171,6 @@
             <argument type="service" id="event_dispatcher"/>
             <argument type="service" id="HeyFrame\Core\System\Channel\Context\ChannelContextRestorer" />
         </service>
-
-        <service id="HeyFrame\Core\Checkout\Customer\DataAbstractionLayer\CustomerWishlistProductExceptionHandler">
-            <tag name="heyframe.dal.exception_handler"/>
-        </service>
-
 
         <service id="HeyFrame\Core\Checkout\Customer\CustomerValueResolver">
             <tag name="controller.argument_value_resolver" priority="1002"/>
