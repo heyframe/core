@@ -34,8 +34,6 @@ class CustomerException extends HttpException
     public const CUSTOMER_IDS_PARAMETER_IS_MISSING = 'CHECKOUT__CUSTOMER_IDS_PARAMETER_IS_MISSING';
     public const PRODUCT_IDS_PARAMETER_IS_MISSING = 'CHECKOUT__PRODUCT_IDS_PARAMETER_IS_MISSING';
     public const CUSTOMER_AUTH_BAD_CREDENTIALS = 'CHECKOUT__CUSTOMER_AUTH_BAD_CREDENTIALS';
-    public const CUSTOMER_ADDRESS_IS_ACTIVE = 'CHECKOUT__CUSTOMER_ADDRESS_IS_ACTIVE';
-    public const CUSTOMER_GROUP_REGISTRATION_NOT_FOUND = 'CHECKOUT__CUSTOMER_GROUP_REGISTRATION_NOT_FOUND';
     public const CUSTOMER_NOT_FOUND_BY_HASH = 'CHECKOUT__CUSTOMER_NOT_FOUND_BY_HASH';
     public const CUSTOMER_NOT_FOUND_BY_ID = 'CHECKOUT__CUSTOMER_NOT_FOUND_BY_ID';
     public const WISHLIST_IS_NOT_ACTIVATED = 'CHECKOUT__WISHLIST_IS_NOT_ACTIVATED';
@@ -45,7 +43,6 @@ class CustomerException extends HttpException
     public const WISHLIST_PRODUCT_NOT_FOUND = 'CHECKOUT__WISHLIST_PRODUCT_NOT_FOUND';
     public const CUSTOMER_AUTH_THROTTLED = 'CHECKOUT__CUSTOMER_AUTH_THROTTLED';
     public const CUSTOMER_CHANGE_PAYMENT_ERROR = 'CHECKOUT__CUSTOMER_CHANGE_PAYMENT_METHOD_NOT_FOUND';
-    public const CUSTOMER_GUEST_AUTH_INVALID = 'CHECKOUT__CUSTOMER_AUTH_INVALID';
     public const IMITATE_CUSTOMER_INVALID_TOKEN = 'CHECKOUT__IMITATE_CUSTOMER_INVALID_TOKEN';
     public const MISSING_ROUTE_ANNOTATION = 'CHECKOUT__MISSING_ROUTE_ANNOTATION';
     public const MISSING_ROUTE_CHANNEL = 'CHECKOUT__MISSING_ROUTE_CHANNEL';
@@ -152,26 +149,6 @@ class CustomerException extends HttpException
         return new BadCredentialsException();
     }
 
-    public static function cannotDeleteActiveAddress(string $id): HeyFrameHttpException
-    {
-        return new self(
-            Response::HTTP_BAD_REQUEST,
-            self::CUSTOMER_ADDRESS_IS_ACTIVE,
-            'Customer address with id "{{ addressId }}" is an active address and cannot be deleted.',
-            ['addressId' => $id]
-        );
-    }
-
-    public static function customerGroupRegistrationConfigurationNotFound(string $customerGroupId): HeyFrameHttpException
-    {
-        return new self(
-            Response::HTTP_NOT_FOUND,
-            self::CUSTOMER_GROUP_REGISTRATION_NOT_FOUND,
-            'Customer group registration for id {{ customerGroupId }} not found.',
-            ['customerGroupId' => $customerGroupId]
-        );
-    }
-
     public static function customerNotFoundByHash(string $hash): CustomerNotFoundByHashException
     {
         return new CustomerNotFoundByHashException($hash);
@@ -230,15 +207,6 @@ class CustomerException extends HttpException
         return new CustomerAuthThrottledException(
             $waitTime,
             $e
-        );
-    }
-
-    public static function guestAccountInvalidAuth(): HeyFrameHttpException
-    {
-        return new self(
-            Response::HTTP_FORBIDDEN,
-            self::CUSTOMER_GUEST_AUTH_INVALID,
-            'Guest account is not allowed to login'
         );
     }
 
@@ -360,16 +328,6 @@ class CustomerException extends HttpException
             self::INVALID_OPTION,
             'Option "{{ option }}" must be of type "{{ type }}" for constraint {{ constraint }}',
             ['option' => $option, 'type' => $type, 'constraint' => $constraint]
-        );
-    }
-
-    public static function registeredCustomerCannotBeConverted(string $customerId): self
-    {
-        return new self(
-            Response::HTTP_BAD_REQUEST,
-            self::REGISTERED_CUSTOMER_CANNOT_BE_CONVERTED,
-            'Customer with id "{{ customerId }}" is not a guest',
-            ['customerId' => $customerId],
         );
     }
 
