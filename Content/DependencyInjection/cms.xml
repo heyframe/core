@@ -9,5 +9,9 @@
             <tag name="heyframe.entity.definition"/>
         </service>
 
+        <service id="HeyFrame\Core\Content\Cms\Aggregate\CmsPageTranslation\CmsPageTranslationDefinition">
+            <tag name="heyframe.entity.definition"/>
+        </service>
+
     </services>
 </container>
