@@ -86,12 +86,6 @@
             <argument type="service" id="Doctrine\DBAL\Connection"/>
         </service>
 
-        <service id="HeyFrame\Core\Content\Category\Service\CategoryBreadcrumbBuilder">
-            <argument type="service" id="category.repository"/>
-            <argument type="service" id="channel.product.repository"/>
-            <argument type="service" id="Doctrine\DBAL\Connection"/>
-        </service>
-
         <service id="HeyFrame\Core\Content\Category\Service\CategoryUrlGenerator"/>
 
         <service id="HeyFrame\Core\Content\Category\Subscriber\CategorySubscriber">
@@ -108,12 +102,6 @@
 
         <service id="HeyFrame\Core\Content\Category\DataAbstractionLayer\CategoryNonExistentExceptionHandler">
             <tag name="heyframe.dal.exception_handler"/>
-        </service>
-
-        <service id="HeyFrame\Core\Content\Category\Cms\CategoryNavigationCmsElementResolver">
-            <argument type="service" id="HeyFrame\Core\Content\Category\Service\NavigationLoader"/>
-
-            <tag name="heyframe.cms.data_resolver"/>
         </service>
     </services>
 </container>
