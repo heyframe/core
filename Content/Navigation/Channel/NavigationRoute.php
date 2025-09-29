@@ -1,14 +1,15 @@
 <?php declare(strict_types=1);
 
-namespace HeyFrame\Core\Content\Category\Channel;
+namespace HeyFrame\Core\Content\Navigation\Channel;
 
 use Doctrine\DBAL\Connection;
-use HeyFrame\Core\Content\Category\CategoryCollection;
-use HeyFrame\Core\Content\Category\CategoryException;
-use HeyFrame\Core\Content\Category\Service\DefaultCategoryLevelLoaderInterface;
-use HeyFrame\Core\Content\Category\Tree\CategoryTreePathResolver;
+use HeyFrame\Core\Content\Navigation\NavigationCollection;
+use HeyFrame\Core\Content\Navigation\NavigationException;
+use HeyFrame\Core\Content\Navigation\Service\DefaultNavigationLevelLoaderInterface;
+use HeyFrame\Core\Content\Navigation\Tree\NavigationTreePathResolver;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\FetchModeHelper;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use HeyFrame\Core\Framework\Feature;
@@ -18,12 +19,11 @@ use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
-use HeyFrame\Core\System\Channel\Entity\ChannelRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
 /**
- * @phpstan-type CategoryMetaInformation array{id: string, level: int, path: string}
+ * @phpstan-type NavigationMetaInformation array{id: string, level: int, path: string}
  */
 #[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 #[Package('discovery')]
@@ -34,14 +34,14 @@ class NavigationRoute extends AbstractNavigationRoute
     /**
      * @internal
      *
-     * @param ChannelRepository<CategoryCollection> $categoryRepository
+     * @param EntityRepository<NavigationCollection> $navigationRepository
      */
     public function __construct(
         private readonly Connection $connection,
-        private readonly ChannelRepository $categoryRepository,
+        private readonly EntityRepository $navigationRepository,
         private readonly CacheTagCollector $cacheTagCollector,
-        private readonly CategoryTreePathResolver $categoryTreePathResolver,
-        private readonly DefaultCategoryLevelLoaderInterface $categoryLevelLoader,
+        private readonly NavigationTreePathResolver $navigationTreePathResolver,
+        private readonly DefaultNavigationLevelLoaderInterface $navigationLevelLoader,
     ) {
     }
 
@@ -63,7 +63,7 @@ class NavigationRoute extends AbstractNavigationRoute
         throw new DecorationPatternException(self::class);
     }
 
-    #[Route(path: '/front-api/navigation/{activeId}/{rootId}', name: 'store-api.navigation', methods: ['GET', 'POST'], defaults: ['_entity' => 'category'])]
+    #[Route(path: '/front-api/navigation/{activeId}/{rootId}', name: 'front-api.navigation', defaults: ['_entity' => 'navigation'], methods: ['GET', 'POST'])]
     public function load(
         string $activeId,
         string $rootId,
@@ -73,7 +73,7 @@ class NavigationRoute extends AbstractNavigationRoute
     ): NavigationRouteResponse {
         $depth = $request->query->getInt('depth', $request->request->getInt('depth', 2));
 
-        $metaInfo = $this->getCategoryMetaInfo($activeId, $rootId);
+        $metaInfo = $this->getNavigationMetaInfo($activeId, $rootId);
 
         $active = $this->getMetaInfoById($activeId, $metaInfo);
 
@@ -92,10 +92,10 @@ class NavigationRoute extends AbstractNavigationRoute
 
         $root = $this->getMetaInfoById($rootId, $metaInfo);
 
-        // Validate the provided category is part of the sales channel
+        // Validate the provided navigation is part of the sales channel
         $this->validate($activeId, $active['path'], $context);
 
-        $isChild = $this->isChildCategory($activeId, $active['path'], $rootId);
+        $isChild = $this->isChildNavigation($activeId, $active['path'], $rootId);
 
         $activePath = $active['path'];
         // If the provided activeId is not part of the rootId, a fallback to the rootId must be made here.
@@ -106,7 +106,7 @@ class NavigationRoute extends AbstractNavigationRoute
             $activePath = $root['path'];
         }
 
-        $categories = $this->categoryLevelLoader->loadLevels(
+        $categories = $this->navigationLevelLoader->loadLevels(
             $rootId,
             (int) $root['level'],
             $context,
@@ -114,7 +114,7 @@ class NavigationRoute extends AbstractNavigationRoute
             $depth
         );
 
-        $additionalPathsToLoad = $this->categoryTreePathResolver->getAdditionalPathsToLoad($activeId, $activePath, $rootId, $root['path'], $depth);
+        $additionalPathsToLoad = $this->navigationTreePathResolver->getAdditionalPathsToLoad($activeId, $activePath, $rootId, $root['path'], $depth);
 
         if ($additionalPathsToLoad !== []) {
             $categories->merge($this->loadAdditionalPaths($context, clone $criteria, $additionalPathsToLoad));
@@ -130,7 +130,7 @@ class NavigationRoute extends AbstractNavigationRoute
         ChannelContext $context,
         Criteria $criteria,
         array $additionalPaths
-    ): CategoryCollection {
+    ): NavigationCollection {
         $criteria->addFilter(new EqualsAnyFilter('path', $additionalPaths));
 
         $criteria->addAssociation('media');
@@ -138,42 +138,40 @@ class NavigationRoute extends AbstractNavigationRoute
         $criteria->setLimit(null);
         $criteria->setTotalCountMode(Criteria::TOTAL_COUNT_MODE_NONE);
 
-        $levels = $this->categoryRepository->search($criteria, $context)->getEntities();
-
-        return $levels;
+        return $this->navigationRepository->search($criteria, $context)->getEntities();
     }
 
     /**
-     * @return array<string, CategoryMetaInformation>
+     * @return array<string, NavigationMetaInformation>
      */
-    private function getCategoryMetaInfo(string $activeId, string $rootId): array
+    private function getNavigationMetaInfo(string $activeId, string $rootId): array
     {
         $result = $this->connection->fetchAllAssociative('
             # navigation-route::meta-information
             SELECT LOWER(HEX(`id`)), `path`, `level`
-            FROM `category`
+            FROM `navigation`
             WHERE `id` = :activeId OR `id` = :rootId
         ', ['activeId' => Uuid::fromHexToBytes($activeId), 'rootId' => Uuid::fromHexToBytes($rootId)]);
 
         if (!$result) {
-            throw CategoryException::categoryNotFound($activeId);
+            throw NavigationException::navigationNotFound($activeId);
         }
 
-        /** @var array<string, CategoryMetaInformation> $result */
+        /** @var array<string, NavigationMetaInformation> $result */
         $result = FetchModeHelper::groupUnique($result);
 
         return $result;
     }
 
     /**
-     * @param array<string, CategoryMetaInformation> $metaInfo
+     * @param array<string, NavigationMetaInformation> $metaInfo
      *
-     * @return CategoryMetaInformation
+     * @return NavigationMetaInformation
      */
     private function getMetaInfoById(string $id, array $metaInfo): array
     {
         if (!\array_key_exists($id, $metaInfo)) {
-            throw CategoryException::categoryNotFound($id);
+            throw NavigationException::navigationNotFound($id);
         }
 
         return $metaInfo[$id];
@@ -182,21 +180,21 @@ class NavigationRoute extends AbstractNavigationRoute
     private function validate(string $activeId, ?string $path, ChannelContext $context): void
     {
         $ids = array_filter([
-            $context->getChannel()->getFooterCategoryId(),
-            $context->getChannel()->getServiceCategoryId(),
+            $context->getChannel()->getFooterNavigationId(),
+            $context->getChannel()->getServiceNavigationId(),
             $context->getChannel()->getNavigationId(),
         ]);
 
         foreach ($ids as $id) {
-            if ($this->isChildCategory($activeId, $path, $id)) {
+            if ($this->isChildNavigation($activeId, $path, $id)) {
                 return;
             }
         }
 
-        throw CategoryException::categoryNotFound($activeId);
+        throw NavigationException::navigationNotFound($activeId);
     }
 
-    private function isChildCategory(string $activeId, ?string $path, string $rootId): bool
+    private function isChildNavigation(string $activeId, ?string $path, string $rootId): bool
     {
         if ($rootId === $activeId) {
             return true;

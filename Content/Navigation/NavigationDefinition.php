@@ -6,6 +6,7 @@ use HeyFrame\Core\Content\Navigation\Aggregate\NavigationTranslation\NavigationT
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\BoolField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ChildCountField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ChildrenAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
@@ -13,6 +14,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\SearchRanking;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\IdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ParentAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ParentFkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ReferenceVersionField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
@@ -36,7 +38,7 @@ class NavigationDefinition extends EntityDefinition
 
     final public const LINK_TYPE_EXTERNAL = 'external';
 
-    final public const LINK_TYPE_CATEGORY = 'category';
+    final public const LINK_TYPE_CATEGORY = 'navigation';
 
     final public const LINK_TYPE_PRODUCT = 'product';
 
@@ -78,6 +80,7 @@ class NavigationDefinition extends EntityDefinition
             (new StringField('type', 'type'))->addFlags(new ApiAware(), new Required()),
             (new BoolField('visible', 'visible'))->addFlags(new ApiAware()),
             (new BoolField('active', 'active'))->addFlags(new ApiAware()), (new TranslatedField('name'))->addFlags(new ApiAware(), new SearchRanking(SearchRanking::HIGH_SEARCH_RANKING)),
+
             (new TranslatedField('customFields'))->addFlags(new ApiAware()),
             (new TranslatedField('linkType'))->addFlags(new ApiAware()),
             (new TranslatedField('internalLink'))->addFlags(new ApiAware()),
@@ -87,9 +90,13 @@ class NavigationDefinition extends EntityDefinition
             (new TranslatedField('metaTitle'))->addFlags(new ApiAware()),
             (new TranslatedField('metaDescription'))->addFlags(new ApiAware()),
             (new TranslatedField('keywords'))->addFlags(new ApiAware()),
-            new OneToManyAssociationField('navigationChannels', ChannelDefinition::class, 'navigation_category_id'),
-            new OneToManyAssociationField('footerChannels', ChannelDefinition::class, 'footer_category_id'),
-            new OneToManyAssociationField('serviceChannels', ChannelDefinition::class, 'service_category_id'),
+
+            (new ParentAssociationField(self::class, 'id'))->addFlags(new ApiAware()),
+            (new ChildrenAssociationField(self::class))->addFlags(new ApiAware()),
+
+            new OneToManyAssociationField('navigationChannels', ChannelDefinition::class, 'navigation_id'),
+            new OneToManyAssociationField('footerChannels', ChannelDefinition::class, 'footer_navigation_id'),
+            new OneToManyAssociationField('serviceChannels', ChannelDefinition::class, 'service_navigation_id'),
             (new TranslationsAssociationField(NavigationTranslationDefinition::class, 'navigation_id'))->addFlags(new ApiAware(), new Required()),
         ]);
     }
