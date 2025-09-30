@@ -38,7 +38,7 @@ class NavigationDefinition extends EntityDefinition
 
     final public const LINK_TYPE_EXTERNAL = 'external';
 
-    final public const LINK_TYPE_CATEGORY = 'navigation';
+    final public const LINK_TYPE_CATEGORY = 'category';
 
     final public const LINK_TYPE_PRODUCT = 'product';
 
@@ -73,7 +73,8 @@ class NavigationDefinition extends EntityDefinition
             (new VersionField())->addFlags(new ApiAware()),
             (new ParentFkField(self::class))->addFlags(new ApiAware()),
             (new ReferenceVersionField(self::class, 'parent_version_id'))->addFlags(new ApiAware(), new Required()),
-            (new FkField('after_navigation_id', 'afterNavigationyId', self::class))->addFlags(new ApiAware()),
+            (new FkField('after_navigation_id', 'afterNavigationId', self::class))->addFlags(new ApiAware()),
+            (new ReferenceVersionField(self::class, 'after_navigation_version_id'))->addFlags(new ApiAware(), new Required()),
             (new TreeLevelField('level', 'level'))->addFlags(new ApiAware()),
             (new TreePathField('path', 'path'))->addFlags(new ApiAware()),
             (new ChildCountField())->addFlags(new ApiAware()),
