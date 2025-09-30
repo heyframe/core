@@ -13,6 +13,7 @@ use HeyFrame\Core\Content\Product\Aggregate\ProductTranslation\ProductTranslatio
 use HeyFrame\Core\Content\Product\Aggregate\ProductVisibility\ProductVisibilityCollection;
 use HeyFrame\Core\Content\Product\DataAbstractionLayer\VariantListingConfig;
 use HeyFrame\Core\Content\Property\Aggregate\PropertyGroupOption\PropertyGroupOptionCollection;
+use HeyFrame\Core\Content\Seo\MainCategory\MainCategoryCollection;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityExtraFieldsTrait;
@@ -158,6 +159,8 @@ class ProductEntity extends Entity implements \Stringable
     protected ?string $canonicalProductId = null;
 
     protected ?ProductEntity $canonicalProduct = null;
+
+    protected ?MainCategoryCollection $mainCategories = null;
 
     /**
      * @var array<int, string>
@@ -784,5 +787,15 @@ class ProductEntity extends Entity implements \Stringable
     public function setRatingAverage(?float $ratingAverage): void
     {
         $this->ratingAverage = $ratingAverage;
+    }
+
+    public function getMainCategories(): ?MainCategoryCollection
+    {
+        return $this->mainCategories;
+    }
+
+    public function setMainCategories(MainCategoryCollection $mainCategories): void
+    {
+        $this->mainCategories = $mainCategories;
     }
 }

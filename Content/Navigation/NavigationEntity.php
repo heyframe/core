@@ -15,7 +15,9 @@ class NavigationEntity extends Entity
     use EntityIdTrait;
 
     protected ?string $path = null;
+
     protected ?string $parentId = null;
+
     protected int $level;
 
     protected bool $active;
@@ -31,7 +33,9 @@ class NavigationEntity extends Entity
     protected ?string $externalLink = null;
 
     protected bool $visible;
+
     protected int $visibleChildCount = 0;
+
     protected string $type;
 
     protected ?string $description = null;
@@ -41,7 +45,9 @@ class NavigationEntity extends Entity
     protected ?string $metaDescription = null;
 
     protected ?string $keywords = null;
+
     protected ?string $afterNavigationId = null;
+
     protected ?ChannelCollection $navigationChannels = null;
 
     protected ?ChannelCollection $footerChannels = null;
@@ -131,6 +137,33 @@ class NavigationEntity extends Entity
     public function getMetaDescription(): ?string
     {
         return $this->metaDescription;
+    }
+
+    /**
+     * @return array<mixed>
+     */
+    public function getPlainBreadcrumb(): array
+    {
+        $breadcrumb = $this->getTranslation('breadcrumb');
+        if ($breadcrumb === null) {
+            return [];
+        }
+        if ($this->path === null) {
+            return $breadcrumb;
+        }
+
+        $parts = \array_slice(explode('|', $this->path), 1, -1);
+
+        $filtered = [];
+        foreach ($parts as $id) {
+            if (isset($breadcrumb[$id])) {
+                $filtered[$id] = $breadcrumb[$id];
+            }
+        }
+
+        $filtered[$this->getId()] = $breadcrumb[$this->getId()];
+
+        return $filtered;
     }
 
     public function setMetaDescription(?string $metaDescription): void
@@ -247,5 +280,4 @@ class NavigationEntity extends Entity
     {
         $this->visibleChildCount = $visibleChildCount;
     }
-
 }

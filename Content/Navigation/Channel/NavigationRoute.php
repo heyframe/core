@@ -9,7 +9,6 @@ use HeyFrame\Core\Content\Navigation\Service\DefaultNavigationLevelLoaderInterfa
 use HeyFrame\Core\Content\Navigation\Tree\NavigationTreePathResolver;
 use HeyFrame\Core\Framework\Adapter\Cache\CacheTagCollector;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Doctrine\FetchModeHelper;
-use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsAnyFilter;
 use HeyFrame\Core\Framework\Feature;
@@ -19,6 +18,7 @@ use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\Framework\Uuid\Uuid;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
+use HeyFrame\Core\System\Channel\Entity\ChannelRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -34,11 +34,11 @@ class NavigationRoute extends AbstractNavigationRoute
     /**
      * @internal
      *
-     * @param EntityRepository<NavigationCollection> $navigationRepository
+     * @param ChannelRepository<NavigationCollection> $navigationRepository
      */
     public function __construct(
         private readonly Connection $connection,
-        private readonly EntityRepository $navigationRepository,
+        private readonly ChannelRepository $navigationRepository,
         private readonly CacheTagCollector $cacheTagCollector,
         private readonly NavigationTreePathResolver $navigationTreePathResolver,
         private readonly DefaultNavigationLevelLoaderInterface $navigationLevelLoader,

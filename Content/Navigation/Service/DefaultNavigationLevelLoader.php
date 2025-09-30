@@ -4,8 +4,6 @@ namespace HeyFrame\Core\Content\Navigation\Service;
 
 use HeyFrame\Core\Content\Navigation\NavigationCollection;
 use HeyFrame\Core\Content\Navigation\NavigationEntity;
-use HeyFrame\Core\Framework\Context;
-use HeyFrame\Core\Framework\DataAbstractionLayer\EntityRepository;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Bucket\TermsAggregation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Aggregation\Metric\CountAggregation;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\AggregationResult\Bucket\TermsResult;
@@ -17,6 +15,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\OrFilter;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Filter\RangeFilter;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\System\Channel\ChannelContext;
+use HeyFrame\Core\System\Channel\Entity\ChannelRepository;
 
 /**
  * @internal
@@ -25,10 +24,10 @@ use HeyFrame\Core\System\Channel\ChannelContext;
 class DefaultNavigationLevelLoader implements DefaultNavigationLevelLoaderInterface
 {
     /**
-     * @param EntityRepository<NavigationCollection> $navigationRepository
+     * @param ChannelRepository<NavigationCollection> $navigationRepository
      */
     public function __construct(
-        private readonly EntityRepository $navigationRepository,
+        private readonly ChannelRepository $navigationRepository,
     ) {
     }
 
@@ -56,14 +55,14 @@ class DefaultNavigationLevelLoader implements DefaultNavigationLevelLoaderInterf
 
         $criteria->setLimit(null);
 
-        $levels = $this->navigationRepository->search($criteria, $context->getContext())->getEntities();
+        $levels = $this->navigationRepository->search($criteria, $context)->getEntities();
 
-        $this->addVisibilityCounts($rootId, $rootLevel, $depth, $levels, $context->getContext());
+        $this->addVisibilityCounts($rootId, $rootLevel, $depth, $levels, $context);
 
         return $levels;
     }
 
-    private function addVisibilityCounts(string $rootId, int $rootLevel, int $depth, NavigationCollection $levels, Context $context): void
+    private function addVisibilityCounts(string $rootId, int $rootLevel, int $depth, NavigationCollection $levels, ChannelContext $context): void
     {
         $counts = [];
         foreach ($levels as $navigation) {
