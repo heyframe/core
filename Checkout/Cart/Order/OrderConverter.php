@@ -39,13 +39,7 @@ class OrderConverter
 
     final public const ORIGINAL_ID = 'originalId';
 
-    final public const ORIGINAL_ADDRESS_ID = 'originalAddressId';
-
-    final public const ORIGINAL_ADDRESS_VERSION_ID = 'originalAddressVersionId';
-
     final public const ORIGINAL_ORDER_NUMBER = 'originalOrderNumber';
-
-    final public const ORIGINAL_PRIMARY_ORDER_DELIVERY = 'originalPrimaryOrderDelivery';
 
     final public const ORIGINAL_PRIMARY_ORDER_TRANSACTION = 'originalPrimaryOrderTransaction';
 
@@ -177,10 +171,6 @@ class OrderConverter
 
         if ($order->getPrimaryOrderTransactionId()) {
             $cart->addExtension(self::ORIGINAL_PRIMARY_ORDER_TRANSACTION, new IdStruct($order->getPrimaryOrderTransactionId()));
-        }
-
-        if ($order->getPrimaryOrderDeliveryId()) {
-            $cart->addExtension(self::ORIGINAL_PRIMARY_ORDER_DELIVERY, new IdStruct($order->getPrimaryOrderDeliveryId()));
         }
 
         $event = new OrderConvertedEvent($order, $cart, $context);

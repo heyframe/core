@@ -330,7 +330,7 @@ class Migration1536233560BasicData extends MigrationStep
 
         // states
         $connection->insert('state_machine_state', ['id' => $openId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderTransactionStates::STATE_OPEN, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $openId, 'name' => '待处理']));
+        $connection->insert('state_machine_state_translation', array_merge($translationZH, ['state_machine_state_id' => $openId, 'name' => '待支付']));
         $connection->insert('state_machine_state_translation', array_merge($translationEN, ['state_machine_state_id' => $openId, 'name' => 'Open']));
 
         $connection->insert('state_machine_state', ['id' => $paidId, 'state_machine_id' => $stateMachineId, 'technical_name' => OrderTransactionStates::STATE_PAID, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
@@ -487,8 +487,8 @@ class Migration1536233560BasicData extends MigrationStep
                 'nameZh' => '产品',
                 'global' => 1,
                 'typeId' => $definitionNumberRangeTypes['product']['id'],
-                'pattern' => 'SW{n}',
-                'start' => 10000,
+                'pattern' => '{date_ymd}{n}{date_Hs}',
+                'start' => 1000000,
             ],
             'order' => [
                 'id' => Uuid::randomHex(),
@@ -496,8 +496,8 @@ class Migration1536233560BasicData extends MigrationStep
                 'nameZh' => '订单',
                 'global' => 1,
                 'typeId' => $definitionNumberRangeTypes['order']['id'],
-                'pattern' => '{n}',
-                'start' => 10000,
+                'pattern' => '{date_ymd}{n}{date_Hs}',
+                'start' => 1000000,
             ],
             'customer' => [
                 'id' => Uuid::randomHex(),
@@ -505,8 +505,8 @@ class Migration1536233560BasicData extends MigrationStep
                 'nameZh' => '客户',
                 'global' => 1,
                 'typeId' => $definitionNumberRangeTypes['customer']['id'],
-                'pattern' => '{n}',
-                'start' => 10000,
+                'pattern' => '{date_ymd}{n}{date_Hs}',
+                'start' => 1000000,
             ],
         ];
 

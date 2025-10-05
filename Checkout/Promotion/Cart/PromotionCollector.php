@@ -22,7 +22,6 @@ use HeyFrame\Core\Checkout\Promotion\PromotionEntity;
 use HeyFrame\Core\Checkout\Promotion\PromotionException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Exception\InconsistentCriteriaIdsException;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use HeyFrame\Core\Framework\Feature;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Util\HtmlSanitizer;
 use HeyFrame\Core\Framework\Uuid\Uuid;
@@ -177,11 +176,7 @@ class PromotionCollector implements CartDataCollectorInterface
                 $this->addPromotionNotFoundError($this->htmlSanitizer->sanitize((string) $code, null, true), $original);
             }
 
-            // when being in a recalculation, having notifications about the removal of automatic promotion is desired
-            // addition notifications are handled as usual in the PromotionCalculator
-            /** @deprecated tag:v6.8.0 - `$isRecalculation` will be removed without replacement */
-            $isRecalculation = !Feature::isActive('v6.8.0.0') && $behavior->isRecalculation();
-            if ($isRecalculation || $behavior->hasPermission(CheckoutPermissions::AUTOMATIC_PROMOTION_DELETION_NOTICES)) {
+            if ($behavior->hasPermission(CheckoutPermissions::AUTOMATIC_PROMOTION_DELETION_NOTICES)) {
                 $oldPromotions = $original->getLineItems()
                     ->filter(static fn (LineItem $item) => $item->getType() === PromotionProcessor::LINE_ITEM_TYPE && !$item->getReferencedId())
                     ->getElements();

@@ -9,6 +9,7 @@ use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionColl
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEntity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Entity;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityCustomFieldsTrait;
+use HeyFrame\Core\Framework\DataAbstractionLayer\EntityExtraFieldsTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityIdTrait;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Pricing\CashRoundingConfig;
 use HeyFrame\Core\Framework\Log\Package;
@@ -23,6 +24,7 @@ use HeyFrame\Core\System\User\UserEntity;
 class OrderEntity extends Entity
 {
     use EntityCustomFieldsTrait;
+    use EntityExtraFieldsTrait;
     use EntityIdTrait;
 
     protected ?string $orderNumber = null;
@@ -66,10 +68,6 @@ class OrderEntity extends Entity
     protected ?StateMachineStateEntity $stateMachineState = null;
 
     protected string $stateId;
-
-    protected ?string $primaryOrderDeliveryId = null;
-
-    protected ?string $primaryOrderDeliveryVersionId = null;
 
     protected ?OrderTransactionEntity $primaryOrderTransaction = null;
 
@@ -304,16 +302,6 @@ class OrderEntity extends Entity
         $this->positionPrice = $positionPrice;
     }
 
-    public function getPrimaryOrderDeliveryId(): ?string
-    {
-        return $this->primaryOrderDeliveryId;
-    }
-
-    public function setPrimaryOrderDeliveryId(?string $primaryOrderDeliveryId): void
-    {
-        $this->primaryOrderDeliveryId = $primaryOrderDeliveryId;
-    }
-
     public function getPrimaryOrderTransaction(): ?OrderTransactionEntity
     {
         return $this->primaryOrderTransaction;
@@ -484,16 +472,6 @@ class OrderEntity extends Entity
     public function setTotalRounding(?CashRoundingConfig $totalRounding): void
     {
         $this->totalRounding = $totalRounding;
-    }
-
-    public function getPrimaryOrderDeliveryVersionId(): ?string
-    {
-        return $this->primaryOrderDeliveryVersionId;
-    }
-
-    public function setPrimaryOrderDeliveryVersionId(?string $primaryOrderDeliveryVersionId): void
-    {
-        $this->primaryOrderDeliveryVersionId = $primaryOrderDeliveryVersionId;
     }
 
     public function getPrimaryOrderTransactionVersionId(): ?string
