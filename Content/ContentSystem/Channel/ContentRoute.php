@@ -2,21 +2,25 @@
 
 namespace HeyFrame\Core\Content\ContentSystem\Channel;
 
-use HeyFrame\Core\Content\ContentSystem\Compilation\ContentPageBuilder;
+use HeyFrame\Core\Content\ContentSystem\Channel\Struct\ContentPage;
 use HeyFrame\Core\Content\ContentSystem\ContentSystemException;
-use HeyFrame\Core\Content\ContentSystem\Hydration\HydrationService;
-use HeyFrame\Core\Content\ContentSystem\Resolver\EntityIdResolver;
-use HeyFrame\Core\Content\ContentSystem\Resolver\LayoutResolver;
-use HeyFrame\Core\Content\ContentSystem\Routing\ContentRouter;
+use HeyFrame\Core\Content\ContentSystem\Hydration\ContentElementHydrator;
+use HeyFrame\Core\Content\ContentSystem\Layout\Refinery\RefinedLayoutBuilder;
+use HeyFrame\Core\Content\ContentSystem\Routing\IdResolution\EntityIdResolver;
+use HeyFrame\Core\Content\ContentSystem\Routing\LayoutResolution\LayoutResolver;
+use HeyFrame\Core\Content\ContentSystem\Routing\Router\ContentRouter;
 use HeyFrame\Core\Framework\Log\Package;
 use HeyFrame\Core\Framework\Plugin\Exception\DecorationPatternException;
-use HeyFrame\Core\Framework\Routing\StoreApiRouteScope;
+use HeyFrame\Core\Framework\Routing\FrontApiRouteScope;
 use HeyFrame\Core\PlatformRequest;
 use HeyFrame\Core\System\Channel\ChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [StoreApiRouteScope::ID]])]
+/**
+ * @final
+ */
+#[Route(defaults: [PlatformRequest::ATTRIBUTE_ROUTE_SCOPE => [FrontApiRouteScope::ID]])]
 #[Package('discovery')]
 class ContentRoute extends AbstractContentRoute
 {
@@ -27,8 +31,8 @@ class ContentRoute extends AbstractContentRoute
         private readonly ContentRouter $contentRouter,
         private readonly EntityIdResolver $entityIdResolver,
         private readonly LayoutResolver $layoutResolver,
-        private readonly ContentPageBuilder $contentPageBuilder,
-        private readonly HydrationService $hydrationService
+        private readonly RefinedLayoutBuilder $refinedLayoutBuilder,
+        private readonly ContentElementHydrator $hydrationService
     ) {
     }
 
@@ -41,56 +45,94 @@ class ContentRoute extends AbstractContentRoute
         path: '/store-api/content/{path}',
         name: 'store-api.content.detail',
         requirements: ['path' => '.+'],
-        defaults: ['_httpCache' => true],
+        defaults: [
+            '_httpCache' => true,
+            'excludes' => [
+                'content_element' => [
+                    'dataRequirements',
+                    'properties',
+                    'contextDefinitions',
+                ],
+            ],
+        ],
         methods: ['GET', 'POST']
     )]
     public function load(string $path, Request $request, ChannelContext $context): ContentRouteResponse
     {
-        // Normalize path (ensure leading slash)
         $pathInfo = '/' . ltrim($path, '/');
 
-        // Phase 1: Match content route
         $match = $this->contentRouter->match($pathInfo, $context);
 
         if ($match === null) {
-            throw ContentSystemException::routeNotFound($pathInfo);
+            throw ContentSystemException::contentNotFound($pathInfo);
         }
 
         $route = $match->getRoute();
 
-        // Phase 2: Resolve entity IDs
-        $resolvedData = $this->entityIdResolver->resolve($match, $context);
+        try {
+            $resolvedData = $this->entityIdResolver->resolve($match, $context);
+        } catch (\Throwable $e) {
+            throw ContentSystemException::resolutionFailed($route->getName(), $e->getMessage(), $e);
+        }
 
         if ($resolvedData === null) {
-            throw ContentSystemException::entityNotResolved('unknown', $pathInfo);
-        }
+            $parameterBinding = $route->getParameterBinding();
+            $parameters = $match->getParameters();
 
-        // Phase 2: Resolve layout ID
-        $layoutId = $route->getLayoutId();
+            $firstParam = array_key_first($parameterBinding);
+            if ($firstParam !== null) {
+                $paramConfig = $parameterBinding[$firstParam];
+                $entityType = $paramConfig['resolution']['entity'] ?? 'entity';
+                $matchField = $paramConfig['resolution']['match_field'] ?? 'id';
+                $value = $parameters[$firstParam] ?? 'unknown';
 
-        if ($layoutId === null) {
-            // Use dynamic layout resolution
-            $layoutId = $this->layoutResolver->resolve($match, $resolvedData, $context);
-
-            if ($layoutId === null) {
-                throw ContentSystemException::layoutNotResolved('unknown', 'unknown');
+                throw ContentSystemException::entityNotFound($entityType, $value, $matchField);
             }
 
-            $resolvedData->setResolvedLayoutId($layoutId);
+            throw ContentSystemException::entityNotFound('entity', $pathInfo, 'path');
         }
 
-        // Phase 3: Build content page
-        $contentPage = $this->contentPageBuilder->build($layoutId, $resolvedData, $context->getContext());
-
-        if ($contentPage === null) {
-            throw ContentSystemException::layoutNotResolved('unknown', 'unknown');
+        try {
+            $layoutId = $this->layoutResolver->resolve($match, $resolvedData, $context);
+        } catch (\Throwable $e) {
+            throw ContentSystemException::resolutionFailed($route->getName(), $e->getMessage(), $e);
         }
 
-        // Set route and matched parameters
-        $contentPage->setRoute($route);
+        if ($layoutId === null) {
+            $entityIds = $resolvedData->getEntityIds();
+            $entityIdsArray = $entityIds->toArray();
+            $firstEntityKey = array_key_first($entityIdsArray);
+            $entityType = $firstEntityKey !== null ? str_replace('_id', '', $firstEntityKey) : 'entity';
+            $entityId = $firstEntityKey !== null ? $entityIdsArray[$firstEntityKey] : 'unknown';
 
-        // Phase 4: Hydrate entities
-        $this->hydrationService->hydrate($contentPage, $context->getContext());
+            throw ContentSystemException::layoutAssignmentNotFound(
+                $entityType,
+                $entityId,
+                $context->getChannel()->getId()
+            );
+        }
+
+        $resolvedData->setResolvedLayoutId($layoutId);
+
+        try {
+            $refinedLayout = $this->refinedLayoutBuilder->build($layoutId, $resolvedData, $context);
+        } catch (\Throwable $e) {
+            throw ContentSystemException::layoutRefineryFailed($layoutId, $e->getMessage(), $e);
+        }
+
+        try {
+            $this->hydrationService->hydrate($refinedLayout, $context);
+        } catch (\Throwable $e) {
+            throw ContentSystemException::hydrationFailed($e->getMessage(), $e);
+        }
+
+        $contentPage = new ContentPage(
+            layoutId: $layoutId,
+            layout: $refinedLayout->rootElement,
+            layoutName: $refinedLayout->layoutEntity->getName(),
+            layoutVersion: $refinedLayout->layoutEntity->getVersionId(),
+            route: $route
+        );
 
         return new ContentRouteResponse($contentPage);
     }

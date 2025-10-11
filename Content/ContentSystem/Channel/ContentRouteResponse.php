@@ -2,17 +2,26 @@
 
 namespace HeyFrame\Core\Content\ContentSystem\Channel;
 
-use HeyFrame\Core\Content\ContentSystem\Channel\Struct\ContentPageStruct;
+use HeyFrame\Core\Content\ContentSystem\Channel\Struct\ContentPage;
+use HeyFrame\Core\Content\ContentSystem\Channel\Struct\DecomposedContentPage;
 use HeyFrame\Core\Framework\Log\Package;
-use HeyFrame\Core\System\Channel\StoreApiResponse;
+use HeyFrame\Core\System\Channel\FrontApiResponse;
 
 /**
- * @extends StoreApiResponse<ContentPageStruct>
+ * @final
+ *
+ * @extends FrontApiResponse<DecomposedContentPage>
  */
 #[Package('discovery')]
-class ContentRouteResponse extends StoreApiResponse
+class ContentRouteResponse extends FrontApiResponse
 {
-    public function getContentPage(): ContentPageStruct
+    public function __construct(
+        public readonly ContentPage $contentPage,
+    ) {
+        parent::__construct($this->contentPage->getDecomposedContentPage());
+    }
+
+    public function getDecomposedContentPage(): DecomposedContentPage
     {
         return $this->object;
     }
