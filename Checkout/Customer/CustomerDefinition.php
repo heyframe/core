@@ -3,12 +3,13 @@
 namespace HeyFrame\Core\Checkout\Customer;
 
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerGroup\CustomerGroupDefinition;
+use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerMembership\CustomerMembershipDefinition;
 use HeyFrame\Core\Checkout\Customer\Aggregate\CustomerTag\CustomerTagDefinition;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerDefinition;
 use HeyFrame\Core\Checkout\Payment\PaymentMethodDefinition;
+use HeyFrame\Core\Checkout\Points\PointsDefinition;
+use HeyFrame\Core\Checkout\Wallet\WalletDefinition;
 use HeyFrame\Core\Content\Media\MediaDefinition;
-use HeyFrame\Core\Framework\Api\Acl\Front\Role\CustomerRoleDefinition;
-use HeyFrame\Core\Framework\Api\Acl\Front\Role\CustomerRoleMappingDefinition;
 use HeyFrame\Core\Framework\Context;
 use HeyFrame\Core\Framework\DataAbstractionLayer\EntityDefinition;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\AutoIncrementField;
@@ -21,6 +22,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\EmailField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ExtraFields;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\FkField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\ApiAware;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\CascadeDelete;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\PrimaryKey;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\Required;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\Flag\SearchRanking;
@@ -33,6 +35,7 @@ use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyAssociationFiel
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToManyIdField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\ManyToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToManyAssociationField;
+use HeyFrame\Core\Framework\DataAbstractionLayer\Field\OneToOneAssociationField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\PasswordField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\RemoteAddressField;
 use HeyFrame\Core\Framework\DataAbstractionLayer\Field\StringField;
@@ -118,7 +121,9 @@ class CustomerDefinition extends EntityDefinition
             new FkField('bound_channel_id', 'boundChannelId', ChannelDefinition::class),
             new ManyToOneAssociationField('boundChannel', 'bound_channel_id', ChannelDefinition::class, 'id', false),
             new ManyToOneAssociationField('avatarMedia', 'avatar_id', MediaDefinition::class),
-            new ManyToManyAssociationField('roles', CustomerRoleDefinition::class, CustomerRoleMappingDefinition::class, 'customer_id', 'customer_role_id'),
+            new OneToOneAssociationField('wallet', 'id', 'customer_id', WalletDefinition::class, false),
+            new OneToOneAssociationField('points', 'id', 'customer_id', PointsDefinition::class, false),
+            (new OneToManyAssociationField('memberships', CustomerMembershipDefinition::class, 'customer_id'))->addFlags(new CascadeDelete()),
             (new CreatedByField([Context::SYSTEM_SCOPE, Context::CRUD_API_SCOPE]))->addFlags(new ApiAware()),
             (new UpdatedByField([Context::SYSTEM_SCOPE, Context::CRUD_API_SCOPE]))->addFlags(new ApiAware()),
             new ManyToOneAssociationField('createdBy', 'created_by_id', UserDefinition::class, 'id', false),

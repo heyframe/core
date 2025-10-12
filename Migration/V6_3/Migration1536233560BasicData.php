@@ -5,7 +5,7 @@ namespace HeyFrame\Core\Migration\V6_3;
 use Doctrine\DBAL\Connection;
 use HeyFrame\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use HeyFrame\Core\Checkout\Order\OrderStates;
-use HeyFrame\Core\Checkout\Payment\Cart\PaymentHandler\CashPayment;
+use HeyFrame\Core\Checkout\Wallet\Cart\PaymentHandler\WalletPaymentHandler;
 use HeyFrame\Core\Content\Navigation\NavigationDefinition;
 use HeyFrame\Core\Defaults;
 use HeyFrame\Core\Framework\Api\Util\AccessKeyHelper;
@@ -218,8 +218,8 @@ class Migration1536233560BasicData extends MigrationStep
         $versionId = Uuid::fromHexToBytes(Defaults::LIVE_VERSION);
 
         $connection->insert('navigation', ['id' => $id, 'version_id' => $versionId, 'type' => NavigationDefinition::TYPE_PAGE, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('navigation_translation', ['navigation_id' => $id, 'navigation_version_id' => $versionId, 'language_id' => $languageEN, 'name' => 'HeyFrame ｜ Fast development, build full-stack apps in no time', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('navigation_translation', ['navigation_id' => $id, 'navigation_version_id' => $versionId, 'language_id' => $languageZH, 'name' => 'HeyFrame ｜ 极速开发，快速构建全栈应用', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('navigation_translation', ['navigation_id' => $id, 'navigation_version_id' => $versionId, 'language_id' => $languageEN, 'name' => 'HeyFrame | Your all-in-one CMS and commerce system', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('navigation_translation', ['navigation_id' => $id, 'navigation_version_id' => $versionId, 'language_id' => $languageZH, 'name' => 'HeyFrame ｜ 一套系统，快速、轻松搭建 CMS 与 Commerce 平台', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createPaymentMethod(Connection $connection): void
@@ -228,9 +228,9 @@ class Migration1536233560BasicData extends MigrationStep
         $languageEN = Uuid::fromHexToBytes($this->getEnGbLanguageId());
 
         $wechat = Uuid::randomBytes();
-        $connection->insert('payment_method', ['id' => $wechat, 'handler_identifier' => CashPayment::class, 'technical_name' => 'wechat', 'position' => 1, 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('payment_method_translation', ['payment_method_id' => $wechat, 'language_id' => $languageEN, 'name' => 'Cash Payment', 'description' => '', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
-        $connection->insert('payment_method_translation', ['payment_method_id' => $wechat, 'language_id' => $languageZH, 'name' => '现金支付', 'description' => '', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('payment_method', ['id' => $wechat, 'handler_identifier' => WalletPaymentHandler::class, 'technical_name' => 'wechat', 'position' => 1, 'active' => 1, 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('payment_method_translation', ['payment_method_id' => $wechat, 'language_id' => $languageEN, 'name' => 'Wallet Payment', 'description' => 'Use your account wallet balance to pay', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
+        $connection->insert('payment_method_translation', ['payment_method_id' => $wechat, 'language_id' => $languageZH, 'name' => '余额支付', 'description' => '使用账号钱包余额支付', 'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT)]);
     }
 
     private function createSystemConfigOptions(Connection $connection): void
@@ -238,13 +238,6 @@ class Migration1536233560BasicData extends MigrationStep
         $connection->insert('system_config', [
             'id' => Uuid::randomBytes(),
             'configuration_key' => 'core.store.apiUri',
-            'configuration_value' => '{"_value": "https://front-api.heyframe.net"}',
-            'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
-        ]);
-
-        $connection->insert('system_config', [
-            'id' => Uuid::randomBytes(),
-            'configuration_key' => 'core.apiUri',
             'configuration_value' => '{"_value": "https://api.heyframe.net"}',
             'created_at' => (new \DateTime())->format(Defaults::STORAGE_DATE_TIME_FORMAT),
         ]);
